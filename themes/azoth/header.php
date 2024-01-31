@@ -21,22 +21,22 @@
 
     <header id="masthead" class="site-header">
 
-    <?php $blog_info = get_bloginfo( 'name' );
-    $description = get_bloginfo( 'description', 'display' ); ?>
+    <?php $blog_info = get_bloginfo('name');
+    $description = get_bloginfo('description', 'display'); ?>
 
         <div class="site-branding">
         	<div class="site-logo"></div>
-        	<?php if ( $blog_info ) : ?>
-        			<p><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $blog_info ); ?></a></p>
+        	<?php if ($blog_info) : ?>
+        			<p><a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html($blog_info); ?></a></p>
         	<?php endif; ?>
-        	<?php if ( $description) : ?>
+        	<?php if ($description) : ?>
         		<p class="site-description">
         			<?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput ?>
         		</p>
         	<?php endif; ?>
         </div><!-- .site-branding -->
 
-        <?php if ( has_nav_menu( 'primary' ) ) : ?>
+        <?php if (has_nav_menu('primary')) : ?>
         	<nav id="site-navigation" class="primary-navigation" aria-label="Menu Principal">
         		<div class="menu-button-container">
         			<button id="primary-mobile-menu" class="button" aria-controls="primary-menu-list" aria-expanded="false">

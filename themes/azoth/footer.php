@@ -12,7 +12,7 @@
     </main><!-- #main -->
 
     <footer id="colophon" class="site-footer">
-    	<?php if ( has_nav_menu( 'footer' ) ) : ?>
+    	<?php if (has_nav_menu('footer')) : ?>
     		<nav aria-label="Menu Secondaire" class="footer-navigation">
     			<ul class="footer-navigation-wrapper">
     				<?php
