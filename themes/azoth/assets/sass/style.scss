@@ -4,9 +4,9 @@ Theme URI:
 Author: Noémie Koelblen
 Author URI: 
 Description: Theme for Azoth website
-License: 
-License URI: 
+Requires at least: WordPress 5.0
+Version: 1.0
 Text Domain: azoth
 */
 
-@use './components/normalize.scss'
+@use './components/normalize.scss';
