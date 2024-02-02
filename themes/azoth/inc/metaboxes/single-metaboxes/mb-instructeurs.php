@@ -1,5 +1,5 @@
 <?php
-/* instructeur Metabox */
+/* Instructeur Metabox */
 
 if (class_exists('MetaboxGenerator')) {
     $mb_instructeur = new MetaboxGenerator; // Defined in ../mb-generator
@@ -40,19 +40,25 @@ endif;
 
 $fields = [
     [
-        'group_label' => 'Identité', // group_label required, can be empty
+        'group_label' => 'Nom', // group_label required, can be empty
         [
-            'label' => 'Nom',
+            'label' => '',
             'id'    => 'title',
             'type'  => 'text'
         ], // title
+    ],
+    [
+        'group_label' => 'Portrait', // group_label required, can be empty
         [
-            'label' => 'Portrait',
+            'label' => '',
             'id'    => 'thumbnail',
             'type'  => 'media-library-uploader'
         ], // thumbnail
+    ],
+    [
+        'group_label' => 'Biographie', // group_label required, can be empty
         [
-            'label' => 'Biographie',
+            'label' => '',
             'id'    => 'content',
             'type'  => 'WYSIWYG'
         ] // content

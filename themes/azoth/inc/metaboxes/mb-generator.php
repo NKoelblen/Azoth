@@ -247,7 +247,11 @@ class metaboxGenerator
                                         $selected,
                                         array_column($field['options'], 'id')
                                     ); ?>
-                                    <select id="<?= $field['id'] ?>" name="<?= $field['id'] ?>" style="width: 100%;">
+                                    <select
+                                        id="<?= $field['id'] ?>"
+                                        name="<?= $field['id'] ?>"
+                                        style="width: 100%;"
+                                    >
                                         <option value="<?= $selected ?>">
                                             <?= $field['options'][$selected_key]['title']; ?>
                                         </option>
@@ -259,7 +263,11 @@ class metaboxGenerator
                                         <?php endforeach; // option ?>
                                         <option value=""></option>
                                 <?php else : // !meta_value ?>
-                                    <select id="<?= $field['id'] ?>" name="<?= $field['id'] ?>" style="width: 100%;">
+                                    <select
+                                        id="<?= $field['id'] ?>"
+                                        name="<?= $field['id'] ?>"
+                                        style="width: 100%;"
+                                    >
                                         <option value=""></option>
                                         <?php foreach ($field['options'] as $option) : ?>
                                             <option value="<?= $option['id'] ?>">
@@ -283,7 +291,7 @@ class metaboxGenerator
                                 echo $input; ?>
                             <!-- WYSIWYG
 
-                            Button -->
+                            Media Library Uploader -->
                             <?php elseif ($field['type'] === "media-library-uploader") : ?>
                                 <div class="preview_image">
                                     <?php if($meta_value) :
@@ -313,7 +321,23 @@ class metaboxGenerator
                                     value="<?= $meta_value ?>"
                                 >
 
-                            <!-- Button
+                            <!-- Media Library Uploader
+
+                            Map -->
+                            <?php elseif ($field['type'] === "map") : ?>
+                                <div
+                                    id="map"
+                                    class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+                                    style="height: 444px">
+                                </div>
+                                <input
+                                    id="<?= $field['id'] ?>"
+                                    name="<?= $field['id'] ?>"
+                                    type="hidden"
+                                    value="<?= $meta_value ?>"
+                                    style="width: 50%;"
+                                >
+                            <!-- Map
                             
                             Inputs -->
                             <?php else :
