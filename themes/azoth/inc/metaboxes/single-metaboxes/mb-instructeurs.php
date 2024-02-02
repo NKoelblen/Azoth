@@ -42,7 +42,6 @@ $fields = [
     [
         'group_label' => 'Nom', // group_label required, can be empty
         [
-            'label' => '',
             'id'    => 'title',
             'type'  => 'text'
         ], // title
@@ -50,7 +49,6 @@ $fields = [
     [
         'group_label' => 'Portrait', // group_label required, can be empty
         [
-            'label' => '',
             'id'    => 'thumbnail',
             'type'  => 'media-library-uploader'
         ], // thumbnail
@@ -58,7 +56,6 @@ $fields = [
     [
         'group_label' => 'Biographie', // group_label required, can be empty
         [
-            'label' => '',
             'id'    => 'content',
             'type'  => 'WYSIWYG'
         ] // content

@@ -369,6 +369,8 @@ class metaboxGenerator
     /* Save fields */
 
     public function save_fields($post_id) {
+        // $post_id = get_the_id();
+
         if (!isset($_POST['metaboxGenerator_nonce'])) :
             return $post_id;
         endif; // !isset metaboxGenerator_nonce
@@ -408,19 +410,24 @@ class metaboxGenerator
 
 	    if ($title) :
 	    	$post_title = $title ;
-	    	$post_name = sanitize_title($post_title ) ;
+	    	$post_name = sanitize_title($post_title );
+        else :
+            $post_title = get_the_title($post_id);
 	    endif ;
-        $content = get_post_meta($post_id, 'content', true);
+        $post_content = "";
         if ($content) :
 	    	$post_content = $content ;
+        elseif (get_the_content($post_id)) :
+            $post_content = get_the_content($post_id);
 	    endif ;
 
         remove_action('save_post', [$this, 'save_fields']);
         wp_update_post(
             [ 
+                'ID'            => $post_id,
                 'post_title'    => $post_title,
                 'post_name'     => $post_name,
-                'post_content'  => $post_content
+                // 'post_content'  => $post_content
             ]
         );
         add_action('save_post', [$this, 'save_fields']);
