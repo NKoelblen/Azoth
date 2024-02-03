@@ -22,10 +22,11 @@ $mb_lieu->set_labels(
 
 $pays_posts = new WP_Query(
     [
-        'post_type'     => 'pays',
-        'post_status'   => 'publish',
-        'order_by'      => 'title',
-        'order'         => 'ASC'
+        'post_type'         => 'pays',
+        'post_status'       => 'publish',
+        'order_by'          => 'title',
+        'order'             => 'ASC',
+        'posts_per_page'    => -1
     ]
 );
 $pays = [];
@@ -43,10 +44,11 @@ wp_reset_postdata();
 
 $region_posts = new WP_Query(
     [
-        'post_type'     => 'region',
-        'post_status'   => 'publish',
-        'order_by'      => 'title',
-        'order'         => 'ASC'
+        'post_type'         => 'region',
+        'post_status'       => 'publish',
+        'order_by'          => 'title',
+        'order'             => 'ASC',
+        'posts_per_page'    => -1
     ]
 );
 $regions = [];
@@ -62,50 +64,41 @@ if ($region_posts->have_posts()) :
 endif;
 wp_reset_postdata();
 
-$fields = [
+$mb_lieu->set_fields(
     [
-        'group_label' => 'Nom', // group_label required, can be empty
         [
-            'id'    => 'title',
-            'type'  => 'text'
-        ], // title
-    ], // group
-    [
-        'group_label' => 'Localité', // group_label required, can be empty
+            'group_label' => 'Nom', // group_label required, can be empty
+            [
+                'id'    => 'title',
+                'type'  => 'text'
+            ], // title
+        ], // group
         [
-            'label'     => 'Pays',
-            'id'        => 'l_pays',
-            'type'      => 'select',
-            'options'   => $pays,
-            'width'     => '49.7%'
-        ], // pays
+            'group_label' => 'Localité', // group_label required, can be empty
+            [
+                'id'        => 'l_zone',
+                'type'      => 'taxonomy',
+                'taxonomy'  => 'geo_zone'
+            ], // zone
+            [
+                'label'     => 'Carte',
+                'id'        => 'l_carte',
+                'type'      => 'map'
+            ] // carte
+        ], // localité
         [
-            'label'     => 'Région',
-            'id'        => 'l_region',
-            'type'      => 'select',
-            'options'   => $regions,
-            'width'     => '49.7%',
-            'display'   => 'none'
-        ], // region
+            'group_label' => 'Photo', // group_label required, can be empty
+            [
+                'id'    => 'thumbnail',
+                'type'  => 'media-library-uploader'
+            ], // thumbnail
+        ],
         [
-            'label'     => 'Carte',
-            'id'        => 'l_carte',
-            'type'      => 'map'
-        ] // carte
-    ], // localité
-    [
-        'group_label' => 'Photo', // group_label required, can be empty
-        [
-            'id'    => 'thumbnail',
-            'type'  => 'media-library-uploader'
-        ], // thumbnail
-    ],
-    [
-        'group_label' => 'Description', // group_label required, can be empty
-        [
-            'id'    => 'content',
-            'type'  => 'WYSIWYG'
-        ] // content
-    ], // group
-]; // fields
-$mb_lieu->set_fields($fields);
+            'group_label' => 'Description', // group_label required, can be empty
+            [
+                'id'    => 'content',
+                'type'  => 'WYSIWYG'
+            ] // content
+        ], // group
+    ] // fields
+);

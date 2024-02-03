@@ -72,7 +72,7 @@ jQuery(function($){
             collapsed: false,
             autoType: true,
             minLength: 1,
-            zoom: 13,
+            zoom: 7,
             marker: false,
             firstTipSubmit: true,
             hideMarkerOnCollapse: true,
