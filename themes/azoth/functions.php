@@ -75,8 +75,6 @@ require_once AZOTH_DIR . 'inc/taxonomies.php';
 
 require_once AZOTH_DIR . 'inc/cpt/cpt-voies.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-instructeurs.php';
-require_once AZOTH_DIR . 'inc/cpt/cpt-pays.php';
-require_once AZOTH_DIR . 'inc/cpt/cpt-regions.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-lieux.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-contacts.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-conferences.php';
