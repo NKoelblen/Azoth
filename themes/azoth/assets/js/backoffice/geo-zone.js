@@ -1,9 +1,7 @@
 jQuery(function($){
     
     const children = $('#geo_zonechecklist .children')
-    
     const items = $('#geo_zonechecklist input');
-
     const parentItems = $('#geo_zonechecklist input:not(.children input)');
     
     items.attr('type', 'radio');
@@ -14,7 +12,6 @@ jQuery(function($){
         open[key] = false;
         val.style.setProperty('display', 'none');
         parentItems.on('change', function(e) {
-            console.log(e.target);
             if (e.target.parentNode.parentNode.contains(val)){
                 isOpen(val, key);
             } else if(open[key]) {

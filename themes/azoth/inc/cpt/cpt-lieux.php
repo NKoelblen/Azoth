@@ -36,7 +36,7 @@ function lieu_post_type()
         'label'                 => __('Lieu'),
         'description'           => __('Lieux'),
         'labels'                => $labels,
-        'supports'              => false,
+        'supports'              => ['title'],
         'taxonomies'            => array(),
         'hierarchical'          => false,
         'public'                => true,

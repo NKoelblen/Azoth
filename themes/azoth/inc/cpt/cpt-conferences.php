@@ -37,7 +37,7 @@ function conference_post_type()
         'label'                 => __('Conférence'),
         'description'           => __('Conférences'),
         'labels'                => $labels,
-        'supports'              => array(),
+        'supports'              => false,
         'taxonomies'            => array(),
         'hierarchical'          => false,
         'public'                => true,

@@ -36,7 +36,7 @@ function stage_post_type()
         'label'                 => __('Stage'),
         'description'           => __('Stages'),
         'labels'                => $labels,
-        'supports'              => array(),
+        'supports'              => false,
         'taxonomies'            => array(),
         'hierarchical'          => false,
         'public'                => true,

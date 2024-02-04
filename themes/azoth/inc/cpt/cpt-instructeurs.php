@@ -36,7 +36,7 @@ function instructeur_post_type()
         'label'                 => __('Instructeur'),
         'description'           => __('Instructeurs'),
         'labels'                => $labels,
-        'supports'              => false,
+        'supports'              => ['title'],
         'taxonomies'            => array(),
         'hierarchical'          => false,
         'public'                => true,

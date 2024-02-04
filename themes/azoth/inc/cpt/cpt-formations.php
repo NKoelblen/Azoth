@@ -37,7 +37,7 @@ function formation_post_type()
         'label'                 => __('Formation'),
         'description'           => __('Formations'),
         'labels'                => $labels,
-        'supports'              => array(),
+        'supports'              => false,
         'taxonomies'            => array(),
         'hierarchical'          => false,
         'public'                => true,

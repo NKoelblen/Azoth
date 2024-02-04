@@ -3,35 +3,31 @@
  * CONTACT METABOX
  */
 
-$fields = [
-    [
-        'group_label' => 'Intitulé', // group_label required, can be empty
+function contact_fields() {
+    $fields = [
         [
-            'id'    => 'title',
-            'type'  => 'text'
-        ], // title
-    ], // intitulé
-    [
-        'group_label' => 'Nom', // group_label required, can be empty
+            'group_label' => 'Nom', // group_label required, can be empty
+            [
+                'id'    => 'c_nom',
+                'type'  => 'text'
+            ] // nom
+        ], // nom
         [
-            'id'    => 'c_nom',
-            'type'  => 'text'
-        ] // nom
-    ], // nom
-    [
-        'group_label' => 'Coordonnées', // group_label required, can be empty
-        [
-            'label' => 'Email',
-            'id'    => 'c_email',
-            'type'  => 'email'
-        ], // title
-        [
-            'label' => 'Téléphone',
-            'id'    => 'c_telephone',
-            'type'  => 'text'
-        ] // téléphone
-    ], // coordonnées
-]; // fields
+            'group_label' => 'Coordonnées', // group_label required, can be empty
+            [
+                'label' => 'Email',
+                'id'    => 'c_email',
+                'type'  => 'email'
+            ], // title
+            [
+                'label' => 'Téléphone',
+                'id'    => 'c_telephone',
+                'type'  => 'text'
+            ] // téléphone
+        ], // coordonnées
+    ]; // fields
+    return $fields;
+}
 
 if (class_exists('MetaboxGenerator')) {
     $mb_contact = new MetaboxGenerator; // Defined in ../mb-generator
@@ -50,4 +46,4 @@ $mb_contact->set_labels(
         'name'  => 'Informations'
     ]
 );
-$mb_contact->set_fields($fields);
+$mb_contact->set_fields(contact_fields());

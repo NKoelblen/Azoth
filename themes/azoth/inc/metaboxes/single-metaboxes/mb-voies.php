@@ -25,11 +25,6 @@ $mb_voie->set_fields(
         [
             'group_label' => '', // group_label required, can be empty
             [
-                'label' => 'Ordre',
-                'id'    => 'v_ordre',
-                'type'  => 'number'
-            ], // ordre
-            [
                 'label' => 'Déroulement de la formation',
                 'id'    => 'v_conditions',
                 'type'  => 'WYSIWYG'

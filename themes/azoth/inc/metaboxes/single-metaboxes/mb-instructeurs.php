@@ -40,13 +40,6 @@ endif;
 
 $fields = [
     [
-        'group_label' => 'Nom', // group_label required, can be empty
-        [
-            'id'    => 'title',
-            'type'  => 'text'
-        ], // title
-    ],
-    [
         'group_label' => 'Portrait', // group_label required, can be empty
         [
             'id'    => 'thumbnail',

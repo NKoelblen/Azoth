@@ -48,13 +48,23 @@ function azoth_admin_scripts() {
 	wp_enqueue_script('leaflet_search');
 
 	global $post;
+
 	if(get_current_screen()->base === 'post' && $post->post_type === 'lieu') :
 		wp_register_script('map-script', get_theme_file_uri('/assets/js/backoffice/map.js'), array('leaflet'), false, true);
     	wp_enqueue_script('map-script');
 		wp_register_script('geo-zone-script', get_theme_file_uri('/assets/js/backoffice/geo-zone.js'), array('jquery'), false, true);
 		wp_enqueue_script('geo-zone-script');
-
 	endif;
+
+	if(get_current_screen()->base === 'post' && ($post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
+		wp_register_script('contact-script', get_theme_file_uri('/assets/js/backoffice/contact.js'), array('leaflet'), false, true);
+    	wp_enqueue_script('contact-script');
+	endif;
+	if(get_current_screen()->base === 'post' && $post->post_type === 'stage') :
+		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/backoffice/mouvement-immobile.js'), array('leaflet'), false, true);
+    	wp_enqueue_script('mouvement-immobile-script');
+	endif;
+
 	wp_register_script('edit-post-script', get_theme_file_uri('/assets/js/backoffice/edit-post.js'), array('jquery'), false, true);
 	wp_enqueue_script('edit-post-script');
 
@@ -70,7 +80,7 @@ require_once AZOTH_DIR . 'inc/support.php';
 require_once AZOTH_DIR . 'inc/taxonomies.php';
 
 /**
- * Include Custom Post Types
+ * Add Custom Post Types
  */
 
 require_once AZOTH_DIR . 'inc/cpt/cpt-voies.php';
@@ -82,14 +92,43 @@ require_once AZOTH_DIR . 'inc/cpt/cpt-formations.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-stages.php';
 
 /**
- * Include Metaboxes
+ * Includ Metaboxes
  */
 
-require_once AZOTH_DIR . 'inc/metaboxes/fields-generator.php';
+/* Fields Generator */
+
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/inputs.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/map.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/media-library-uploader.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/radio.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/select.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/taxonomy.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/wysiwyg.php';
+
+require_once AZOTH_DIR . 'inc/metaboxes/fields/fields-generator.php';
+
+/* Add Metaboxes */
+
 require_once AZOTH_DIR . 'inc/metaboxes/mb-generator.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-voies.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-instructeurs.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-lieux.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-contacts.php';
-require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-evenements.php';
+require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-conferences.php';
+require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-formations.php';
+require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
+
+/* Remove Native Metaboxes */
+
+require_once AZOTH_DIR . 'inc/metaboxes/mb-remove.php';
+
+function number_of_columns( $nr ) {
+    return 1;
+}
+add_filter( 'get_user_option_screen_layout_instructeur', 'number_of_columns' );
+add_filter( 'get_user_option_screen_layout_lieu', 'number_of_columns' );
+add_filter( 'get_user_option_screen_layout_contact', 'number_of_columns' );
+add_filter( 'get_user_option_screen_layout_conference', 'number_of_columns' );
+add_filter( 'get_user_option_screen_layout_formation', 'number_of_columns' );
+add_filter( 'get_user_option_screen_layout_stage', 'number_of_columns' );

@@ -14,6 +14,10 @@ class metaboxGenerator
     public function __construct() {
         add_action('add_meta_boxes', [$this, 'add']);
         add_action('save_post', [$this, 'save_fields']);
+        add_action('save_post', [$this, 'save_title']);
+        add_action('save_post', [$this, 'save_content']);
+        add_action('save_post', [$this, 'save_author']);
+    
     } // End of __construct
 
 
@@ -53,7 +57,7 @@ class metaboxGenerator
                 __($this->labels['name']),
                 [$this, 'callback'],
                 $screen,
-                'advanced',
+                'normal',
                 'default'
             );
         endforeach; // Endforeach screen
@@ -98,6 +102,39 @@ class metaboxGenerator
         $this->fields = $new_fields;
     } // set_fields 
 
+    public function save_title() {
+        $title = get_post_meta($post_id, 'title', true);
+        if(!$title) :
+            return;
+        else :
+            $post_title = $title ;
+            $post_name = sanitize_title($post_title );
+        endif ;
+        remove_action('save_post', [$this, 'save_title']);
+        wp_update_post(
+            [ 
+                'ID'            => $post_id,
+                'post_title'    => $post_title,
+            ]
+        );
+    }
+
+    public function save_content() {
+        $content = get_post_meta($post_id, 'content', true);
+        if(!$content) :
+            return;
+        else :
+            $post_content = $content ;
+        endif ;
+        remove_action('save_post', [$this, 'save_content']);
+        wp_update_post(
+            [ 
+                'ID'            => $post_id,
+                'post_content'    => $post_content,
+            ]
+        );
+    }
+
     /* Save fields */
 
     public function save_fields($post_id) {
@@ -134,37 +171,22 @@ class metaboxGenerator
             set_post_thumbnail($post_id, $thumbnail);
         endif;
 
-        $title = get_post_meta($post_id, 'title', true);
-        $content = get_post_meta($post_id, 'content', true);
-        if(!$title && !$content) :
-            return $post_id;
-        endif;
+    } // save_fields
 
-	    if ($title) :
-	    	$post_title = $title ;
-	    	$post_name = sanitize_title($post_title );
+    public function save_author() {
+        $author = get_post_meta($post_id, 'author', true);
+        if(!$author) :
+            return;
         else :
-            $post_title = get_the_title($post_id);
-	    endif ;
-
-        $post_content = "";
-        if ($content) :
-	    	$post_content = $content ;
-        elseif (get_the_content($post_id)) :
-            $post_content = get_the_content($post_id);
-	    endif ;
-
-        remove_action('save_post', [$this, 'save_fields']);
+            $post_author = $author ;
+        endif ;
+        remove_action('save_post', [$this, 'save_author']);
         wp_update_post(
             [ 
                 'ID'            => $post_id,
-                'post_title'    => $post_title,
-                'post_name'     => $post_name,
-                // 'post_content'  => $post_content
+                'post_author'    => $post_author,
             ]
         );
-        add_action('save_post', [$this, 'save_fields']);
-
-    } // save_fields
+    }
 
 } // metaboxGenerator
