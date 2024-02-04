@@ -1,6 +1,17 @@
 jQuery(function($){
 
-    let map = L.map('map')
+    let map = L.map('map');
+
+    var observer = new window.MutationObserver(function(mutations, observer) {
+        if(mutations[0].target === document.querySelector('.modal-outer.lieu')) {
+            map.invalidateSize();
+        }
+    });
+    observer.observe(document, {
+      subtree: true,
+      attributes: true
+      //...
+    });
 
     L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
 	minZoom: 0,

@@ -1,0 +1,6 @@
+#geo_zone-tabs, #geo_zone-pop, #stage_categorie-tabs, #stage_categorie-pop, #prerequis-tabs, #prerequis-pop {
+    display: none;
+}
+#geo_zone-all, #stage_categorie-all, #prerequis-all {
+    display: block;
+}

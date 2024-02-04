@@ -1,6 +1,6 @@
 <?php
 function fields_generator($post, $fields) {
-
+    
     foreach ($fields as $group_of_fields) : ?>
 
         <!-- Form groups -->
@@ -38,8 +38,18 @@ function fields_generator($post, $fields) {
                 endif;
             
                 /* Registered Meta values */
-                $meta_value = get_post_meta($post->ID, $field['id'], true);
-                if(!$meta_value && isset($field['default'])) :
+                if ($field['id'] === 'title') :
+                    $meta_value = $post->post_title;
+                elseif ($field['id'] === 'content'):
+                    $meta_value = $post->post_content;
+                elseif ($field['id'] === 'author'):
+                    $meta_value = $post->post_author;
+                elseif ($field['id'] === 'thumbnail'):
+                    $meta_value = get_post_thumbnail_id($post->ID);
+                else :
+                    $meta_value = get_post_meta($post->ID, $field['id'], true);
+                endif;
+                if (!$meta_value && isset($field['default'])) :
                     $meta_value = $field['default'];
                 endif; ?>
 
@@ -60,24 +70,7 @@ function fields_generator($post, $fields) {
                     <div style="margin-left: 5px; margin-right: 5px;">
 
                         <?php if ($field['type'] === "select") :
-                            if(isset($field['add']) && $field['add'] === true) : ?>
-                                <div>
-                                    <a href="#" class="add <?= $field['id'] ?>">Ajouter</a>
-                                </div>
-                                <div class="modal-outer <?= $field['id'] ?>" style="display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 159900; height: 100vh; background-color: rgba(0, 0, 0, 0.7);">
-                                    <div class="modal-inner" style="width: calc(100% - 60px); height: calc(100% - 60px); margin: 30px; background: #FFFFFF;">
-                                        <button type="button" class="media-modal-close" style="position: fixed; top: 30px; right: 30px;">
-                                            <span class="media-modal-icon">
-                                                <span class="screen-reader-text">Fermez la boite de dialogue</span>
-                                            </span>
-                                        </button>
-                                        <form>
-                                            <button></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <?php select_field($field, $meta_value, $disabled);
+                            select_field($field, $meta_value, $disabled);
 
                         elseif ($field['type'] === "WYSIWYG") :
                             wysiwyg_field($field, $meta_value);
@@ -108,7 +101,5 @@ function fields_generator($post, $fields) {
         <hr>
 
     <?php endforeach; // groups
-
-    post_submit_meta_box($post);
 
 } // field_generator

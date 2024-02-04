@@ -102,7 +102,7 @@ class metaboxGenerator
         $this->fields = $new_fields;
     } // set_fields 
 
-    public function save_title() {
+    public function save_title($post_id) {
         $title = get_post_meta($post_id, 'title', true);
         if(!$title) :
             return;
@@ -119,7 +119,7 @@ class metaboxGenerator
         );
     }
 
-    public function save_content() {
+    public function save_content($post_id) {
         $content = get_post_meta($post_id, 'content', true);
         if(!$content) :
             return;
@@ -173,7 +173,7 @@ class metaboxGenerator
 
     } // save_fields
 
-    public function save_author() {
+    public function save_author($post_id) {
         $author = get_post_meta($post_id, 'author', true);
         if(!$author) :
             return;

@@ -24,9 +24,8 @@ $lieu_posts = new WP_Query(
     [
         'post_type'         => 'lieu',
         'post_status'       => 'publish',
-        'order_by'          => 'title',
-        'order'             => 'ASC',
-        'posts_per_page'    => -1
+        'posts_per_page'    => -1,
+        'orderby'           => array( 'title' => 'ASC' )
     ]
 );
 $lieux = [];
@@ -42,13 +41,12 @@ if ($lieu_posts->have_posts()) :
 endif;
 wp_reset_postdata();
 
-$users_query = new WP_User_Query(
-    [
-        'role__in'  => array( 'administrator', 'editor', 'author'),
-        'orderby'   => 'display_name',
-        'order'     => 'ASC'
-    ]
-);
+$user_args = [
+    'role__in'  => array( 'administrator', 'editor', 'author'),
+    'orderby'   => 'display_name',
+    'order'     => 'ASC'
+];
+$users_query = new WP_User_Query($user_args);
 $users = $users_query->get_results();
 $users_infos = [];
 if ($users) :
@@ -60,13 +58,25 @@ if ($users) :
     endforeach;
 endif;
 
+$user_args['exclude'] = wp_get_current_user()->ID;
+$users_query = new WP_User_Query($user_args);
+$users = $users_query->get_results();
+$other_users_infos = [];
+if ($users) :
+	foreach ($users as $user) :
+        $other_users_infos[] = [
+            'id'=> $user->ID,
+            'title'=> $user->display_name,
+        ];
+    endforeach;
+endif;
+
 $contact_posts = new WP_Query(
     [
         'post_type'         => 'contact',
         'post_status'       => 'publish',
-        'order_by'          => 'title',
-        'order'             => 'ASC',
-        'posts_per_page'    => -1
+        'posts_per_page'    => -1,
+        'orderby'           => array( 'title' => 'ASC' )
     ]
 );
 $contacts = [];
@@ -86,9 +96,10 @@ $fields = [
     [
         'group_label' => 'Lieu', // group_label required, can be empty
         [
-            'id'        => 'e_lieu',
+            'id'        => 'lieu',
             'type'      => 'select',
-            'options'   => $lieux
+            'options'   => $lieux,
+            'add'       => 'Ajouter un nouveau lieu'
         ] // lieu
     ], // lieu
     'user' => [
@@ -130,17 +141,18 @@ $fields = [
             'label'     => 'Instructeur',
             'id'        => 'e_autre_instructeur',
             'type'      => 'select',
-            'options'   => $users_infos,
+            'options'   => $other_users_infos,
             'width'     => '49.7%',
             'display'   => 'none'
         ], // instructeurs
         [
             'label'     => 'Contact',
-            'id'        => 'e_contact',
+            'id'        => 'contact',
             'type'      => 'select',
             'options'   => $contacts,
             'width'     => '49.7%',
-            'display'   => 'none'
+            'display'   => 'none',
+            'add'       => 'Ajouter un nouveau Contact'
         ] // contact
     ], // coordonnées
     [

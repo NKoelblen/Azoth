@@ -23,7 +23,7 @@ jQuery(function($){
                 $('.delete_image_button').css('display', 'inline');
                 $('.preview_image').html('<img src="' + attachment.sizes.medium.url + '" class="attachment-medium size-medium" alt="" decoding="async" loading="lazy" sizes="(max-width: 239px) 100vw, 239px">');
             }
-            $('.delete_image_button').next().val(attachment.id);
+            $('.delete_image_button').parent().next().val(attachment.id);
             console.log(attachment.sizes.medium.url);
         })
 
@@ -37,7 +37,7 @@ jQuery(function($){
 
         $('.upload_image_button').html('Ajouter une image');
         $('.delete_image_button').css('display', 'none');
-        $('.delete_image_button').next().val('');
+        $('.delete_image_button').parent().next().val('');
         $('.preview_image').html('');
 
     });
