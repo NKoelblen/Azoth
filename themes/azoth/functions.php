@@ -128,6 +128,10 @@ require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/quick-add-post.php';
 
-/* Set number of colums */
+/* Set editor number of colums */
 
-require_once AZOTH_DIR . 'inc/metaboxes/columns.php';
+require_once AZOTH_DIR . 'inc/metaboxes/editor-columns.php';
+
+/* Set admin all posts colums */
+
+require_once AZOTH_DIR . 'inc/metaboxes/admin-columns.php';
