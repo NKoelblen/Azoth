@@ -55,6 +55,6 @@ function quick_add_post() {
     endif;
 
     ob_start() ?>
-    <pre><?php print_r($inner_post); ?></pre>
-    <?php wp_send_json_success(ob_get_clean());
+    <option value="<?= $inner_post_id ?>"><?= $inner_post_title ?></option>
+    <?php wp_send_json_success(['html' => ob_get_clean(), 'value' => $inner_post_id]);
 }

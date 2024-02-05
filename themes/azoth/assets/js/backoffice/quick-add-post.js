@@ -35,16 +35,13 @@ jQuery(function($){
             post_type:   postType
     }
 
-        let selector = '.modal-outer.' + postType + ' .modal-inner input:not(input[type=radio]:not(:checked), #geo_zonechecklist-pop input, .category-add input, #map input), .modal-outer.' + postType + ' .modal-inner textarea'
+        let modal = '.modal-outer.' + postType + ' .modal-inner input:not(input[type=radio]:not(:checked), #geo_zonechecklist-pop input, .category-add input, #map input), .modal-outer.' + postType + ' .modal-inner textarea'
 
-        $(selector).each(function() {
+        $(modal).each(function() {
             let property = $(this).attr('name');
             let value = $(this).val();
             data[property] = value;
         });
-
-        console.log(ajaxurl);
-        console.log(data);
 
         // Requête Ajax en JS natif via Fetch
         fetch(ajaxurl, {
@@ -62,9 +59,12 @@ jQuery(function($){
                 alert(response.data);
                 return;
             }
-        //     // Et en cas de réussite
-        //     $('.modal-inner').appendTo('.wrap');
-            $('.modal-inner').append(body.data); // afficher le HTML
+            // Et en cas de réussite
+            let dropdown = '#' + postType;
+            $(dropdown).append(body.data['html']);
+            let newOption = dropdown + ' option[value=' + body.data['value'] + ']';
+            $(newOption).prop('selected', true);
+            closeForm($('.modal-inner .media-modal-close'));
         });
     });
 });

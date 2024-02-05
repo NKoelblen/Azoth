@@ -15,6 +15,7 @@ function select_field($field, $meta_value, $disabled) {
             <option value="<?= $selected ?>">
                 <?= $field['options'][$selected_key]['title']; ?>
             </option>
+            <option value=""></option>
             <?php unset($field['options'][$selected_key]);
             foreach ($field['options'] as $option) : ?>
                 <option value="<?= $option['id'] ?>">
@@ -28,6 +29,7 @@ function select_field($field, $meta_value, $disabled) {
             style="width: 100%;"
             <?= $disabled ?>
         >
+            <option value=""></option>
             <?php foreach ($field['options'] as $option) : ?>
                 <option value="<?= $option['id'] ?>">
                     <?= $option['title'] ?>
