@@ -117,6 +117,9 @@ require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-voies.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-instructeurs.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-lieux.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-contacts.php';
+
+require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/fields-evenements.php';
+
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-conferences.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-formations.php';
 require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
