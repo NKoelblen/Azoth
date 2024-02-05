@@ -39,8 +39,7 @@ function select_field($field, $meta_value, $disabled) {
     </select>
     <?php if(isset($field['add'])) : ?>
         <div>
-            <button class="button button-secondary add <?= $field['id'] ?>"
-        	><?= $field['add']; ?></button>
+            <a class="taxonomy-add-new add <?= $field['id'] ?>"><?= $field['add']; ?></a>
         </div>
         <div class="modal-outer <?= $field['id'] ?>" style="display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 159900; height: 100vh; background-color: rgba(0, 0, 0, 0.7);">
             <div class="modal-inner" style="width: calc(100% - 92px); max-height: calc(100% - 92px); margin: 30px; padding: 16px; background: #FFFFFF; overflow-y: auto;">

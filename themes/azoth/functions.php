@@ -61,15 +61,17 @@ function azoth_admin_scripts() {
 	if(get_current_screen()->base === 'post' && ($post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
 		wp_register_script('contact-script', get_theme_file_uri('/assets/js/backoffice/contact.js'), array('leaflet'), false, true);
     	wp_enqueue_script('contact-script');
+		wp_register_script('quick-add-post-script', get_theme_file_uri('/assets/js/backoffice/quick-add-post.js'), array('jquery'), false, true);
+		wp_enqueue_script('quick-add-post-script');	
+	endif;
+	if(get_current_screen()->base === 'post' && ($post->post_type === 'formation' || $post->post_type === 'stage')) :
+		wp_register_script('evenement-dates-script', get_theme_file_uri('/assets/js/backoffice/evenement-dates.js'), array('leaflet'), false, true);
+    	wp_enqueue_script('evenement-dates-script');
 	endif;
 	if(get_current_screen()->base === 'post' && $post->post_type === 'stage') :
 		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/backoffice/mouvement-immobile.js'), array('leaflet'), false, true);
     	wp_enqueue_script('mouvement-immobile-script');
 	endif;
-
-	wp_register_script('quick-add-post-script', get_theme_file_uri('/assets/js/backoffice/quick-add-post.js'), array('jquery'), false, true);
-	wp_enqueue_script('quick-add-post-script');
-
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
 

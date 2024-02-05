@@ -162,7 +162,7 @@ function evenement_fields($post_type) {
                 'options'   => $contacts,
                 'width'     => '49.7%',
                 'display'   => 'none',
-                'add'       => 'Ajouter un nouveau Contact'
+                'add'       => '+ Ajouter un Contact'
             ] // contact
         ], // coordonnées
         'prerequis' => [
@@ -182,16 +182,18 @@ function evenement_fields($post_type) {
                 'width' => '32.9%'
             ],
             'du' => [
-                'label' => 'Du...',
-                'id'    => 'e_date_du',
-                'type'  => 'date',
-                'width' => '49.7%'
+                'label'     => 'Du...',
+                'id'        => 'e_date_du',
+                'type'      => 'date',
+                'width'     => '49.7%',
+                'default'   => date('Y-m-d', strtotime('now'))
             ], // du...
             'au' => [
                 'label' => '... Au',
                 'id'    => 'e_date_au',
                 'type'  => 'date',
-                'width' => '49.7%'
+                'width' => '49.7%',
+                'default'   => date('Y-m-d', strtotime('+1 day'))
             ], // au...
             'heure' => [
                 'label' => 'Heure',
@@ -206,7 +208,7 @@ function evenement_fields($post_type) {
                 'id'        => 'lieu',
                 'type'      => 'select',
                 'options'   => $lieux,
-                'add'       => 'Ajouter un nouveau lieu'
+                'add'       => '+ Ajouter un Lieu'
             ] // lieu
         ], // lieu
         [

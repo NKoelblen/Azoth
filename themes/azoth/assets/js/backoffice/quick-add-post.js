@@ -8,11 +8,9 @@ jQuery(function($){
         $('.modal-outer input').prop( "disabled", true );
     }
 
-    $('.modal-outer input').prop( "disabled", true );
+    closeForm($('.modal-inner .media-modal-close'));
 
-    // closeForm($('button.add'));
-
-    $('button.add').on('click', function(e) {
+    $('a.add').on('click', function(e) {
         e.preventDefault();
         openForm($(this));
     });
