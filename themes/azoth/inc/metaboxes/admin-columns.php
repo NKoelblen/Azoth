@@ -1,16 +1,4 @@
 <?php
-/**
- * Admin Filters
- */
-apply_filters('disable_months_dropdown', true, 'voie' );
-apply_filters('disable_months_dropdown', true, 'instructeur' );
-apply_filters('disable_months_dropdown', true, 'lieu' );
-apply_filters('disable_months_dropdown', true, 'contact' );
-
-/**
- * Admin Columns
- */
-
 /* Voies */
 
 add_filter( 'manage_voie_posts_columns', function ( $columns ) {
@@ -174,4 +162,13 @@ add_filter( 'manage_edit-stage_sortable_columns', function( $columns ) {
     $columns['lieu'] = 'Lieu';
     $columns['date_du'] = 'Date';
     return $columns;
+});
+
+/* Medias */
+
+add_filter( 'manage_upload_columns', function ( $columns ) {
+    unset( $columns['author'] );
+	unset( $columns['date'] );
+    unset( $columns['comments'] );
+	return $columns;
 });
