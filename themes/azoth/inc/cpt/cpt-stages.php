@@ -52,18 +52,18 @@ function stage_post_type()
         'publicly_queryable'    => true,
         'map_meta_cap'          => true,
         'capabilities'          => [
-            'edit_posts'                => 'edit_stages',
-            'delete_posts'              => 'delete_stages',
+            'edit_posts'                => 'edit_evenements',
+            'delete_posts'              => 'delete_evenements',
         
-            'publish_posts'             => 'publish_stages',
-            'edit_published_posts'      => 'edit_published_stages',
-            'delete_published_posts'    => 'delete_published_stages',
+            'publish_posts'             => 'publish_evenements',
+            'edit_published_posts'      => 'edit_published_evenements',
+            'delete_published_posts'    => 'delete_published_evenements',
         
-            'edit_others_posts'         => 'edit_others_stages',
-            'delete_others_posts'       => 'delete_others_stages',
-            'read_private_posts'        => 'read_private_stages',
-            'edit_private_posts'        => 'edit_private_stages',
-            'delete_private_posts'      => 'delete_private_stages',
+            'edit_others_posts'         => 'edit_others_evenements',
+            'delete_others_posts'       => 'delete_others_evenements',
+            'read_private_posts'        => 'read_private_evenements',
+            'edit_private_posts'        => 'edit_private_evenements',
+            'delete_private_posts'      => 'delete_private_evenements',
         ]
     ];
     register_post_type('stage', $args);

@@ -53,18 +53,18 @@ function conference_post_type()
         'publicly_queryable'    => true,
         'map_meta_cap'          => true,
         'capabilities'          => [
-            'edit_posts'                => 'edit_conferences',
-            'delete_posts'              => 'delete_conferences',
+            'edit_posts'                => 'edit_evenements',
+            'delete_posts'              => 'delete_evenements',
         
-            'publish_posts'             => 'publish_conferences',
-            'edit_published_posts'      => 'edit_published_conferences',
-            'delete_published_posts'    => 'delete_published_conferences',
+            'publish_posts'             => 'publish_evenements',
+            'edit_published_posts'      => 'edit_published_evenements',
+            'delete_published_posts'    => 'delete_published_evenements',
         
-            'edit_others_posts'         => 'edit_others_conferences',
-            'delete_others_posts'       => 'delete_others_conferences',
-            'read_private_posts'        => 'read_private_conferences',
-            'edit_private_posts'        => 'edit_private_conferences',
-            'delete_private_posts'      => 'delete_private_conferences',
+            'edit_others_posts'         => 'edit_others_evenements',
+            'delete_others_posts'       => 'delete_others_evenements',
+            'read_private_posts'        => 'read_private_evenements',
+            'edit_private_posts'        => 'edit_private_evenements',
+            'delete_private_posts'      => 'delete_private_evenements',
         ]
     ];
     register_post_type('conference', $args);

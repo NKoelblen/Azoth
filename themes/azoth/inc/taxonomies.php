@@ -32,6 +32,12 @@ function register_geo_zone() {
         'show_in_quick_edit'    => false,
         'meta_box_cb'           => false,
         'show_admin_column'     => true,
+        'capabilities'  => [
+            'manage_terms'  => 'manage_categories',
+            'edit_terms'    => 'edit_lieux',
+            'delete_terms'  => 'manage_categories',
+            'assign_terms'  => 'edit_lieux'
+        ]
     );
 
     register_taxonomy( 'geo_zone', 'lieu', $args );
@@ -71,6 +77,12 @@ function register_stage_categorie() {
         'show_in_quick_edit'    => false,
         'meta_box_cb'           => false,
         'show_admin_column'     => true,
+        'capabilities'  => [
+            'manage_terms'  => 'manage_categories',
+            'edit_terms'    => 'manage_categories',
+            'delete_terms'  => 'manage_categories',
+            'assign_terms'  => 'edit_evenements'
+        ]
     );
 
     register_taxonomy( 'stage_categorie', 'stage', $args );
@@ -110,8 +122,59 @@ function register_prerequis() {
         'show_in_quick_edit'    => false,
         'meta_box_cb'           => false,
         'show_admin_column'     => false,
+        'capabilities'  => [
+            'manage_terms'  => 'manage_categories',
+            'edit_terms'    => 'edit_evenements',
+            'delete_terms'  => 'manage_categories',
+            'assign_terms'  => 'edit_evenements'
+        ]
     );
 
     register_taxonomy( 'prerequis', ['formation', 'stage'], $args );
 }
 add_action( 'init', 'register_prerequis' );
+
+function register_media_categorie() {
+    
+    // Déclaration de la Taxonomie
+    $labels = array(
+        'name'                  => 'Catégories',
+        'singular_name'         => 'Catégorie',
+        'search_items'          => 'Chercher une Catégorie',
+        'popular_items'         => 'Catégories populaires',
+        'all_items'             => 'Toutes les Catégories',
+        'parent_item'           => 'Catégorie parente',
+        'edit_item'             => 'Modifier la Catégorie',
+        'view_item'             => 'Voir la Catégorie',
+        'update_item'           => 'Mettre à jour la Catégorie',
+        'add_new_item'          => 'Ajouter une Catégorie',
+        'new_item_name'         => 'Nouvelle Catégorie',
+        'not_found'             => 'Aucune Catégorie trouvée',
+        'no_terms'              => 'Aucune Catégorie',
+        'filter_by_items'       => 'Filtrer par Catégorie',
+        'back_to_items'         => 'Retour aux Catégories',
+        'item_link'             => 'Lien vers la Catégorie',
+        'item_link_description' => 'Un lien vers la Catégorie',
+    );
+    
+    $args = array( 
+        'labels'                => $labels,
+        'public'                => true, 
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'show_in_rest'          => true,
+        'hierarchical'          => true,
+        'show_in_quick_edit'    => false,
+        'meta_box_cb'           => "post_categories_meta_box",
+        'show_admin_column'     => true,
+        'capabilities'  => [
+            'manage_terms'  => 'manage_categories',
+            'edit_terms'    => 'manage_categories',
+            'delete_terms'  => 'manage_categories',
+            'assign_terms'  => 'manage_categories'
+        ]
+    );
+
+    register_taxonomy( 'media_categorie', 'attachment', $args );
+}
+add_action( 'init', 'register_media_categorie' );
