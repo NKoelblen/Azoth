@@ -51,7 +51,21 @@ function formation_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_formations',
+            'delete_posts'              => 'delete_formations',
+        
+            'publish_posts'             => 'publish_formations',
+            'edit_published_posts'      => 'edit_published_formations',
+            'delete_published_posts'    => 'delete_published_formations',
+        
+            'edit_others_posts'         => 'edit_others_formations',
+            'delete_others_posts'       => 'delete_others_formations',
+            'read_private_posts'        => 'read_private_formations',
+            'edit_private_posts'        => 'edit_private_formations',
+            'delete_private_posts'      => 'delete_private_formations',
+        ]
     ];
     register_post_type('formation', $args);
 }

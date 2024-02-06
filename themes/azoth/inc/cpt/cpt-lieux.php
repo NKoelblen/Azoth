@@ -50,7 +50,21 @@ function lieu_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_lieux',
+            'delete_posts'              => 'delete_lieux',
+        
+            'publish_posts'             => 'publish_lieux',
+            'edit_published_posts'      => 'edit_published_lieux',
+            'delete_published_posts'    => 'delete_published_lieux',
+        
+            'edit_others_posts'         => 'edit_others_lieux',
+            'delete_others_posts'       => 'delete_others_lieux',
+            'read_private_posts'        => 'read_private_lieux',
+            'edit_private_posts'        => 'edit_private_lieux',
+            'delete_private_posts'      => 'delete_private_lieux',
+        ]
     ];
     register_post_type('lieu', $args);
 }

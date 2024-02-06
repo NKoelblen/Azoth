@@ -82,6 +82,7 @@ add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
 require_once AZOTH_DIR . 'inc/menus.php';
 require_once AZOTH_DIR . 'inc/support.php';
 require_once AZOTH_DIR . 'inc/taxonomies.php';
+require_once AZOTH_DIR . 'inc/roles.php';
 
 /**
  * Add Custom Post Types

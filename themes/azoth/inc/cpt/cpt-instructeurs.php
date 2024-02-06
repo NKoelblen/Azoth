@@ -50,7 +50,21 @@ function instructeur_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_instructeurs',
+            'delete_posts'              => 'delete_instructeurs',
+        
+            'publish_posts'             => 'publish_instructeurs',
+            'edit_published_posts'      => 'edit_published_instructeurs',
+            'delete_published_posts'    => 'delete_published_instructeurs',
+        
+            'edit_others_posts'         => 'edit_others_instructeurs',
+            'delete_others_posts'       => 'delete_others_instructeurs',
+            'read_private_posts'        => 'read_private_instructeurs',
+            'edit_private_posts'        => 'edit_private_instructeurs',
+            'delete_private_posts'      => 'delete_private_instructeurs',
+        ]
     ];
     register_post_type('instructeur', $args);
 }

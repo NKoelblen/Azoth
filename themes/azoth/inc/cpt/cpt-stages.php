@@ -50,7 +50,21 @@ function stage_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_stages',
+            'delete_posts'              => 'delete_stages',
+        
+            'publish_posts'             => 'publish_stages',
+            'edit_published_posts'      => 'edit_published_stages',
+            'delete_published_posts'    => 'delete_published_stages',
+        
+            'edit_others_posts'         => 'edit_others_stages',
+            'delete_others_posts'       => 'delete_others_stages',
+            'read_private_posts'        => 'read_private_stages',
+            'edit_private_posts'        => 'edit_private_stages',
+            'delete_private_posts'      => 'delete_private_stages',
+        ]
     ];
     register_post_type('stage', $args);
 }

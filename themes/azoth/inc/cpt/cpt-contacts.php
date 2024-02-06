@@ -50,7 +50,21 @@ function contact_post_type()
         'has_archive'           => false,
         'exclude_from_search'   => true,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_contacts',
+            'delete_posts'              => 'delete_contacts',
+        
+            'publish_posts'             => 'publish_contacts',
+            'edit_published_posts'      => 'edit_published_contacts',
+            'delete_published_posts'    => 'delete_published_contacts',
+        
+            'edit_others_posts'         => 'edit_others_contacts',
+            'delete_others_posts'       => 'delete_others_contacts',
+            'read_private_posts'        => 'read_private_contacts',
+            'edit_private_posts'        => 'edit_private_contacts',
+            'delete_private_posts'      => 'delete_private_contacts',
+        ]
     ];
     register_post_type('contact', $args);
 }

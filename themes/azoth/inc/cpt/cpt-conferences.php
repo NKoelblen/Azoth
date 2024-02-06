@@ -51,7 +51,21 @@ function conference_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'post',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_conferences',
+            'delete_posts'              => 'delete_conferences',
+        
+            'publish_posts'             => 'publish_conferences',
+            'edit_published_posts'      => 'edit_published_conferences',
+            'delete_published_posts'    => 'delete_published_conferences',
+        
+            'edit_others_posts'         => 'edit_others_conferences',
+            'delete_others_posts'       => 'delete_others_conferences',
+            'read_private_posts'        => 'read_private_conferences',
+            'edit_private_posts'        => 'edit_private_conferences',
+            'delete_private_posts'      => 'delete_private_conferences',
+        ]
     ];
     register_post_type('conference', $args);
 }

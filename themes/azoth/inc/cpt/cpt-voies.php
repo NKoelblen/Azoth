@@ -51,7 +51,21 @@ function voie_post_type()
         'has_archive'           => true,
         'exclude_from_search'   => false,
         'publicly_queryable'    => true,
-        'capability_type'       => 'page',
+        'map_meta_cap'          => true,
+        'capabilities'          => [
+            'edit_posts'                => 'edit_voies',
+            'delete_posts'              => 'delete_voies',
+        
+            'publish_posts'             => 'publish_voies',
+            'edit_published_posts'      => 'edit_published_voies',
+            'delete_published_posts'    => 'delete_published_voies',
+        
+            'edit_others_posts'         => 'edit_others_voies',
+            'delete_others_posts'       => 'delete_others_voies',
+            'read_private_posts'        => 'read_private_voies',
+            'edit_private_posts'        => 'edit_private_voies',
+            'delete_private_posts'      => 'delete_private_voies',
+        ]
     ];
     register_post_type('voie', $args);
 }
