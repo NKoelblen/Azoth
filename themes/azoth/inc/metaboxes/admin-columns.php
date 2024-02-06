@@ -32,7 +32,7 @@ add_filter('manage_instructeur_posts_columns', function ($columns) {
 
 add_filter('manage_instructeur_posts_custom_column', function ($column, $postId) {
     if ($column === 'thumbnail') :
-        the_post_thmubnail('thumbnail', $postID);
+        the_post_thumbnail('thumbnail', $postId);
     endif;
     if ($column === 'fonction') :
         echo get_post_meta($postId, 'i_fonction', true);

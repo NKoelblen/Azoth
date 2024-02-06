@@ -26,10 +26,6 @@ if (have_posts()) : ?>
             
         	<div class="entry-content">
         		<?php the_content(
-        			sprintf(
-                        /* translators: %s: Post title. Only visible to screen readers. */
-                        esc_html__('Continuer à lire %s')
-                    )
         		);
             
         		wp_link_pages(
@@ -82,13 +78,21 @@ if (have_posts()) : ?>
                 <?php endif; ?>
         	</footer><!-- .entry-footer -->
         </article><!-- #post-<?php the_ID(); ?> -->
-	<?php endwhile; ?>
+	<?php endwhile;
 
-	<?php twenty_twenty_one_the_posts_navigation(); ?>
-
-<?php else : ?>
-	<?php get_template_part('template-parts/content/content-none'); ?>
-<?php endif; ?>
+    the_posts_pagination(
+			array(
+				'before_page_number' => 'Page' . ' ',
+				'mid_size'           => 0,
+				'prev_text'          => sprintf(
+					'<span class="nav-prev-text"></span>Newer <span class="nav-short">posts</span>',
+				),
+				'next_text'          => sprintf(
+					'<span class="nav-next-text"></span>Older <span class="nav-short">posts</span>',
+				),
+			)
+		);
+endif; ?>
 
 <?php
 get_footer();

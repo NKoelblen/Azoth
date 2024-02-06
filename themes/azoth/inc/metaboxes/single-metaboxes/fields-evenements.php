@@ -45,7 +45,7 @@ function evenement_fields($post_type) {
     wp_reset_postdata();
 
     $user_args = [
-        'role__in'  => array( 'administrator', 'editor', 'author'),
+        'role__in'  => array( 'administrator', 'gestionnaire', 'instructeur'),
         'orderby'   => 'display_name',
         'order'     => 'ASC'
     ];

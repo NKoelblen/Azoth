@@ -133,44 +133,7 @@ require_once AZOTH_DIR . 'inc/metaboxes/quick-add-post.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/editor-columns.php';
 
-/* Set admin all posts colums */
+/* Set admin colums & filters */
 
 require_once AZOTH_DIR . 'inc/metaboxes/admin-columns.php';
-
-
-function my_author_filter(){
-    $screen = get_current_screen();
-    global $post_type;
-    if( $screen->id == 'edit-post' ){
-        $my_args = array(
-            'show_option_all'   => 'Tous les auteurs',
-            'orderby'           => 'display_name',
-            'order'             => 'ASC',
-            'name'              => 'authors_admin_filter',
-            'include_selected'  => true
-        );
-        if(isset($_GET['authors_admin_filter'])){
-            $my_args['selected'] = (int)sanitize_text_field($_GET['authors_admin_filter']);
-        }
-        wp_dropdown_users($my_args);
-    }
-}
-add_action('restrict_manage_posts','my_author_filter');
-
-add_action('admin_init', function(){
-	$screen = get_current_screen();
-	echo $screen;
-  });
-add_action('pre_get_posts','my_author_filter_results');
-function my_author_filter_results($query){
-    // $screen = get_current_screen();
-    global $post_type; 
-    // if ( $screen->id == 'edit-post' ) {
-        if(isset($_GET['authors_admin_filter'])){
-            $author_id = sanitize_text_field($_GET['authors_admin_filter']);
-            if($author_id != 0){
-                $query->query_vars['author'] = $author_id;
-            }
-        }
-    // }
-};
+require_once AZOTH_DIR . 'inc/metaboxes/admin-filters.php';
