@@ -9,7 +9,7 @@ jQuery(function($){
         if (e.target.parentNode.innerText === " Le Mouvement Immobile"){
             voie.css('display', 'none');
         } else {
-            voie.css('display', 'block');
+            voie.css('display', 'flex');
         }
     });
 });

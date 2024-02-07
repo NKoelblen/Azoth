@@ -40,10 +40,11 @@ if (class_exists('MetaboxGenerator')) {
  */
 
 $mb_contact->set_screens(['contact']);
-$mb_contact->set_labels(
+$mb_contact->set_args(
     [
-        'slug' => 'informations',
-        'name'  => 'Informations'
+        'id' => 'informations',
+        'title'  => 'Informations',
+        'context' => 'advanced',
     ]
 );
 $mb_contact->set_fields(contact_fields());

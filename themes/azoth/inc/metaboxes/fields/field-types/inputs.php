@@ -8,6 +8,5 @@ function input_field($field, $meta_value) {
         name="<?= $field['id'] ?>"
         type="<?= $field['type'] ?>"
         value="<?= $meta_value ?>"
-        style="width: 100%;"
     >
 <?php };

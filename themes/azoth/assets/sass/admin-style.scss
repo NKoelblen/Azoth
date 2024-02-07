@@ -1,0 +1,513 @@
+.modal-outer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 159900;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    .modal-inner {
+        box-sizing: border-box;
+        width: 100%;
+        max-height: 100%;
+        margin: 30px;
+        padding: 16px;
+        background: #FFFFFF;
+        overflow-y: auto;
+
+        .media-modal-close {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+        }
+    }
+}
+
+.post-new-php, .post-php {
+    #informations .inside{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        fieldset {
+            padding: 12px;
+            border: 1px solid #dcdcde;
+
+            h3 {
+                margin: 0;
+            }
+            label:not(.map label, .taxonomy label) {
+                display: block;
+                margin: 10px 0;
+
+                &:not(.radio label) {
+                    font-weight: bold;
+                }
+            }
+            input:not([type=radio], .map input, .taxonomy input),
+            select:not(.taxonomy select) {
+                display: block;
+                width: 100%;
+            }
+            input[type=number] {
+                text-align: right;
+
+                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                }
+            }
+            #geo_zone-tabs, #geo_zone-pop, #stage_categorie-tabs, #stage_categorie-pop, #prerequis-tabs, #prerequis-pop {
+                display: none;
+            }
+            #geo_zone-all, #stage_categorie-all, #prerequis-all {
+                display: block;
+            }            
+            div:has(.media-library-uploader:not(.modal-outer .media-library-uploader)) {
+                width: min(calc(100vw - 74px), 300px);
+                height: 100%;
+                margin: auto;
+
+                .media-library-uploader  {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-end;
+                    height: 100%;
+
+                    .preview_image {
+                        height: 300px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &:has(img) {
+                            height: 100%;
+                        }
+
+                        img {
+                            width: min(calc(100vw - 74px), 300px);
+                            max-width: fit-content;
+                            height: auto;
+                            max-height: 300px;
+                            border: 1px solid #dcdcde;
+                        }
+                    }
+                    .buttons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 10px;
+                        margin-top: 10px;
+                        text-align: center;
+
+                        .delete_image_button {
+                            color: #b32d2e;
+                        }
+                    }
+                }
+            }
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)),
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)) .WYSIWYG,
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)) .WYSIWYG #wp-content-wrap,
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)) .WYSIWYG #wp-content-wrap #wp-content-editor-container,
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)) .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 {
+                height: 100%;
+            }
+            div:has(.WYSIWYG:not(.modal-outer .WYSIWYG)) .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 #mceu_24-body {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                #mceu_31 {
+                    flex: auto;
+
+                    #content_ifr {
+                        height: 100% ;
+                    }
+                }
+            }
+        }
+    }
+    &.post-type-instructeur #informations .inside{
+        fieldset {
+            &#portrait {
+                flex: auto;
+            }
+            &#biographie {
+                flex: auto;
+                width: max(calc(50% - 31.5px), calc(100% - 364px));
+            }
+            &#informations-avancees {
+                width: calc(50% - 31.6px);
+                flex: auto;
+    
+                .informations-avancees {
+                    display: flex;
+                    flex-wrap: wrap;
+                    column-gap: 10px;
+    
+                    .author {
+                        width: 100%;
+                    }
+                    .i_fonction {
+                        flex: auto;
+                    }
+                    .i_ordre {
+                        width: auto;
+    
+                        input {
+                            width: 63px;
+                        }
+                    }
+                }
+                
+            }    
+        }
+        &:not(:has(#informations-avancees)) #coordonnees {
+            width: 100%;
+            flex: auto !important;
+
+            .coordonnees {
+                width: 100%;
+                display: flex;
+                gap: 10px;
+
+                div {
+                    flex: 1;
+                }
+            }
+        }
+    }
+    &.post-type-lieu #informations .inside{
+        #localite {
+            width: 100%;
+            .localite {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+
+                .taxonomy {
+                    width: calc(50% - 6px);
+                    flex: auto;
+                    height: 300px;
+
+                    .categorydiv {
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+
+                        .tabs-panel {
+                            flex: auto;
+                            max-height: 100%;
+
+                            li:has(.children) {
+                                > .selectit input {
+                                    border: none;
+                                    border-radius: 0;
+                                    background: url('./assets/images/chevron-down.svg');
+                                    background-position: 50%;
+                                    box-shadow: none;
+                                }
+                                &:has(input:checked) > .selectit input {
+                                    background: url('./assets/images/chevron-up.svg');
+                                    background-position: 50%;
+
+                                    &::before {
+                                        border-radius: 0;
+                                        background: none;
+                                    }
+                                }
+                                .children {
+                                    display: none;
+                                }    
+                            }
+                        }
+                        div.wp-hidden-children {
+                            .category-add {
+                                display: none;
+                            }
+                        }
+                        .category-add {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            gap: 10px;
+                        }
+                    }
+                }
+
+                .map {
+                    width: calc(50% - 6px);
+                    flex: auto;
+
+                    #map {
+                        width: 100%;
+                        height: 300px;
+                        border: solid 1px #dcdcde;
+                    } 
+                }
+               
+            }
+        }
+        #photo {
+            flex: auto;
+        }
+        #description {
+            flex: auto;
+            width: max(calc(50% - 31.5px), calc(100% - 364px));
+        }
+    }
+    &.post-type-contact #informations .inside{
+        #nom {
+            width: 100%;
+        }
+        #coordonnees {
+            width: 100%;
+            
+            .coordonnees {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+
+                div {
+                    flex: 1;
+                }
+            }
+        }
+    }
+    &.post-type-conference #informations .inside,
+    &.post-type-formation #informations .inside,
+    &.post-type-stage #informations .inside {
+        display: grid;
+        gap: 12px;
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+
+            &#dates .dates {
+                display: flex;
+                gap: 12px;
+                div:not(.e_session) {
+                    flex: 1;
+                }
+            }
+            &#lieu {
+                justify-content: center;
+
+                > .lieu {
+                    margin-top: 38.2px;
+                }
+            }
+            &#coordonnees .coordonnees {
+                display: flex;
+                gap: 12px;
+
+                .e_coordonnees {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+
+                .e_autre_instructeur, div.select.contact {
+                    flex: auto;
+                    height: fit-content;
+                }
+            }
+        }
+    }
+
+    &.post-type-conference #informations .inside {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, auto);
+
+        fieldset {
+            &#dates {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            &#lieu {
+                grid-column: 2;
+                grid-row: 1;
+            }
+            &#instructeur {
+                grid-column: 1;
+                grid-row: 2;
+                
+                .instructeur {
+                    margin-top: 38.2px;
+                }
+            }
+            &#coordonnees {
+                grid-column: 2;
+                grid-row: 2;
+            }
+            &#informations-complementaires {
+                grid-column: 1/3;
+                grid-row: 3;
+            }
+        }
+    }
+    &.post-type-formation #informations .inside,
+    &.post-type-stage #informations .inside {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, auto);
+
+        fieldset {
+
+            &#voie {
+                grid-column: 1/3;
+                grid-row: 1;
+                justify-content: center;
+            }
+            &#instructeur {
+                grid-column: 1;
+                grid-row: 3;
+            }
+            &#coordonnees {
+                grid-column: 1;
+                grid-row: 4;
+            }
+            &#prerequis {
+                grid-column: 2;
+                grid-row: 3/5;
+            }
+            &#dates {
+                grid-column: 1;
+                grid-row: 2;
+
+                .dates .e_session {
+                    width: fit-content;
+                    input {
+                        width: 63px;
+                    }
+                }
+            }
+            &#lieu {
+                grid-column: 2;
+                grid-row: 2;
+            }
+            &#informations-complementaires {
+                grid-column: 1/3;
+                grid-row: 5;
+            }
+        }
+    }
+    &.post-type-stage #informations .inside fieldset {
+            &#categorie {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            &#voie {
+                grid-column: 2;
+        }
+    }
+}
+
+@media screen and (max-width: 782px) {
+    .post-new-php, .post-php {
+        &.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .category-add * {
+            margin: 0;  
+        }
+    }
+}
+
+@media screen and (max-width: 711px) {
+    .post-new-php, .post-php {
+        #informations .inside fieldset div:has(.media-library-uploader) .media-library-uploader .preview_image {
+            height: auto;
+        }
+        &.post-type-lieu #informations .inside #localite .localite {
+            .taxonomy {
+                width: 100%;
+                flex: auto;
+                height: auto;
+                max-height: 300px;
+            }
+            .map {
+                width: 100%;
+            }    
+        }
+        &.post-type-conference,
+        &.post-type-formation,
+        &.post-type-stage {
+            #informations .inside {
+                display: flex;
+                flex-direction: column;
+
+                fieldset {
+                    &#lieu > .lieu,
+                    &#instructeur .instructeur {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .post-new-php, .post-php {
+        &.post-type-instructeur #informations .inside {
+            #coordonnees,
+            #informations-avancees {
+                width: 100%;
+            }
+        }
+        &.post-type-contact #informations .inside #coordonnees .coordonnees div {
+            width: 100%;
+            flex: auto;
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .post-new-php, .post-php {
+        &.post-type-formation #informations .inside fieldset#dates .dates {    
+            display: block;
+            div {
+                width: 100%;
+                
+                &.e_session {
+                    width: 100%;
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .post-new-php, .post-php {
+        &.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre {
+            width: 100%;
+
+            input {
+                width: 100%;            
+            }   
+        }
+        &.post-type-conference,
+        &.post-type-formation,
+        &.post-type-stage {
+            #informations .inside fieldset {
+                &#dates .dates {    
+                    display: block;
+                    div {
+                        width: 100%;
+                    }
+                }
+                &#coordonnees .coordonnees {
+                    display: block;
+
+                    div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

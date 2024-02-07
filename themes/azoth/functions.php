@@ -28,7 +28,7 @@ function azoth_admin_styles() {
 	wp_enqueue_style('leaflet-style');
 	wp_register_style('leaflet-search-style', get_stylesheet_directory_uri() . '/assets/css/leaflet/leaflet-search.css', array(), false);
 	wp_enqueue_style('leaflet-search-style');
-	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin-style.css',  array(), false);
+	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/admin-style.css',  array(), false);
 	wp_enqueue_style('admin-style');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_styles');

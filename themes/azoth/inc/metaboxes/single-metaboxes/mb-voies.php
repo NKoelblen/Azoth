@@ -13,10 +13,11 @@ if (class_exists('MetaboxGenerator')) {
 
 $mb_voie->set_screens(['voie']);
 
-$mb_voie->set_labels(
+$mb_voie->set_args(
     [
-        'slug' => 'informations',
-        'name'  => 'Informations'
+        'id' => 'informations',
+        'title'  => 'Informations',
+        'context' => 'side',
     ]
 );
 

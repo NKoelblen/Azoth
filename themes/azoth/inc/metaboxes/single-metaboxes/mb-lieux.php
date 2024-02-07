@@ -11,7 +11,6 @@ function lieu_fields() {
                 'taxonomy'  => 'geo_zone'
             ], // zone
             [
-                'label'     => 'Carte',
                 'id'        => 'l_carte',
                 'type'      => 'map'
             ] // carte
@@ -46,10 +45,11 @@ if (class_exists('MetaboxGenerator')) {
 
 $mb_lieu->set_screens(['lieu']);
 
-$mb_lieu->set_labels(
+$mb_lieu->set_args(
     [
-        'slug' => 'informations',
-        'name'  => 'Informations'
+        'id' => 'informations',
+        'title'  => 'Informations',
+        'context' => 'advanced',
     ]
 );
 

@@ -13,10 +13,11 @@ if (class_exists('MetaboxGenerator')) {
 
 $mb_stage->set_screens(['stage']);
 
-$mb_stage->set_labels(
+$mb_stage->set_args(
     [
-        'slug'  => 'informations',
-        'name'  => 'Informations'
+        'id'  => 'informations',
+        'title'  => 'Informations',
+        'context' => 'advanced',
     ]
 );
 

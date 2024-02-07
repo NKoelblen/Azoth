@@ -6,7 +6,8 @@ function wysiwyg_field($field, $meta_value) {
         $field['id'],
         [
             'media_buttons' => false,
-            'quicktags'     => false
+            'quicktags'     => false,
+            'textarea_rows' => 10
         ]
     );
     $input = ob_get_contents();

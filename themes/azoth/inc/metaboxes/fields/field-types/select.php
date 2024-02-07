@@ -9,7 +9,6 @@ function select_field($field, $meta_value, $disabled) {
         <select
             id="<?= $field['id'] ?>"
             name="<?= $field['id'] ?>"
-            style="width: 100%;"
             <?= $disabled ?>
         >
             <option value="<?= $selected ?>">
@@ -26,7 +25,6 @@ function select_field($field, $meta_value, $disabled) {
         <select
             id="<?= $field['id'] ?>"
             name="<?= $field['id'] ?>"
-            style="width: 100%;"
             <?= $disabled ?>
         >
             <option value=""></option>
@@ -38,12 +36,10 @@ function select_field($field, $meta_value, $disabled) {
     endif; // meta_value ?>
     </select>
     <?php if(isset($field['add'])) : ?>
-        <div>
             <a class="taxonomy-add-new add <?= $field['id'] ?>"><?= $field['add']; ?></a>
-        </div>
-        <div class="modal-outer <?= $field['id'] ?>" style="display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 159900; height: 100vh; background-color: rgba(0, 0, 0, 0.7);">
-            <div class="modal-inner" style="width: calc(100% - 92px); max-height: calc(100% - 92px); margin: 30px; padding: 16px; background: #FFFFFF; overflow-y: auto;">
-                <button type="button" class="media-modal-close" style="position: fixed; top: 30px; right: 30px;">
+        <div class="modal-outer <?= $field['id'] ?>">
+            <div class="modal-inner">
+                <button type="button" class="media-modal-close">
                     <span class="media-modal-icon">
                         <span class="screen-reader-text">Fermez la boite de dialogue</span>
                     </span>
@@ -59,8 +55,7 @@ function select_field($field, $meta_value, $disabled) {
 
                 <div id="titlediv">
                     <div id="titlewrap">
-                        <label class="" id="title-prompt-text" for="title">Saisissez le titre</label>
-                        <input type="text" name="title" size="30" value="" id="title" spellcheck="true" autocomplete="off">
+                        <input type="text" name="title" size="30" value="" class="title" spellcheck="true" autocomplete="off" placeholder="Intitulé">
                     </div>
                 </div>
 

@@ -4,3 +4,202 @@
 #geo_zone-all, #stage_categorie-all, #prerequis-all {
     display: block;
 }
+
+.modal-outer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 159900;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 100%;
+    margin: 30px;
+    padding: 16px;
+    background: #FFFFFF;
+    overflow-y: auto;
+}
+
+.modal-inner .media-modal-close {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}
+
+#map {
+    width: 444px;
+    height: 444px;
+}
+
+.hide-if-no-js {
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.post-php #informations .inside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.post-php #informations .inside fieldset {
+    padding: 12px;
+    border: 1px solid #dcdcde;
+}
+.post-php #informations .inside fieldset h3 {
+    margin: 0;
+}
+.post-php #informations .inside fieldset label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+}
+.post-php #informations .inside fieldset input, .post-php #informations .inside fieldset select {
+    display: block;
+    width: 100%;
+}
+
+
+.post-php #informations .inside fieldset div:has(.media-library-uploader) {
+    width: min(calc(100vw - 74px), 300px);
+    height: 100%;
+    margin: auto;
+}
+.post-php #informations .inside fieldset .media-library-uploader  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+.post-php #informations .inside fieldset .media-library-uploader .preview_image {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.post-php #informations .inside fieldset .media-library-uploader .preview_image img {
+    width: min(calc(100vw - 74px), 300px);
+    max-width: fit-content;
+    height: auto;
+    max-height: 300px;
+    border: 1px solid #dcdcde;
+}
+.post-php #informations .inside fieldset .media-library-uploader .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+.post-php #informations .inside fieldset .media-library-uploader .buttons .delete_image_button {
+    color: #b32d2e;
+}
+
+.post-php.post-type-instructeur #informations .inside fieldset#portrait {
+    flex: auto;
+}
+
+.post-php.post-type-instructeur #informations .inside fieldset#biographie {
+    flex: auto;
+    width: max(calc(50% - 31.5px), calc(100% - 364px));
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie {
+    height: 100%;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG {
+    height: 100%;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap {
+    height: 100%;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap #wp-content-editor-container {
+    height: 100%;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 {
+    height: 100%;
+
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 #mceu_24-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 #mceu_24-body #mceu_31 {
+    flex: auto;
+}
+.post-php.post-type-instructeur #informations .inside fieldset#biographie .biographie .WYSIWYG #wp-content-wrap #wp-content-editor-container #mceu_24 #mceu_24-body #mceu_31 #content_ifr {
+    height: 100% ;
+}
+
+
+
+.post-php.post-type-instructeur #informations .inside:not(:has(#informations-avancees)) #coordonnees {
+    width: 100%;
+    flex: auto !important;
+}
+.post-php.post-type-instructeur #informations .inside:not(:has(#informations-avancees)) #coordonnees .coordonnees {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.post-php.post-type-instructeur #informations .inside:not(:has(#informations-avancees)) #coordonnees .coordonnees div {
+    flex: 1;
+}
+
+.post-php.post-type-instructeur #informations .inside #coordonnees,
+.post-php.post-type-instructeur #informations .inside #informations-avancees {
+    width: calc(50% - 31.6px);
+    flex: auto;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .author {
+    width: 100%;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_fonction {
+    flex: auto;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre {
+    width: auto;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre input {
+    width: 63px;
+    text-align: right;
+}
+
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre input::-webkit-outer-spin-button,
+.post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+@media screen and (max-width: 670px) {
+    .post-php.post-type-instructeur #informations .inside #coordonnees,
+    .post-php.post-type-instructeur #informations .inside #informations-avancees {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre {
+        width: 100%;
+    }
+    .post-php.post-type-instructeur #informations .inside #informations-avancees .informations-avancees .i_ordre input {
+        width: 100%;
+    }   
+}

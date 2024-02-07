@@ -1,7 +1,7 @@
 jQuery(function($){
 
-    const autreInstructeur = document.querySelector('#e_autre_instructeur').parentNode.parentNode;
-    const contact = document.querySelector('#contact').parentNode.parentNode;
+    const autreInstructeur = document.querySelector('#e_autre_instructeur').parentNode;
+    const contact = document.querySelector('#contact').parentNode;
 
     if($('input[name="e_coordonnees"]:checked').val() === 'autre-instructeur') {
         open(autreInstructeur);

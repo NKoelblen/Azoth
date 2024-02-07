@@ -5,12 +5,12 @@ function media_library_uploader_field($field, $meta_value) { ?>
             echo wp_get_attachment_image( $meta_value, 'medium' );
         endif ?>
     </div>
-    <div style="display: flex; gap: 10px;">
+    <div class="buttons">
         <a href="#" class="upload_image_button">
             <?php if($meta_value) :
                 echo 'Modifier l\'image';
             else :
-                echo 'Ajouter une image';
+                echo '+ Ajouter une image';
             endif; ?>
         </a>
         <a

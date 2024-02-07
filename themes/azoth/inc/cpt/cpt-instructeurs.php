@@ -37,7 +37,7 @@ function instructeur_post_type()
         'description'           => __('Instructeurs'),
         'labels'                => $labels,
         'supports'              => ['title'],
-        'taxonomies'            => array(),
+        'taxonomies'            => [],
         'hierarchical'          => false,
         'public'                => true,
         'show_in_rest'          => false, // Gutenberg

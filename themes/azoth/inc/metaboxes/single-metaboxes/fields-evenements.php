@@ -45,7 +45,7 @@ function evenement_fields($post_type) {
     wp_reset_postdata();
 
     $user_args = [
-        'role__in'  => array( 'administrator', 'gestionnaire', 'instructeur'),
+        'role__in'  => array('gestionnaire', 'instructeur'),
         'orderby'   => 'display_name',
         'order'     => 'ASC'
     ];
@@ -112,6 +112,44 @@ function evenement_fields($post_type) {
                 'options'   => $voies
             ] // voie
         ], //voie
+        'time' => [
+            'group_label' => 'Date(s)',
+            'session' => [
+                'label' => 'Session n°',
+                'id'    => 'e_session',
+                'type'  => 'number',
+                'width' => '32.9%'
+            ],
+            'du' => [
+                'label'     => 'Du...',
+                'id'        => 'e_date_du',
+                'type'      => 'date',
+                'width'     => '49.7%',
+                'default'   => date('Y-m-d', strtotime('now'))
+            ], // du...
+            'au' => [
+                'label' => '... Au',
+                'id'    => 'e_date_au',
+                'type'  => 'date',
+                'width' => '49.7%',
+                'default'   => date('Y-m-d', strtotime('+1 day'))
+            ], // au...
+            'heure' => [
+                'label' => 'Heure',
+                'id'    => 'e_heure',
+                'type'  => 'time',
+                'width' => '49.7%'
+            ] // heure
+        ], // dates
+        [
+            'group_label' => 'Lieu', // group_label required, can be empty
+            [
+                'id'        => 'lieu',
+                'type'      => 'select',
+                'options'   => $lieux,
+                'add'       => '+ Ajouter un Lieu'
+            ] // lieu
+        ], // lieu
         'user' => [
             'group_label' => 'Instructeur', // group_label required, can be empty
             'user' => [
@@ -123,9 +161,8 @@ function evenement_fields($post_type) {
             ] // author
         ], // author
         [
-            'group_label' => 'Contact', // group_label required, can be empty
+            'group_label' => 'Coordonnées...', // group_label required, can be empty
             [
-                'label'     => 'Utiliser les coordonnées...',
                 'id'        => 'e_coordonnees',
                 'type'      => 'radio',
                 'options'   => [
@@ -173,44 +210,6 @@ function evenement_fields($post_type) {
                 'taxonomy'  => 'prerequis'
             ], // zone
         ],
-        'time' => [
-            'group_label' => 'Date(s)',
-            'session' => [
-                'label' => 'Session n°',
-                'id'    => 'e_session',
-                'type'  => 'number',
-                'width' => '32.9%'
-            ],
-            'du' => [
-                'label'     => 'Du...',
-                'id'        => 'e_date_du',
-                'type'      => 'date',
-                'width'     => '49.7%',
-                'default'   => date('Y-m-d', strtotime('now'))
-            ], // du...
-            'au' => [
-                'label' => '... Au',
-                'id'    => 'e_date_au',
-                'type'  => 'date',
-                'width' => '49.7%',
-                'default'   => date('Y-m-d', strtotime('+1 day'))
-            ], // au...
-            'heure' => [
-                'label' => 'Heure',
-                'id'    => 'e_heure',
-                'type'  => 'time',
-                'width' => '49.7%'
-            ] // heure
-        ], // dates
-        [
-            'group_label' => 'Lieu', // group_label required, can be empty
-            [
-                'id'        => 'lieu',
-                'type'      => 'select',
-                'options'   => $lieux,
-                'add'       => '+ Ajouter un Lieu'
-            ] // lieu
-        ], // lieu
         [
             'group_label' => 'Informations complémentaires', // group_label required, can be empty
             [

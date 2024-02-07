@@ -13,16 +13,17 @@ if (class_exists('MetaboxGenerator')) {
 
 $mb_instructeur->set_screens(['instructeur']);
 
-$mb_instructeur->set_labels(
+$mb_instructeur->set_args(
     [
-        'slug' => 'informations',
-        'name'  => 'Informations'
+        'id' => 'informations',
+        'title'  => 'Informations',
+        'context' => 'advanced',
     ]
 );
 
 $users_query = new WP_User_Query(
     [
-        'role__in'  => array( 'administrator', 'editor', 'author'),
+        'role__in'  => array('gestionnaire', 'instructeur'),
         'orderby'   => 'display_name',
         'order'     => 'ASC'
     ]
@@ -74,7 +75,7 @@ if (current_user_can( 'edit_pages' )) :
         'group_label' => 'Informations avancées', // group_label required, can be empty
         [
             'label'     => 'Compte',
-            'id'        => 'i_compte',
+            'id'        => 'author',
             'type'      => 'select',
             'options'   => $users_infos
         ], // compte

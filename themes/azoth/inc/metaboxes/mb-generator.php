@@ -36,15 +36,15 @@ class metaboxGenerator
 
     /* Post-types where the metabox will be generate */
 
-    private $labels;
+    private $args;
 
     /**
      *** How to use : ***
      * method set_labels($labels) :
      *   $labels = array of 2 labels : slug && name
      */
-    public function set_labels($new_labels) {
-        $this->labels = $new_labels;
+    public function set_args($new_args) {
+        $this->args = $new_args;
     } // End of set_screens
 
 
@@ -53,11 +53,11 @@ class metaboxGenerator
     public function add() {
         foreach ($this->screens as $screen) :
             add_meta_box(
-                $this->labels['slug'],
-                __($this->labels['name']),
+                $this->args['id'],
+                __($this->args['title']),
                 [$this, 'callback'],
                 $screen,
-                'normal',
+                $this->args['context'],
                 'default'
             );
         endforeach; // Endforeach screen

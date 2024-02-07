@@ -76,7 +76,7 @@ add_role(
         'edit_private_voies'        => false,
         'delete_private_voies'      => false,
     
-        'edit_instructeurs'         => false,
+        'edit_instructeurs'         => true,
         'delete_instructeurs'       => false,
     
         'publish_instructeurs'      => false,
