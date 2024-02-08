@@ -21,6 +21,16 @@ function azoth_styles() {
 add_action('wp_enqueue_scripts', 'azoth_styles');
 
 /**
+ * Enqueue login style
+ */
+
+ function azoth_login_styles() {
+	wp_register_style('login-style', get_template_directory_uri() . '/login-style.css', array(), false);
+	wp_enqueue_style('login-style');
+}
+add_action( 'login_enqueue_scripts', 'azoth_login_styles', 10 );
+
+/**
  * Enqueue admin styles
  */
 function azoth_admin_styles() {

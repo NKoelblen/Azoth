@@ -1,0 +1,143 @@
+@font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-Light.ttf") format("truetype");
+  font-style: normal;
+  font-weight: lighter;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: bolder;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("./assets/fonts/Quicksand/Quicksand-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marcellus";
+  src: url("./assets/fonts/Marcellus-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "MarcellusSC";
+  src: url("./assets/fonts/MarcellusSC-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+body.login {
+  background-color: unset;
+  background: fixed url("./assets/images/trace.webp") center/calc((100vh - 20px) * 0.6049) calc(100vh - 20px) no-repeat content-box;
+  font-family: "Quicksand";
+  color: #404040;
+}
+body.login #login {
+  box-sizing: border-box;
+  height: fit-content;
+  min-height: 100vh;
+  padding: 24px 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+body.login #login * {
+  margin: 0;
+}
+body.login #login h1 a {
+  background: scroll url("./assets/images/logo_text.webp") center/contain no-repeat;
+  width: 272px;
+  height: min(38.25vh, 285px);
+  margin: 0 auto;
+}
+body.login #login #loginform {
+  margin: 12px auto;
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body.login #login #loginform label {
+  font-size: 12px;
+}
+body.login #login #loginform input {
+  line-height: 1.5;
+  color: #1A1A1A;
+}
+body.login #login #loginform input:focus {
+  border-color: #BA0202;
+  box-shadow: none;
+}
+body.login #login #loginform .user-pass-wrap .button-secondary {
+  color: #BA0202;
+  height: 100%;
+}
+body.login #login #loginform .user-pass-wrap .button-secondary:focus {
+  border-color: #BA0202;
+  box-shadow: none;
+}
+body.login #login #loginform #rememberme {
+  height: 24px;
+  width: 24px;
+}
+body.login #login #loginform #rememberme:checked::before {
+  content: url("./assets/images/check.svg");
+}
+body.login #login #loginform #wp-submit {
+  background-color: #BA0202;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: white;
+}
+body.login #login p a {
+  font-size: 12px;
+  color: #404040;
+}
+body.login #login p a:hover {
+  color: #BA0202;
+}
+body.login #login .privacy-policy-page-link {
+  margin: 4px auto;
+}
+body.login #login .privacy-policy-page-link a {
+  font-size: 12px;
+  text-decoration: none;
+  color: #BA0202;
+}
+body.login #login .privacy-policy-page-link a:hover {
+  text-decoration: underline;
+  color: #404040;
+}
+body.login .language-switcher {
+  display: none;
+}
+
+/*# sourceMappingURL=login-style.css.map */
