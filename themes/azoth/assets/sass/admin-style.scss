@@ -25,6 +25,21 @@
     }
 }
 
+.edit-php {
+    &.post-type-voie,
+    &.post-type-instructeur,
+    &.post-type-contact {
+        .alignleft.actions:not(.bulkactions) {
+            display: none;
+        }
+    }
+    &.post-type-lieu {
+        #filter-by-date {
+            display: none;
+        }
+    }
+}
+
 .post-new-php, .post-php {
     #informations .inside{
         display: flex;
@@ -206,12 +221,12 @@
                                 > .selectit input {
                                     border: none;
                                     border-radius: 0;
-                                    background: url('./assets/images/chevron-down.svg');
+                                    background: url('../images/chevron-down.svg');
                                     background-position: 50%;
                                     box-shadow: none;
                                 }
                                 &:has(input:checked) > .selectit input {
-                                    background: url('./assets/images/chevron-up.svg');
+                                    background: url('../images/chevron-up.svg');
                                     background-position: 50%;
 
                                     &::before {

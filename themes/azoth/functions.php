@@ -25,7 +25,7 @@ add_action('wp_enqueue_scripts', 'azoth_styles');
  */
 
  function azoth_login_styles() {
-	wp_register_style('login-style', get_template_directory_uri() . '/login-style.css', array(), false);
+	wp_register_style('login-style', get_template_directory_uri() . '/assets/css/login-style.css', array(), false);
 	wp_enqueue_style('login-style');
 }
 add_action( 'login_enqueue_scripts', 'azoth_login_styles', 10 );
@@ -38,10 +38,32 @@ function azoth_admin_styles() {
 	wp_enqueue_style('leaflet-style');
 	wp_register_style('leaflet-search-style', get_stylesheet_directory_uri() . '/assets/css/leaflet/leaflet-search.css', array(), false);
 	wp_enqueue_style('leaflet-search-style');
-	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/admin-style.css',  array(), false);
+	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin-style.css',  array(), false);
 	wp_enqueue_style('admin-style');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_styles');
+
+// /* Add admin color scheme */
+// function azoth_admin_color_scheme() {
+// 	wp_admin_css_color(
+// 		'azoth',
+// 		'Azoth',
+// 		get_stylesheet_directory_uri() . '/assets/css/admin-color-scheme.css',
+// 		['#404040', '#fff', '#d47d7d' , '#cc0000']
+// 	);
+// };
+// add_action('admin_init', 'azoth_admin_color_scheme');
+
+// function user_admin_color_scheme( $color_scheme ) {
+//     $color_scheme = 'azoth';
+//     return $color_scheme;
+// }
+// add_filter( 'get_user_option_admin_color', 'user_admin_color_scheme', 5 );
+
+// add_action( 'admin_head-profile.php', 'remove_admin_color_scheme_picker' );
+// function remove_admin_color_scheme_picker() {
+//     remove_action('admin_color_scheme_picker', 'admin_color_scheme_picker');
+// };
 
 /**
  * Enqueue admin scripts
@@ -82,6 +104,9 @@ function azoth_admin_scripts() {
 		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/backoffice/mouvement-immobile.js'), array('leaflet'), false, true);
     	wp_enqueue_script('mouvement-immobile-script');
 	endif;
+
+	wp_register_script('test-script', get_theme_file_uri('/test.js'), array('jquery'), false, true);
+	wp_enqueue_script('test-script');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
 
