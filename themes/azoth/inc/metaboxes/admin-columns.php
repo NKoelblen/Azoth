@@ -1,4 +1,32 @@
 <?php
+/* All */
+function remove_yoast_columns( $columns ) {
+    unset($columns['wpseo-score']);
+    unset($columns['wpseo-score-readability']);
+    unset($columns['wpseo-title']);
+    unset($columns['wpseo-metadesc']);
+    unset($columns['wpseo-focuskw']);
+    unset($columns['wpseo-links']);
+    unset($columns['wpseo-linked']);
+    return $columns;
+}
+add_filter( 'manage_page_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_post_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_voie_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_instructeur_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_lieu_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_contact_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_conference_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_formation_posts_columns', 'remove_yoast_columns' , 18, 1);
+add_filter( 'manage_stage_posts_columns', 'remove_yoast_columns' , 18, 1);
+
+/* Pages */
+
+add_filter( 'manage_page_posts_columns', function ( $columns ) {
+	unset( $columns['date'] );
+	return $columns;
+});
+
 /* Voies */
 
 add_filter( 'manage_voie_posts_columns', function ( $columns ) {

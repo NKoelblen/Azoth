@@ -118,6 +118,7 @@ require_once AZOTH_DIR . 'inc/menus.php';
 require_once AZOTH_DIR . 'inc/support.php';
 require_once AZOTH_DIR . 'inc/taxonomies.php';
 require_once AZOTH_DIR . 'inc/roles.php';
+require_once AZOTH_DIR . 'inc/dashboard.php';
 
 /**
  * Add Custom Post Types
@@ -164,9 +165,9 @@ require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/quick-add-post.php';
 
-/* Set editor number of colums */
+/* Set editor functionalities */
 
-require_once AZOTH_DIR . 'inc/metaboxes/editor-columns.php';
+require_once AZOTH_DIR . 'inc/metaboxes/editor.php';
 
 /* Set admin colums & filters */
 

@@ -1,4 +1,5 @@
 <?php
+
 add_action( 'restrict_manage_posts', 'add_admin_filters', 10, 1 );
 function add_admin_filters( $post_type ){
 	if( $post_type === 'lieu' ){
