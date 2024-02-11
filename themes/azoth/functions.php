@@ -6,6 +6,15 @@
  *
  */
 
+// add_action('admin_init','dump_admin');
+function dump_admin() {
+  if (is_admin()) {
+    header('Content-Type:text/plain');
+    var_dump($GLOBALS['menu']);
+    exit;
+  }
+}
+
 /**
  * Define Constants
  */
@@ -119,6 +128,7 @@ require_once AZOTH_DIR . 'inc/support.php';
 require_once AZOTH_DIR . 'inc/taxonomies.php';
 require_once AZOTH_DIR . 'inc/roles.php';
 require_once AZOTH_DIR . 'inc/dashboard.php';
+require_once AZOTH_DIR . 'inc/admin-menu.php';
 
 /**
  * Add Custom Post Types
