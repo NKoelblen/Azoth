@@ -129,6 +129,7 @@ require_once AZOTH_DIR . 'inc/taxonomies.php';
 require_once AZOTH_DIR . 'inc/roles.php';
 require_once AZOTH_DIR . 'inc/dashboard.php';
 require_once AZOTH_DIR . 'inc/admin-menu.php';
+require_once AZOTH_DIR . 'inc/admin-bar.php';
 
 /**
  * Add Custom Post Types

@@ -5,7 +5,7 @@
 
 function add_admin_menu_separator($position) {
     global $menu;
-    $index = 2;
+    $index = 1;
     foreach($menu as $offset => $section) :
         if (substr($section[2],0,9)=='separator') :
             $index++;
@@ -26,7 +26,7 @@ add_action('admin_menu', function() {
 });
 
 /**
- * Change menu order
+ * Reorder menu
  */
 
 function custom_menu_order( $menu_order ) {
@@ -45,7 +45,7 @@ function custom_menu_order( $menu_order ) {
         'edit.php?post_type=lieu', // Custom-Post
         'edit.php?post_type=contact', // Custom-Post
 
-        'separator3', // Second separator
+        'separator3',
 
         'edit.php', // Posts
         'upload.php', // Media
@@ -58,8 +58,8 @@ function custom_menu_order( $menu_order ) {
 
         'separator5', // Second separator
 
-        'edit.php?post_type=page', // Pages
         'edit.php?post_type=voie', // Custom-Post
+        'edit.php?post_type=page', // Pages
 
         'separator6', // Second separator
 

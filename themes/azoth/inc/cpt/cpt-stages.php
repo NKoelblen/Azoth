@@ -44,6 +44,7 @@ function stage_post_type()
         'show_ui'               => true,
         'show_in_menu'          => true,
         'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-universal-access-alt',
         'show_in_admin_bar'     => true,
         'show_in_nav_menus'     => true,
         'can_export'            => true,
