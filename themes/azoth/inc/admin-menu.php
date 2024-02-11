@@ -79,7 +79,7 @@ add_filter( 'custom_menu_order', 'custom_menu_order', 10, 1 );
 add_filter( 'menu_order', 'custom_menu_order', 10, 1 );
 
 /**
- * Remove menus
+ * Remove menu items
  */
 function remove_menus(){
   

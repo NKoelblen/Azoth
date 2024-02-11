@@ -114,8 +114,8 @@ function azoth_admin_scripts() {
     	wp_enqueue_script('mouvement-immobile-script');
 	endif;
 
-	wp_register_script('test-script', get_theme_file_uri('/test.js'), array('jquery'), false, true);
-	wp_enqueue_script('test-script');
+	// wp_register_script('test-script', get_theme_file_uri('/test.js'), array('jquery'), false, true);
+	// wp_enqueue_script('test-script');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
 

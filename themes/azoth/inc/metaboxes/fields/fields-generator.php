@@ -44,7 +44,11 @@ function fields_generator($post, $fields) {
                     if ($field['id'] === 'title') :
                         $meta_value = $post->post_title;
                     elseif ($field['id'] === 'content'):
-                        $meta_value = $post->post_content;
+                        if(!isset(stdClass::$post_content)) :
+                            $meta_value = "";
+                        else:
+                            $meta_value = $post->post_content;
+                        endif;
                     elseif ($field['id'] === 'author'):
                         $meta_value = $post->post_author;
                     elseif ($field['id'] === 'thumbnail'):
