@@ -8,6 +8,7 @@
  *
  */
 ?>
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -27,11 +28,11 @@
         <div class="site-branding">
         	<div class="site-logo"></div>
         	<?php if ($blog_info) : ?>
-        			<p><a href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html($blog_info); ?></a></p>
+        			<p><a href="<?= esc_url(home_url('/')); ?>"><?= esc_html($blog_info); ?></a></p>
         	<?php endif; ?>
         	<?php if ($description) : ?>
         		<p class="site-description">
-        			<?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+        			<?= $description; ?>
         		</p>
         	<?php endif; ?>
         </div><!-- .site-branding -->
@@ -44,15 +45,14 @@
         				<span class="dropdown-icon close"></span>
         			</button><!-- #primary-mobile-menu -->
         		</div><!-- .menu-button-container -->
-        		<?php
-        		wp_nav_menu(
-        			array(
+        		<?php wp_nav_menu(
+        			[
         				'theme_location'  => 'primary',
         				'menu_class'      => 'menu-wrapper',
         				'container_class' => 'primary-menu-container',
         				'items_wrap'      => '<ul id="primary-menu-list" class="%2$s">%3$s</ul>',
         				'fallback_cb'     => false,
-        			)
+					]
         		); ?>
         	</nav><!-- #site-navigation -->
         <?php endif; ?>

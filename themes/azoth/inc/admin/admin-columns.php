@@ -97,7 +97,8 @@ add_filter('manage_conference_posts_custom_column', function ($column, $postId) 
     if ($column === 'lieu') :
         if(get_post_meta($postId, 'lieu', true) !== "") :
             echo get_the_title(get_post_meta($postId, 'lieu', true));
-        endif;    elseif ($column === 'e_date') :
+        endif;
+    elseif ($column === 'e_date') :
         echo get_post_meta($postId, 'e_date_du', true);
     elseif ($column === 'heure') :
         echo get_post_meta($postId, 'e_heure', true);
@@ -141,7 +142,7 @@ add_filter('manage_formation_posts_custom_column', function ($column, $postId) {
     elseif ($column === 'date_du') :
         echo get_post_meta($postId, 'e_date_du', true);
     elseif ($column === 'date_au') :
-    echo get_post_meta($postId, 'e_date_au', true);
+        echo get_post_meta($postId, 'e_date_au', true);
     endif;
 }, 10, 2);
 
@@ -182,7 +183,7 @@ add_filter('manage_stage_posts_custom_column', function ($column, $postId) {
     elseif ($column === 'date_du') :
         echo get_post_meta($postId, 'e_date_du', true);
     elseif ($column === 'date_au') :
-    echo get_post_meta($postId, 'e_date_au', true);
+        echo get_post_meta($postId, 'e_date_au', true);
     endif;
 }, 10, 2);
 

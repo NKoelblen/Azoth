@@ -30,8 +30,10 @@ add_action('admin_menu', function() {
  */
 
 function custom_menu_order( $menu_order ) {
-    if ( !$menu_order ) return true;
-    return array(
+    if ( !$menu_order ) :
+        return true;
+    endif;
+    return [
         'index.php', // Dashboard
 
         'separator1', // First separator
@@ -73,7 +75,7 @@ function custom_menu_order( $menu_order ) {
         'monsterinsights_reports',
         'wpseo_dashboard',
         'filebird-settings',
-    );
+    ];
 }
 add_filter( 'custom_menu_order', 'custom_menu_order', 10, 1 );
 add_filter( 'menu_order', 'custom_menu_order', 10, 1 );

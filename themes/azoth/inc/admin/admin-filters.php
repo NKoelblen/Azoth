@@ -2,58 +2,64 @@
 
 add_action( 'restrict_manage_posts', 'add_admin_filters', 10, 1 );
 function add_admin_filters( $post_type ){
-	if( $post_type === 'lieu' ){
+	if( $post_type === 'lieu' ) :
 		$taxonomy = get_taxonomy( 'geo_zone' );
 		$selected = '';
 		// if the current page is already filtered, get the selected term slug
 		$selected = isset( $_REQUEST[ 'geo_zone' ] ) ? $_REQUEST[ 'geo_zone' ] : '';
 		// render a dropdown for this taxonomy's terms
-		wp_dropdown_categories( array(
-			'show_option_all' =>  $taxonomy->labels->all_items,
-			'taxonomy'        =>  'geo_zone',
-			'name'            =>  'geo_zone',
-			'orderby'         =>  'name',
-			'value_field'     =>  'slug',
-			'selected'        =>  $selected,
-			'hierarchical'    =>  true,
-		) );
-	}
+		wp_dropdown_categories(
+            [
+			    'show_option_all' =>  $taxonomy->labels->all_items,
+			    'taxonomy'        =>  'geo_zone',
+			    'name'            =>  'geo_zone',
+			    'orderby'         =>  'name',
+			    'value_field'     =>  'slug',
+			    'selected'        =>  $selected,
+			    'hierarchical'    =>  true,
+		    ]
+        );
+    endif;
 
-    if( $post_type === 'conference' || $post_type === 'formation' || $post_type === 'stage' ){
+    if( $post_type === 'conference' || $post_type === 'formation' || $post_type === 'stage' ) :
 
 		$selected = '';
 
-        if(isset($_REQUEST['author'])){
+        if(isset($_REQUEST['author'])) :
             $selected = (int)sanitize_text_field($_REQUEST['author']);
-        }
-        wp_dropdown_users([
-			'show_option_all'   => 'Tous les instructeurs',
-			'orderby'           => 'display_name',
-			'order'             => 'ASC',
-			'name'              => 'author',
-			'who'				=> '',	
-			'include_selected'  => true,
-			'selected'        	=> $selected,
-		]);
-    }
+        endif;
+        wp_dropdown_users(
+            [
+			    'show_option_all'   => 'Tous les instructeurs',
+			    'orderby'           => 'display_name',
+			    'order'             => 'ASC',
+			    'name'              => 'author',
+			    'who'				=> '',	
+			    'include_selected'  => true,
+			    'selected'        	=> $selected,
+		    ]
+        );
+    endif;
 
-	if( $post_type === 'stage' ){
+	if( $post_type === 'stage' ) :
 		$tax_name = 'stage_categorie';
 		$taxonomy = get_taxonomy( $tax_name );
 		$selected = '';
 		// if the current page is already filtered, get the selected term slug
 		$selected = isset( $_REQUEST[ $tax_name ] ) ? $_REQUEST[ $tax_name ] : '';
 		// render a dropdown for this taxonomy's terms
-		wp_dropdown_categories( array(
-			'show_option_all' =>  $taxonomy->labels->all_items,
-			'taxonomy'        =>  $tax_name,
-			'name'            =>  $tax_name,
-			'orderby'         =>  'name',
-			'value_field'     =>  'slug',
-			'selected'        =>  $selected,
-			'hierarchical'    =>  true,
-		) );
-	}
+		wp_dropdown_categories(
+            [
+			    'show_option_all' =>  $taxonomy->labels->all_items,
+			    'taxonomy'        =>  $tax_name,
+			    'name'            =>  $tax_name,
+			    'orderby'         =>  'name',
+			    'value_field'     =>  'slug',
+			    'selected'        =>  $selected,
+			    'hierarchical'    =>  true,
+		    ]
+        );
+    endif;
 }
 
 function cmp($a, $b)
@@ -67,9 +73,9 @@ function add_voie_filter($post_type){
     global $wpdb;
     
     /** Ensure this is the correct Post Type*/
-    if($post_type !== 'formation' && $post_type !== 'stage'){
+    if($post_type !== 'formation' && $post_type !== 'stage') :
 		return;
-	}
+	endif;
     
     /** Grab the results from the DB */
     $query = $wpdb->prepare('
@@ -95,15 +101,15 @@ function add_voie_filter($post_type){
 	endforeach;
     
     /** Ensure there are options to show */
-    if(empty($voies)) {
+    if(empty($voies)) :
         return;
-	}
+	endif;
 
 		$selected = '';
     // get selected option if there is one selected
-    if (isset( $_GET['f_voie'] ) && $_GET['f_voie'] !== '') {
+    if (isset( $_GET['f_voie'] ) && $_GET['f_voie'] !== '') :
         $selected = $_GET['f_voie'];
-    }
+    endif;
     
     /** Grab all of the options that should be shown */
     $options[] = '<option value="">Toutes les voies</option>';
@@ -124,20 +130,20 @@ function add_voie_filter($post_type){
 
 add_filter( 'parse_query', 'parse_voie_filter' );
 function  parse_voie_filter($query) {
-   global $pagenow;
-   $current_page = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+    global $pagenow;
+    $current_page = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
    
-   if ( is_admin() && 
-     ('formation' === $current_page || 'stage' === $current_page) &&
-     'edit.php' === $pagenow && 
-      isset( $_GET['f_voie'] ) && 
-      $_GET['f_voie'] != '' ) {
+    if (is_admin() && 
+        ('formation' === $current_page || 'stage' === $current_page) &&
+        'edit.php' === $pagenow && 
+        isset( $_GET['f_voie'] ) && 
+        $_GET['f_voie'] != '') :
    
-    $voie = $_GET['f_voie'];
-    $query->query_vars['meta_key']     = 'e_voie';
-    $query->query_vars['meta_value']   = $voie;
-    $query->query_vars['meta_compare'] = '=';
-  }
+        $voie = $_GET['f_voie'];
+        $query->query_vars['meta_key']     = 'e_voie';
+        $query->query_vars['meta_value']   = $voie;
+        $query->query_vars['meta_compare'] = '=';
+    endif;
 }
 
 add_action('restrict_manage_posts', 'add_lieu_filter');
@@ -146,9 +152,9 @@ function add_lieu_filter($post_type){
     global $wpdb;
     
     /** Ensure this is the correct Post Type*/
-    if($post_type !== 'conference' && $post_type !== 'formation' && $post_type !== 'stage'){
+    if($post_type !== 'conference' && $post_type !== 'formation' && $post_type !== 'stage') :
 		return;
-	}
+	endif;
     
     /** Grab the results from the DB */
     $query = $wpdb->prepare('
@@ -178,24 +184,24 @@ function add_lieu_filter($post_type){
     endif;
     
     /** Ensure there are options to show */
-    if(empty($lieux)) {
+    if(empty($lieux)) :
         return;
-	}
+	endif;
 
 		$selected = '';
     // get selected option if there is one selected
-    if (isset( $_GET['f_lieu'] ) && $_GET['f_lieu'] !== '') {
+    if (isset( $_GET['f_lieu'] ) && $_GET['f_lieu'] !== '') :
         $selected = $_GET['f_lieu'];
-    }
+    endif;
     
     /** Grab all of the options that should be shown */
     $options[] = '<option value="">Tous les lieux</option>';
     foreach($lieux as $lieu) :
-        if ($lieu['id'] === $selected) {
+        if ($lieu['id'] === $selected) :
             $options[] = sprintf('<option value="%1$s" selected>%2$s</option>', esc_attr($lieu['id']), $lieu['title']);
-        } else {
+        else :
             $options[] = sprintf('<option value="%1$s">%2$s</option>', esc_attr($lieu['id']), $lieu['title']);
-        }
+        endif;
     endforeach;
 
     /** Output the dropdown menu */
@@ -207,18 +213,18 @@ function add_lieu_filter($post_type){
 
 add_filter( 'parse_query', 'parse_lieu_filter' );
 function  parse_lieu_filter($query) {
-   global $pagenow;
-   $current_page = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+    global $pagenow;
+    $current_page = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+    
+    if (is_admin() &&
+        ('conference' === $current_page || 'formation' == $current_page || 'stage' == $current_page) &&
+        'edit.php' === $pagenow && 
+        isset( $_GET['f_lieu'] ) && 
+        $_GET['f_lieu'] != '') :
    
-   if ( is_admin() && 
-     ('conference' === $current_page || 'formation' == $current_page || 'stage' == $current_page) &&
-     'edit.php' === $pagenow && 
-      isset( $_GET['f_lieu'] ) && 
-      $_GET['f_lieu'] != '' ) {
-   
-    $lieu = $_GET['f_lieu'];
-    $query->query_vars['meta_key']     = 'lieu';
-    $query->query_vars['meta_value']   = $lieu;
-    $query->query_vars['meta_compare'] = '=';
-  }
+        $lieu = $_GET['f_lieu'];
+        $query->query_vars['meta_key']     = 'lieu';
+        $query->query_vars['meta_value']   = $lieu;
+        $query->query_vars['meta_compare'] = '=';
+    endif;
 }
