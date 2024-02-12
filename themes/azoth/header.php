@@ -26,9 +26,9 @@
     $description = get_bloginfo('description', 'display'); ?>
 
         <div class="site-branding">
-        	<div class="site-logo"></div>
+        	<div class="site-logo"><a href="<?= esc_url(home_url('/')); ?>"><img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo.webp'); ?>"></a></div>
         	<?php if ($blog_info) : ?>
-        			<p><a href="<?= esc_url(home_url('/')); ?>"><?= esc_html($blog_info); ?></a></p>
+        			<p><a href="<?= esc_url(home_url('/')); ?>"><?= $blog_info ?></a></p>
         	<?php endif; ?>
         	<?php if ($description) : ?>
         		<p class="site-description">

@@ -20,24 +20,21 @@ if (have_posts()) : ?>
 	    the_post(); ?>
 	    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
         	<header class="entry-header">
-        		<?php the_title(sprintf('<h2 class="entry-title"><a href="%s">', esc_url(get_permalink())), '</a></h2>');
+        		<?php the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '">', '</a></h2>');
         		the_post_thumbnail('large'); ?>
         	</header><!-- .entry-header -->
             
         	<div class="entry-content">
-        		<?php the_content(
-        		);
+        		<?php the_content();
             
         		wp_link_pages(
         			array(
-        				'before'   => '<nav class="page-links" aria-label="' . esc_attr__('Page') . '">',
+        				'before'   => '<nav class="page-links" aria-label="Page">',
         				'after'    => '</nav>',
         				/* translators: %: Page number. */
-        				'pagelink' => esc_html__('Page %'),
+        				'pagelink' => 'Page %',
         			)
-        		);
-            
-        		?>
+        		); ?>
         	</div><!-- .entry-content -->
             
         	<footer class="entry-footer">
@@ -45,35 +42,21 @@ if (have_posts()) : ?>
 		        	<?php $time_string = '<time class="entry-date" datetime="%1$s">%2$s</time>';
                     $time_string = sprintf(
                         $time_string,
-                        esc_attr(get_the_date(DATE_W3C)),
-                        esc_html(get_the_date())
+                        get_the_date(DATE_W3C),
+                        get_the_date()
                     ); ?>
-                    <span class="posted-on">'
-                    <?php printf(
-                        /* translators: %s: Publish date. */
-                        esc_html__('Publié le %s'),
-                        $time_string
-                    ); ?>
-                    </span>
+                    <span class="posted-on">Publié le <?= $time_string ?></span>
 		        </div>
                 <?php if (has_category() || has_tag()) : ?>
                     <div class="post-taxonomies">
                         <?php $categories_list = get_the_category_list(wp_get_list_item_separator());
-                        if ($categories_list) :
-                            printf(
-                                /* translators: %s: List of categories. */
-                                '<span class="cat-links">' . esc_html__('%s') . ' </span>',
-                                $categories_list // phpcs:ignore WordPress.Security.EscapeOutput
-                            );
-                        endif;
+                        if ($categories_list) : ?>
+							<span class="cat-links"><?= $categories_list?></span>
+                        <?php endif;
                         $tags_list = get_the_tag_list('', wp_get_list_item_separator());
-                        if ($tags_list) :
-                            printf(
-                                /* translators: %s: List of tags. */
-                                '<span class="tags-links">' . esc_html__('%s') . '</span>',
-                                $tags_list // phpcs:ignore WordPress.Security.EscapeOutput
-                            );
-                        endif ?>
+                        if ($tags_list) : ?>
+                            <span class="tags-links"><?= $tags_list ?></span>
+                        <?php endif ?>
                     </div>
                 <?php endif; ?>
         	</footer><!-- .entry-footer -->
@@ -84,15 +67,10 @@ if (have_posts()) : ?>
 			array(
 				'before_page_number' => 'Page' . ' ',
 				'mid_size'           => 0,
-				'prev_text'          => sprintf(
-					'<span class="nav-prev-text"></span>Newer <span class="nav-short">posts</span>',
-				),
-				'next_text'          => sprintf(
-					'<span class="nav-next-text"></span>Older <span class="nav-short">posts</span>',
-				),
+				'prev_text'          => '<span class="nav-prev-text"></span>Articles <span class="nav-short">précédents</span>',
+				'next_text'          => '<span class="nav-next-text"></span>Articles <span class="nav-short">suivants</span>',
 			)
 		);
 endif; ?>
 
-<?php
-get_footer();
+<?php get_footer();
