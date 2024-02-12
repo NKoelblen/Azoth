@@ -25,6 +25,8 @@ function dump_admin() {
  * Enqueue styles
  */
 function azoth_styles() {
+	wp_register_style('leaflet-style', get_template_directory_uri() . '/assets/css/leaflet/leaflet.css', array(), false);
+	wp_enqueue_style('leaflet-style');
 	wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css', array(), filemtime(get_stylesheet_directory() . '/style.css'));
 }
 add_action('wp_enqueue_scripts', 'azoth_styles');
@@ -73,6 +75,19 @@ add_action('admin_enqueue_scripts', 'azoth_admin_styles');
 // function remove_admin_color_scheme_picker() {
 //     remove_action('admin_color_scheme_picker', 'admin_color_scheme_picker');
 // };
+
+/**
+ * Enqueue scripts
+ */
+function azoth_scripts() {
+	wp_register_script('leaflet', get_theme_file_uri('/assets/js/leaflet/leaflet.js'), array(), false, true);
+	wp_enqueue_script('leaflet');
+
+	wp_register_script('map-script', get_theme_file_uri('/assets/js/front/map.js'), ['leaflet', 'jquery' ], false, true);
+    wp_enqueue_script('map-script');
+}
+add_action('wp_enqueue_scripts', 'azoth_scripts');
+
 
 /**
  * Enqueue admin scripts

@@ -7,8 +7,6 @@
  */
 get_header();
 
-// global $post;
-
 /* Start the Loop */
 while (have_posts()) :
 	the_post(); ?>
