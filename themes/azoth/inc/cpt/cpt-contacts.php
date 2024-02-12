@@ -36,8 +36,8 @@ function contact_post_type()
         'label'                 => __('Contact'),
         'description'           => __('Contacts'),
         'labels'                => $labels,
-        'supports'              => array('title'),
-        'taxonomies'            => array(),
+        'supports'              => ['title'],
+        'taxonomies'            => [],
         'hierarchical'          => false,
         'public'                => true,
         'show_in_rest'          => false, // Gutenberg

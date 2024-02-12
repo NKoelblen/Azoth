@@ -37,7 +37,7 @@ function lieu_post_type()
         'description'           => __('Lieux'),
         'labels'                => $labels,
         'supports'              => ['title'],
-        'taxonomies'            => array(),
+        'taxonomies'            => [],
         'hierarchical'          => false,
         'public'                => true,
         'show_in_rest'          => false, // Gutenberg

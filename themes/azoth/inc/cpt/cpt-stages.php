@@ -37,7 +37,7 @@ function stage_post_type()
         'description'           => __('Stages'),
         'labels'                => $labels,
         'supports'              => false,
-        'taxonomies'            => array(),
+        'taxonomies'            => [],
         'hierarchical'          => false,
         'public'                => true,
         'show_in_rest'          => false, // Gutenberg

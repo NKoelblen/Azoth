@@ -38,7 +38,7 @@ function conference_post_type()
         'description'           => __('Conférences'),
         'labels'                => $labels,
         'supports'              => false,
-        'taxonomies'            => array(),
+        'taxonomies'            => [],
         'hierarchical'          => false,
         'public'                => true,
         'show_in_rest'          => false, // Gutenberg
