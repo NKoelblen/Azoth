@@ -20,7 +20,10 @@ while (have_posts()) :
             <p class="post-taxonomies">
                 <?php $terms = get_the_terms($post->ID, 'geo_zone');
                 foreach ($terms as $term) :
-                    echo get_term_parents_list($term->term_id, 'geo_zone', ['separator' => ' | ']);
+                    $term_parents_list =  get_term_parents_list($term->term_id, 'geo_zone', ['separator' => '|']);
+					$term_parents = explode('|', $term_parents_list);
+					array_pop($term_parents);
+					echo implode(' | ', $term_parents);
                 endforeach; ?>
             </p>
 		</header><!-- .entry-header -->
