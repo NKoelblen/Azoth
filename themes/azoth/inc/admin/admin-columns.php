@@ -84,6 +84,7 @@ add_filter( 'manage_contact_posts_columns', function ( $columns ) {
 add_filter('manage_conference_posts_columns', function ($columns) {
     $newColumns = [
         'cb'        => $columns['cb'],
+        'title'     => 'Intitulé',
         'author'  => 'Instructeur',
         'lieu'  => 'Lieu',
         'e_date'  => 'Date',
@@ -115,6 +116,7 @@ add_filter( 'manage_edit-conference_sortable_columns', function( $columns ) {
 add_filter('manage_formation_posts_columns', function ($columns) {
     $newColumns = [
         'cb'        => $columns['cb'],
+        'title'     => 'Intitulé',
         'voie' => 'Voie',
         'author'  => 'Instructeur',
         'lieu'  => 'Lieu',
@@ -135,7 +137,7 @@ add_filter('manage_formation_posts_custom_column', function ($column, $postId) {
             echo get_the_title(get_post_meta($postId, 'lieu', true));
         endif;
     elseif ($column === 'session') :
-        echo 'Session n° ' . get_post_meta($postId, 'e_session', true);
+        echo get_post_meta($postId, 'e_session', true);
     elseif ($column === 'date_du') :
         echo get_post_meta($postId, 'e_date_du', true);
     elseif ($column === 'date_au') :
@@ -157,6 +159,7 @@ add_filter( 'manage_edit-formation_sortable_columns', function( $columns ) {
 add_filter('manage_stage_posts_columns', function ($columns) {
     $newColumns = [
         'cb'        => $columns['cb'],
+        'title'     => 'Intitulé',
         'taxonomy-stage_categorie' => 'Catégorie',
         'voie' => 'Voie',
         'author'  => 'Instructeur',

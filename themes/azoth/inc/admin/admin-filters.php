@@ -173,7 +173,9 @@ function add_lieu_filter($post_type){
 		endif;
 	endforeach;
 
-	usort($lieux, "cmp");
+    if(isset($lieux)) :
+	    usort($lieux, "cmp");
+    endif;
     
     /** Ensure there are options to show */
     if(empty($lieux)) {

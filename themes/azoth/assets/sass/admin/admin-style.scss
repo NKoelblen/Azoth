@@ -23,6 +23,24 @@
 				display: none;
 			}
 		}
+		// &-conference,
+		// &-formation,
+		// &-stage {
+		// 	.column-session,
+		// 	.column-date_du,
+		// 	.column-date_au,
+		// 	.column-e_date,
+		// 	.column-heure {
+		// 		width: 87px;
+		// 	}
+		// 	.column-author,
+		// 	.column-taxonomy-stage_categorie {
+		// 		width: 164px;
+		// 	}
+		// 	.column-voie {
+		// 		width: 177px;
+		// 	}
+		// }
 	}
 }
 
@@ -709,6 +727,10 @@
 			* {
 			margin: 0;
 		}
+	}
+	.wp-list-table th#thumbnail,
+	.wp-list-table tr:not(.inline-edit-row):not(.no-items) td.thumbnail {
+		display: none;
 	}
 }
 

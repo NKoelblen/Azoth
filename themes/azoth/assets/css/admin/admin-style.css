@@ -714,6 +714,10 @@
   .post-php.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .category-add * {
     margin: 0;
   }
+  .wp-list-table th#thumbnail,
+  .wp-list-table tr:not(.inline-edit-row):not(.no-items) td.thumbnail {
+    display: none;
+  }
 }
 @media screen and (max-width: 711px) {
   .post-new-php #informations .inside fieldset div:has(.media-library-uploader:not(.modal-outer .media-library-uploader)) .media-library-uploader .preview_image,

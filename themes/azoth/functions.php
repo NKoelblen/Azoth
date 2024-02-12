@@ -47,7 +47,7 @@ function azoth_admin_styles() {
 	wp_enqueue_style('leaflet-style');
 	wp_register_style('leaflet-search-style', get_stylesheet_directory_uri() . '/assets/css/leaflet/leaflet-search.css', array(), false);
 	wp_enqueue_style('leaflet-search-style');
-	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin-style.css',  array(), false);
+	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin/admin-style.css',  array(), false);
 	wp_enqueue_style('admin-style');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_styles');
@@ -82,7 +82,7 @@ function azoth_admin_scripts() {
         wp_enqueue_media();
     }
 
-	wp_register_script('media-library-uploader-script', get_theme_file_uri('/assets/js/backoffice/media-library-uploader.js'), array('jquery'), false, true);
+	wp_register_script('media-library-uploader-script', get_theme_file_uri('/assets/js/admin/media-library-uploader.js'), array('jquery'), false, true);
 	wp_enqueue_script('media-library-uploader-script');
 
 	wp_register_script('leaflet', get_theme_file_uri('/assets/js/leaflet/leaflet.js'), array(), false, true);
@@ -93,24 +93,24 @@ function azoth_admin_scripts() {
 	global $post;
 
 	if(get_current_screen()->base === 'post' && ($post->post_type === 'lieu' || $post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
-		wp_register_script('map-script', get_theme_file_uri('/assets/js/backoffice/map.js'), array('leaflet'), false, true);
+		wp_register_script('map-script', get_theme_file_uri('/assets/js/admin/map.js'), array('leaflet'), false, true);
     	wp_enqueue_script('map-script');
-		wp_register_script('geo-zone-script', get_theme_file_uri('/assets/js/backoffice/geo-zone.js'), array('jquery'), false, true);
+		wp_register_script('geo-zone-script', get_theme_file_uri('/assets/js/admin/geo-zone.js'), array('jquery'), false, true);
 		wp_enqueue_script('geo-zone-script');
 	endif;
 
 	if(get_current_screen()->base === 'post' && ($post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
-		wp_register_script('contact-script', get_theme_file_uri('/assets/js/backoffice/contact.js'), array('leaflet'), false, true);
+		wp_register_script('contact-script', get_theme_file_uri('/assets/js/admin/contact.js'), array('leaflet'), false, true);
     	wp_enqueue_script('contact-script');
-		wp_register_script('quick-add-post-script', get_theme_file_uri('/assets/js/backoffice/quick-add-post.js'), array('jquery'), false, true);
+		wp_register_script('quick-add-post-script', get_theme_file_uri('/assets/js/admin/quick-add-post.js'), array('jquery'), false, true);
 		wp_enqueue_script('quick-add-post-script');	
 	endif;
 	if(get_current_screen()->base === 'post' && ($post->post_type === 'formation' || $post->post_type === 'stage')) :
-		wp_register_script('evenement-dates-script', get_theme_file_uri('/assets/js/backoffice/evenement-dates.js'), array('leaflet'), false, true);
+		wp_register_script('evenement-dates-script', get_theme_file_uri('/assets/js/admin/evenement-dates.js'), array('leaflet'), false, true);
     	wp_enqueue_script('evenement-dates-script');
 	endif;
 	if(get_current_screen()->base === 'post' && $post->post_type === 'stage') :
-		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/backoffice/mouvement-immobile.js'), array('leaflet'), false, true);
+		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/admin/mouvement-immobile.js'), array('leaflet'), false, true);
     	wp_enqueue_script('mouvement-immobile-script');
 	endif;
 
@@ -118,18 +118,6 @@ function azoth_admin_scripts() {
 	// wp_enqueue_script('test-script');
 }
 add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
-
-/**
- * Include miscellaneous
- */
-
-require_once AZOTH_DIR . 'inc/menus.php';
-require_once AZOTH_DIR . 'inc/support.php';
-require_once AZOTH_DIR . 'inc/taxonomies.php';
-require_once AZOTH_DIR . 'inc/roles.php';
-require_once AZOTH_DIR . 'inc/dashboard.php';
-require_once AZOTH_DIR . 'inc/admin-menu.php';
-require_once AZOTH_DIR . 'inc/admin-bar.php';
 
 /**
  * Add Custom Post Types
@@ -176,11 +164,26 @@ require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/quick-add-post.php';
 
-/* Set editor functionalities */
+/**
+ * Add taxonomies
+ */
+require_once AZOTH_DIR . 'inc/taxonomies.php';
 
-require_once AZOTH_DIR . 'inc/metaboxes/editor.php';
 
-/* Set admin colums & filters */
+/**
+ * Include admin functionalities
+ */
 
-require_once AZOTH_DIR . 'inc/metaboxes/admin-columns.php';
-require_once AZOTH_DIR . 'inc/metaboxes/admin-filters.php';
+require_once AZOTH_DIR . 'inc/admin/support.php';
+require_once AZOTH_DIR . 'inc/admin/roles.php';
+require_once AZOTH_DIR . 'inc/admin/dashboard.php';
+require_once AZOTH_DIR . 'inc/admin/admin-menu.php';
+require_once AZOTH_DIR . 'inc/admin/admin-bar.php';
+require_once AZOTH_DIR . 'inc/admin/admin-columns.php';
+require_once AZOTH_DIR . 'inc/admin/admin-filters.php';
+require_once AZOTH_DIR . 'inc/admin/editor.php';
+
+/**
+ * Include front functionnalities
+ */
+require_once AZOTH_DIR . 'inc/front/menus.php';
