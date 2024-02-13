@@ -1,4 +1,5 @@
 <?php
+add_action('admin_init', 'add_azoth_caps');
 function add_azoth_caps() {
 	$role = get_role('administrator');
     $caps = [
@@ -57,7 +58,6 @@ function add_azoth_caps() {
 	    $role->add_cap($cap); 
     endforeach;
 }
-add_action('admin_init', 'add_azoth_caps');
 
 add_role(
 	'instructeur',

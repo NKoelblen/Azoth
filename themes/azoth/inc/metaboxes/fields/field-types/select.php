@@ -1,16 +1,17 @@
 <?php
-function select_field($field, $meta_value, $disabled) {
-    if ($meta_value) :
+function select_field($field, $meta_value, $disabled) { ?>
+    <select
+        id="<?= $field['id'] ?>"
+        name="<?= $field['id'] ?>"
+        <?= $disabled ?>
+        <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
+    >
+    <?php if ($meta_value) :
         $selected  = isset($meta_value) ? $meta_value : '';
         $selected_key = array_search(
             $selected,
             array_column($field['options'], 'id')
         ); ?>
-        <select
-            id="<?= $field['id'] ?>"
-            name="<?= $field['id'] ?>"
-            <?= $disabled ?>
-        >
             <option value="<?= $selected ?>">
                 <?= $field['options'][$selected_key]['title']; ?>
             </option>
@@ -22,11 +23,6 @@ function select_field($field, $meta_value, $disabled) {
                 </option>
             <?php endforeach; // option 
     else : // !meta_value ?>
-        <select
-            id="<?= $field['id'] ?>"
-            name="<?= $field['id'] ?>"
-            <?= $disabled ?>
-        >
             <option value=""></option>
             <?php foreach ($field['options'] as $option) : ?>
                 <option value="<?= $option['id'] ?>">
@@ -36,7 +32,7 @@ function select_field($field, $meta_value, $disabled) {
     endif; // meta_value ?>
     </select>
     <?php if(isset($field['add'])) : ?>
-            <a class="taxonomy-add-new add <?= $field['id'] ?>"><?= $field['add']; ?></a>
+        <a class="taxonomy-add-new add <?= $field['id'] ?>"><?= $field['add']; ?></a>
         <div class="modal-outer <?= $field['id'] ?>">
             <div class="modal-inner">
                 <button type="button" class="media-modal-close">

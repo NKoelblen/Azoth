@@ -1,17 +1,55 @@
 <?php
 /* Remove dashboard widgets */
+add_action('wp_dashboard_setup', 'wpdocs_remove_dashboard_widgets');
 function wpdocs_remove_dashboard_widgets(){
-	remove_meta_box('dashboard_right_now', 'dashboard', 'normal');   // Right Now
-	remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal'); // Recent Comments
-	remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');  // Incoming Links
-	remove_meta_box('dashboard_plugins', 'dashboard', 'normal');   // Plugins
-	remove_meta_box('dashboard_quick_press', 'dashboard', 'side');  // Quick Press
-	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'side');  // Recent Drafts
-	remove_meta_box('dashboard_primary', 'dashboard', 'side');   // WordPress blog
-	remove_meta_box('dashboard_secondary', 'dashboard', 'side');   // Other WordPress News
-	remove_meta_box('dashboard_activity', 'dashboard', 'normal');
-	remove_meta_box('wpseo-wincher-dashboard-overview', 'dashboard', 'normal');
-	remove_meta_box('wpseo-dashboard-overview', 'dashboard', 'normal');
+	$meta_boxes = [
+		[
+			'id'	 	=> 'dashboard_right_now', // Right Now
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'dashboard_recent_comments', // Recent Comments
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'dashboard_incoming_links', // Incoming Links
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'dashboard_plugins', // Plugins
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'dashboard_quick_press' ,// Quick Press
+			'context' 	=> 'side'
+		],
+		[
+			'id'	 	=> 'dashboard_recent_drafts', // Recent Drafts
+			'context' 	=> 'side'
+		],
+		[
+			'id'	 	=> 'dashboard_primary', // WordPress blog
+			'context' 	=> 'side'
+		],
+		[
+			'id'	 	=> 'dashboard_secondary', // Other WordPress News
+			'context' 	=> 'side'
+		],
+		[
+			'id'	 	=> 'dashboard_activity',
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'wpseo-wincher-dashboard-overview',
+			'context' 	=> 'normal'
+		],
+		[
+			'id'	 	=> 'wpseo-dashboard-overview',
+			'context' 	=> 'normal'
+		],
+	];
+	foreach($meta_boxes as $meta_box) :
+	remove_meta_box($meta_box['id'], 'dashboard', $meta_box['context']);   // Right Now
+	endforeach;
 	remove_action('welcome_panel', 'wp_welcome_panel');	// use 'dashboard-network' as the second parameter to remove widgets from a network dashboard.
 }
-add_action('wp_dashboard_setup', 'wpdocs_remove_dashboard_widgets');

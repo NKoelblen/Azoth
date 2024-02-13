@@ -10,5 +10,6 @@ function map_field($field, $meta_value) { ?>
         name="<?= $field['id'] ?>"
         type="hidden"
         value="<?= $meta_value ?>"
+        <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
     >
 <?php };

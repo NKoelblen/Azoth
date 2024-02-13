@@ -23,24 +23,19 @@
 				display: none;
 			}
 		}
-		// &-conference,
-		// &-formation,
-		// &-stage {
-		// 	.column-session,
-		// 	.column-date_du,
-		// 	.column-date_au,
-		// 	.column-e_date,
-		// 	.column-heure {
-		// 		width: 87px;
-		// 	}
-		// 	.column-author,
-		// 	.column-taxonomy-stage_categorie {
-		// 		width: 164px;
-		// 	}
-		// 	.column-voie {
-		// 		width: 177px;
-		// 	}
-		// }
+		&-conference,
+		&-formation,
+		&-stage {
+			.column-session,
+			.column-date_du,
+			.column-date_au,
+			.column-e_date {
+				width: 10%;
+			}
+			.column-author {
+				width: 20%;
+			}
+		}
 	}
 }
 
@@ -331,14 +326,14 @@
 											> .selectit input {
 												border: none;
 												border-radius: 0;
-												background: url('../images/chevron-down.svg');
+												background: url('../../images/chevron-down.svg');
 												background-position: 50%;
 												box-shadow: none;
 											}
 											&:has(input:checked)
 												> .selectit
 												input {
-												background: url('../images/chevron-up.svg');
+												background: url('../../images/chevron-up.svg');
 												background-position: 50%;
 
 												&::before {

@@ -13,7 +13,7 @@ function conference_post_type()
         'attributes'            => __('Attributs de la Conférence'),
         'parent_item_colon'     => __('Parent de la Conférence :'),
         'all_items'             => __('Toutes les Conférences'),
-        'add_new_item'          => __('Ajouter une nouvelle Conférence'),
+        'add_new_item'          => __('Ajouter une Conférence'),
         'add_new'               => __('Nouvelle Conférence'),
         'new_item'              => __('Nouvelle Conférence'),
         'edit_item'             => __('Modifier la Conférence'),

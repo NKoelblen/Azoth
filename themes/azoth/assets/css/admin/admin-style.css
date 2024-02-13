@@ -13,6 +13,21 @@
 .edit-php.post-type-stage #wpseo-readability-filter {
   display: none;
 }
+.edit-php.post-type-conference .column-session,
+.edit-php.post-type-conference .column-date_du,
+.edit-php.post-type-conference .column-date_au,
+.edit-php.post-type-conference .column-e_date, .edit-php.post-type-formation .column-session,
+.edit-php.post-type-formation .column-date_du,
+.edit-php.post-type-formation .column-date_au,
+.edit-php.post-type-formation .column-e_date, .edit-php.post-type-stage .column-session,
+.edit-php.post-type-stage .column-date_du,
+.edit-php.post-type-stage .column-date_au,
+.edit-php.post-type-stage .column-e_date {
+  width: 10%;
+}
+.edit-php.post-type-conference .column-author, .edit-php.post-type-formation .column-author, .edit-php.post-type-stage .column-author {
+  width: 20%;
+}
 
 .post-new-php #informations .inside,
 .post-php #informations .inside {
@@ -309,13 +324,13 @@
 .post-php #informations .inside fieldset .modal-outer.lieu #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children) > .selectit input {
   border: none;
   border-radius: 0;
-  background: url("../images/chevron-down.svg");
+  background: url("../../images/chevron-down.svg");
   background-position: 50%;
   box-shadow: none;
 }
 .post-new-php #informations .inside fieldset .modal-outer.lieu #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input,
 .post-php #informations .inside fieldset .modal-outer.lieu #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input {
-  background: url("../images/chevron-up.svg");
+  background: url("../../images/chevron-up.svg");
   background-position: 50%;
 }
 .post-new-php #informations .inside fieldset .modal-outer.lieu #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input::before,

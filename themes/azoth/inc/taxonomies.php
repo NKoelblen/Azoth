@@ -1,4 +1,5 @@
 <?php
+add_action( 'init', 'register_geo_zone' );
 function register_geo_zone() {
     
     // Déclaration de la Taxonomie
@@ -42,8 +43,8 @@ function register_geo_zone() {
 
     register_taxonomy( 'geo_zone', 'lieu', $args );
 }
-add_action( 'init', 'register_geo_zone' );
 
+add_action( 'init', 'register_stage_categorie' );
 function register_stage_categorie() {
     
     // Déclaration de la Taxonomie
@@ -87,8 +88,8 @@ function register_stage_categorie() {
 
     register_taxonomy( 'stage_categorie', 'stage', $args );
 }
-add_action( 'init', 'register_stage_categorie' );
 
+add_action( 'init', 'register_prerequis' );
 function register_prerequis() {
     
     // Déclaration de la Taxonomie
@@ -132,4 +133,3 @@ function register_prerequis() {
 
     register_taxonomy( 'prerequis', ['formation', 'stage'], $args );
 }
-add_action( 'init', 'register_prerequis' );

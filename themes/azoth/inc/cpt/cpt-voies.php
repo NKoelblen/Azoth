@@ -1,6 +1,5 @@
 <?php
 /* Register Custom Post Type Voie */
-
 add_action('init', 'voie_post_type', 0);
 function voie_post_type()
 {
@@ -13,7 +12,7 @@ function voie_post_type()
         'attributes'            => __('Attributs de la Voie'),
         'parent_item_colon'     => __('Parent de la Voie :'),
         'all_items'             => __('Toutes les Voies'),
-        'add_new_item'          => __('Ajouter une nouvelle Voie'),
+        'add_new_item'          => __('Ajouter une Voie'),
         'add_new'               => __('Nouvelle Voie'),
         'new_item'              => __('Nouvelle Voie'),
         'edit_item'             => __('Modifier la Voie'),

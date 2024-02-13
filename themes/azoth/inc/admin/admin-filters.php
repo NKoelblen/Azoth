@@ -2,62 +2,54 @@
 
 add_action( 'restrict_manage_posts', 'add_admin_filters', 10, 1 );
 function add_admin_filters( $post_type ){
-	if( $post_type === 'lieu' ) :
-		$taxonomy = get_taxonomy( 'geo_zone' );
-		$selected = '';
-		// if the current page is already filtered, get the selected term slug
-		$selected = isset( $_REQUEST[ 'geo_zone' ] ) ? $_REQUEST[ 'geo_zone' ] : '';
-		// render a dropdown for this taxonomy's terms
-		wp_dropdown_categories(
+    if ($post_type === 'lieu') :
+        $taxonomy = get_taxonomy( 'geo_zone' );
+	    $selected = '';
+	    // if the current page is already filtered, get the selected term slug
+	    $selected = isset( $_REQUEST[ 'geo_zone' ] ) ? $_REQUEST[ 'geo_zone' ] : '';
+	    // render a dropdown for this taxonomy's terms
+	    wp_dropdown_categories(
             [
-			    'show_option_all' =>  $taxonomy->labels->all_items,
-			    'taxonomy'        =>  'geo_zone',
-			    'name'            =>  'geo_zone',
-			    'orderby'         =>  'name',
-			    'value_field'     =>  'slug',
-			    'selected'        =>  $selected,
-			    'hierarchical'    =>  true,
-		    ]
+	    	    'show_option_all' =>  $taxonomy->labels->all_items,
+	    	    'taxonomy'        =>  'geo_zone',
+	    	    'name'            =>  'geo_zone',
+	    	    'orderby'         =>  'name',
+	    	    'value_field'     =>  'slug',
+	    	    'selected'        =>  $selected,
+	    	    'hierarchical'    =>  true,
+	        ]
         );
     endif;
-
-    if( $post_type === 'conference' || $post_type === 'formation' || $post_type === 'stage' ) :
-
-		$selected = '';
-
-        if(isset($_REQUEST['author'])) :
-            $selected = (int)sanitize_text_field($_REQUEST['author']);
-        endif;
+    if ($post_type === 'conference' || $post_type === 'formation' || $post_type === 'stage') :
+        $selected = isset($_REQUEST['author']) ? (int)sanitize_text_field($_REQUEST['author']) : '';
         wp_dropdown_users(
             [
-			    'show_option_all'   => 'Tous les instructeurs',
-			    'orderby'           => 'display_name',
-			    'order'             => 'ASC',
-			    'name'              => 'author',
-			    'who'				=> '',	
-			    'include_selected'  => true,
-			    'selected'        	=> $selected,
-		    ]
+	    	    'show_option_all'   => 'Tous les instructeurs',
+	    	    'orderby'           => 'display_name',
+	    	    'order'             => 'ASC',
+	    	    'name'              => 'author',
+	    	    'who'				=> '',	
+	    	    'include_selected'  => true,
+	    	    'selected'        	=> $selected,
+	        ]
         );
     endif;
-
-	if( $post_type === 'stage' ) :
-		$tax_name = 'stage_categorie';
-		$taxonomy = get_taxonomy( $tax_name );
-		$selected = '';
-		// if the current page is already filtered, get the selected term slug
-		$selected = isset( $_REQUEST[ $tax_name ] ) ? $_REQUEST[ $tax_name ] : '';
-		// render a dropdown for this taxonomy's terms
-		wp_dropdown_categories(
+    if ($post_type === 'stage') :
+        $tax_name = 'stage_categorie';
+	    $taxonomy = get_taxonomy( $tax_name );
+	    // if the current page is already filtered, get the selected term slug
+	    $selected = isset( $_REQUEST[ $tax_name ] ) ? $_REQUEST[ $tax_name ] : '';
+	    // render a dropdown for this taxonomy's terms
+	    wp_dropdown_categories(
             [
-			    'show_option_all' =>  $taxonomy->labels->all_items,
-			    'taxonomy'        =>  $tax_name,
-			    'name'            =>  $tax_name,
-			    'orderby'         =>  'name',
-			    'value_field'     =>  'slug',
-			    'selected'        =>  $selected,
-			    'hierarchical'    =>  true,
-		    ]
+	    	    'show_option_all' =>  $taxonomy->labels->all_items,
+	    	    'taxonomy'        =>  $tax_name,
+	    	    'name'            =>  $tax_name,
+	    	    'orderby'         =>  'name',
+	    	    'value_field'     =>  'slug',
+	    	    'selected'        =>  $selected,
+	    	    'hierarchical'    =>  true,
+	        ]
         );
     endif;
 }
@@ -105,20 +97,14 @@ function add_voie_filter($post_type){
         return;
 	endif;
 
-		$selected = '';
-    // get selected option if there is one selected
-    if (isset( $_GET['f_voie'] ) && $_GET['f_voie'] !== '') :
-        $selected = $_GET['f_voie'];
-    endif;
+		$selected = isset( $_GET['f_voie'] ) && $_GET['f_voie'] !== '' ? $_GET['f_voie'] : '';
     
     /** Grab all of the options that should be shown */
     $options[] = '<option value="">Toutes les voies</option>';
     foreach($voies as $voie) :
-        if ($voie['id'] === $selected) {
-            $options[] = sprintf('<option value="%1$s" selected>%2$s</option>', esc_attr($voie['id']), $voie['title']);
-        } else {
-            $options[] = sprintf('<option value="%1$s">%2$s</option>', esc_attr($voie['id']), $voie['title']);
-        }
+        $options[] = $voie['id'] === $selected ?
+            sprintf('<option value="%1$s" selected>%2$s</option>', esc_attr($voie['id']), $voie['title']) : 
+            sprintf('<option value="%1$s">%2$s</option>', esc_attr($voie['id']), $voie['title']);
     endforeach;
 
     /** Output the dropdown menu */
@@ -188,20 +174,14 @@ function add_lieu_filter($post_type){
         return;
 	endif;
 
-		$selected = '';
-    // get selected option if there is one selected
-    if (isset( $_GET['f_lieu'] ) && $_GET['f_lieu'] !== '') :
-        $selected = $_GET['f_lieu'];
-    endif;
+		$selected = isset( $_GET['f_lieu'] ) && $_GET['f_lieu'] !== '' ? $_GET['f_lieu'] : '';
     
     /** Grab all of the options that should be shown */
     $options[] = '<option value="">Tous les lieux</option>';
     foreach($lieux as $lieu) :
-        if ($lieu['id'] === $selected) :
-            $options[] = sprintf('<option value="%1$s" selected>%2$s</option>', esc_attr($lieu['id']), $lieu['title']);
-        else :
-            $options[] = sprintf('<option value="%1$s">%2$s</option>', esc_attr($lieu['id']), $lieu['title']);
-        endif;
+        $options[] = $lieu['id'] === $selected ?
+            sprintf('<option value="%1$s" selected>%2$s</option>', esc_attr($lieu['id']), $lieu['title']) :
+            sprintf('<option value="%1$s">%2$s</option>', esc_attr($lieu['id']), $lieu['title']);
     endforeach;
 
     /** Output the dropdown menu */

@@ -101,7 +101,8 @@ function evenement_fields($post_type) {
             [
                 'id'        => 's_categorie',
                 'type'      => 'taxonomy',
-                'taxonomy'  => 'stage_categorie'
+                'taxonomy'  => 'stage_categorie',
+                'required'  => true
             ] // catégorie
         ], // catégorie
         'voie' => [
@@ -109,36 +110,41 @@ function evenement_fields($post_type) {
             [
                 'id'        => 'e_voie',
                 'type'      => 'select',
-                'options'   => $voies
+                'options'   => $voies,
+                'required'  => true
             ] // voie
         ], //voie
         'time' => [
             'group_label' => 'Date(s)',
             'session' => [
-                'label' => 'Session n°',
-                'id'    => 'e_session',
-                'type'  => 'number',
-                'width' => '32.9%'
+                'label'     => 'Session n°',
+                'id'        => 'e_session',
+                'type'      => 'number',
+                'width'     => '32.9%',
+                'required'  => true
             ],
             'du' => [
                 'label'     => 'Du...',
                 'id'        => 'e_date_du',
                 'type'      => 'date',
                 'width'     => '49.7%',
-                'default'   => date('Y-m-d', strtotime('now'))
+                'default'   => date('Y-m-d', strtotime('now')),
+                'required'  => true
             ], // du...
             'au' => [
-                'label' => '... Au',
-                'id'    => 'e_date_au',
-                'type'  => 'date',
-                'width' => '49.7%',
-                'default'   => date('Y-m-d', strtotime('+1 day'))
+                'label'     => '... Au',
+                'id'        => 'e_date_au',
+                'type'      => 'date',
+                'width'     => '49.7%',
+                'default'   => date('Y-m-d', strtotime('+1 day')),
+                'required'  => true
             ], // au...
             'heure' => [
-                'label' => 'Heure',
-                'id'    => 'e_heure',
-                'type'  => 'time',
-                'width' => '49.7%'
+                'label'     => 'Heure',
+                'id'        => 'e_heure',
+                'type'      => 'time',
+                'width'     => '49.7%',
+                'required'  => true
             ] // heure
         ], // dates
         [
@@ -147,7 +153,8 @@ function evenement_fields($post_type) {
                 'id'        => 'lieu',
                 'type'      => 'select',
                 'options'   => $lieux,
-                'add'       => '+ Ajouter un Lieu'
+                'add'       => '+ Ajouter un Lieu',
+                'required'  => true
             ] // lieu
         ], // lieu
         'user' => [
@@ -157,7 +164,8 @@ function evenement_fields($post_type) {
                 'type'      => 'select',
                 'options'   => $users_infos,
                 'default'   => wp_get_current_user()->ID,
-                'disabled'  => 'disabled'
+                'disabled'  => 'disabled',
+                'required'  => true
             ] // author
         ], // author
         [
@@ -182,7 +190,8 @@ function evenement_fields($post_type) {
                                     'title' => 'd\'un contact'
                                 ]
                                ],
-                'width'     => '49.7%'
+                'width'     => '49.7%',
+                'required'  => true
             ], // coordonnees
             [
                 'label'     => 'Instructeur',
@@ -256,17 +265,20 @@ function evenement_title_and_time( $post_id ) {
 		return ;
     else :
 		$e_title = [] ;
-		if( get_the_terms( $post_id, 'stage_categorie') ) :
-            foreach(get_the_terms( $post_id, 'stage_categorie') as $e_categorie) :
+        $categories = get_the_terms( $post_id, 'stage_categorie');
+		if($categories) :
+            foreach($categories as $e_categorie) :
                 $e_categories[] = $e_categorie->name;
             endforeach;
 			$e_title[] = implode( ", ", $e_categories );
 		endif;
-		if( get_post_meta( $post_id, 'e_voie', true ) ) :
-			$e_title[] = get_the_title(get_post_meta( $post_id, 'e_voie', true ) );
+        $voie = get_post_meta( $post_id, 'e_voie', true );
+		if($voie) :
+			$e_title[] = get_the_title($voie);
         endif;
-		if( get_post_meta($post_id, 'e_session', true ) ) :
-			$e_title[] = 'Session n°' . get_post_meta($post_id, 'e_session', true );
+        $session = get_post_meta($post_id, 'e_session', true );
+		if($session) :
+			$e_title[] = 'Session n°' . $session;
         endif;
 		$e_title[] = get_the_title( get_post_meta( $post_id, 'lieu', true ) );
 		$e_date = strtotime( get_post_meta( $post_id, 'e_date_du', true ) ) ;

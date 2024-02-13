@@ -12,7 +12,7 @@ function stage_post_type()
         'attributes'            => __('Attributs du Stage'),
         'parent_item_colon'     => __('Parent du Stage :'),
         'all_items'             => __('Tous les Stages'),
-        'add_new_item'          => __('Ajouter un nouveau Stage'),
+        'add_new_item'          => __('Ajouter un Stage'),
         'add_new'               => __('Nouveau Stage'),
         'new_item'              => __('Nouveau Stage'),
         'edit_item'             => __('Modifier le Stage'),

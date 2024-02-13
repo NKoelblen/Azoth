@@ -1,7 +1,5 @@
 <?php
-use WpOrg\Requests\Capability;
 /* Register Custom Post Type Formation */
-
 add_action('init', 'formation_post_type', 0);
 function formation_post_type()
 {
@@ -14,7 +12,7 @@ function formation_post_type()
         'attributes'            => __('Attributs de la Formation'),
         'parent_item_colon'     => __('Parent de la Formation :'),
         'all_items'             => __('Toutes les Formations'),
-        'add_new_item'          => __('Ajouter une nouvelle Formation'),
+        'add_new_item'          => __('Ajouter une Formation'),
         'add_new'               => __('Nouvelle Formation'),
         'new_item'              => __('Nouvelle Formation'),
         'edit_item'             => __('Modifier la Formation'),

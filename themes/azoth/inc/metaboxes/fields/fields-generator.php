@@ -22,43 +22,28 @@ function fields_generator($post, $fields) {
                 
                 foreach ($group_of_fields as $field) :
 
-                    if (isset($field['width'])) :
-                        $width = $field['width'];
-                    else :
-                        $width = "100%";
-                    endif; // width
-
-                    if (isset($field['display'])) :
-                        $display = 'style="display: ' . $field['display'] . '"';
-                    else :
-                        $display = "";
-                    endif; // width
-
-                    if (isset($field['disabled'])) :
-                        $disabled = $field['disabled'];
-                    else :
-                        $disabled = "";
-                    endif;
+                    $display = isset($field['display']) ? 'style="display: ' . $field['display'] . '"' : '';
+                    $disabled = isset($field['disabled']) ? $field['disabled'] : "";
                 
                     /* Registered Meta values */
-                    if ($field['id'] === 'title') :
-                        $meta_value = $post->post_title;
-                    elseif ($field['id'] === 'content'):
-                        if(!isset($post->post_content)) :
-                            $meta_value = "";
-                        else:
-                            $meta_value = $post->post_content;
-                        endif;
-                    elseif ($field['id'] === 'author'):
-                        $meta_value = $post->post_author;
-                    elseif ($field['id'] === 'thumbnail'):
-                        $meta_value = get_post_thumbnail_id($post->ID);
-                    else :
-                        $meta_value = get_post_meta($post->ID, $field['id'], true);
-                    endif;
-                    if (!$meta_value && isset($field['default'])) :
-                        $meta_value = $field['default'];
-                    endif; ?>
+
+                    switch ($field['id']) {
+                        case 'title':
+                            $meta_value = $post->post_title;
+                            break;
+                        case 'content':
+                            $meta_value = isset($post->post_content) ? $post->post_content : '';
+                            break;
+                        case 'author':
+                            $meta_value = $post->post_author;
+                            break;
+                        case 'thumbnail':
+                            $meta_value = get_post_thumbnail_id($post->ID);
+                            break;
+                        default:
+                            $meta_value = get_post_meta($post->ID, $field['id'], true);    
+                    }
+                    $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value; ?>
 
                     <!-- Field box -->
                     <div class="<?= $field['type'] . ' ' . $field['id'] ?>" <?= $display ?>;">
@@ -66,33 +51,32 @@ function fields_generator($post, $fields) {
                         <!-- Label -->
                         <?php if (isset($field['label']) && $field['label'] !== "") : ?>
                             <label for="<?= $field['id'] ?>"><?= $field['label'] ?></label>
-                        <?php endif; // label 
-                        ?>
+                        <?php endif; // label ?>
 
                         <!-- Field -->
 
-                        <?php if ($field['type'] === "select") :
-                            select_field($field, $meta_value, $disabled);
-
-                        elseif ($field['type'] === "WYSIWYG") :
-                            wysiwyg_field($field, $meta_value);
-
-                        elseif ($field['type'] === "media-library-uploader") :
-                            media_library_uploader_field($field, $meta_value);
-
-                        elseif ($field['type'] === "map") :
-                            map_field($field, $meta_value);
-                        
-                        elseif ($field['type'] === "taxonomy") :
-                            taxonomy_field($field, $post);
-
-                        elseif ($field['type'] === "radio") :
-                            radio_field($field, $meta_value);
-                        
-                        else :
-                            input_field($field, $meta_value);
-
-                        endif; // type of fields ?>
+                        <?php switch ($field['type']) {
+                            case 'select':
+                                select_field($field, $meta_value, $disabled);
+                                break;
+                            case 'WYSIWYG':
+                                wysiwyg_field($field, $meta_value);
+                                break;
+                            case 'media-library-uploader':
+                                $meta_value = $post->post_author;
+                                break;
+                            case 'map':
+                                map_field($field, $meta_value);
+                                break;
+                            case 'taxonomy':
+                                taxonomy_field($field, $post);
+                                break;
+                            case 'radio':
+                                radio_field($field, $meta_value);
+                                break;
+                            default:
+                                input_field($field, $meta_value);
+                        } ?>
 
                     </div>
 

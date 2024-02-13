@@ -1,12 +1,10 @@
 <?php
-function input_field($field, $meta_value) {
-    if(!$meta_value && array_key_exists('default', $field)) :
-        $meta_value = $field['default'];
-    endif; ?>
+function input_field($field, $meta_value) { ?>
     <input
         id="<?= $field['id'] ?>"
         name="<?= $field['id'] ?>"
         type="<?= $field['type'] ?>"
         value="<?= $meta_value ?>"
+        <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
     >
 <?php };

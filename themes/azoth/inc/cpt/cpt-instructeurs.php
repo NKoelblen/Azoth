@@ -12,7 +12,7 @@ function instructeur_post_type()
         'attributes'            => __('Attributs de \'Instructeur'),
         'parent_item_colon'     => __('Parent de l\'Instructeur :'),
         'all_items'             => __('Tous les Instructeurs'),
-        'add_new_item'          => __('Ajouter un nouvel Instructeur'),
+        'add_new_item'          => __('Ajouter un Instructeur'),
         'add_new'               => __('Nouvel Instructeur'),
         'new_item'              => __('Nouvel Instructeur'),
         'edit_item'             => __('Modifier l\'Instructeur'),

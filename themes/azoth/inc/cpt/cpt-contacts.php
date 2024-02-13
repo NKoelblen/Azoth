@@ -12,7 +12,7 @@ function contact_post_type()
         'attributes'            => __('Attributs du Contact'),
         'parent_item_colon'     => __('Parent du Contact :'),
         'all_items'             => __('Tous les Contacts'),
-        'add_new_item'          => __('Ajouter un nouveau Contact'),
+        'add_new_item'          => __('Ajouter un Contact'),
         'add_new'               => __('Nouveau Contact'),
         'new_item'              => __('Nouveau Contact'),
         'edit_item'             => __('Modifier le Contact'),

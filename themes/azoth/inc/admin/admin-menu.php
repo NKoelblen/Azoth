@@ -29,6 +29,8 @@ add_action('admin_menu', function() {
  * Reorder menu
  */
 
+add_filter( 'custom_menu_order', 'custom_menu_order', 10, 1 );
+add_filter( 'menu_order', 'custom_menu_order', 10, 1 );
 function custom_menu_order( $menu_order ) {
     if ( !$menu_order ) :
         return true;
@@ -77,14 +79,11 @@ function custom_menu_order( $menu_order ) {
         'filebird-settings',
     ];
 }
-add_filter( 'custom_menu_order', 'custom_menu_order', 10, 1 );
-add_filter( 'menu_order', 'custom_menu_order', 10, 1 );
-
 /**
  * Remove menu items
  */
+add_action( 'admin_menu', 'remove_menus' );
 function remove_menus(){
-  
     if(current_user_can('gestionnaire')) :
         remove_menu_page( 'tools.php' );
     endif;
@@ -92,4 +91,3 @@ function remove_menus(){
         remove_menu_page( 'wpseo_workouts' );
     endif;  
 }
-add_action( 'admin_menu', 'remove_menus' );

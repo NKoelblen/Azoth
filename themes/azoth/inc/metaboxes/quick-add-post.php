@@ -9,17 +9,8 @@ function quick_add_post() {
         return;
     endif;
 
-    if($_POST['title']) :
-        $inner_post_title = $_POST['title'];
-    else :
-        $inner_post_title = "Brouillon auto";
-    endif;
-    if($_POST['content']) :
-        $inner_post_content = $_POST['content'];
-    else :
-        $inner_post_content = "";
-    endif;
-
+    $inner_post_title = $_POST['title'] ? $_POST['title'] : "Brouillon auto";
+    $inner_post_content = $_POST['content'] ? $_POST['content'] : "";
     $inner_post = [
         'post_title'    => $inner_post_title,
         'post_content'  => $inner_post_content,

@@ -8,11 +8,13 @@ function lieu_fields() {
             [
                 'id'        => 'l_zone',
                 'type'      => 'taxonomy',
-                'taxonomy'  => 'geo_zone'
+                'taxonomy'  => 'geo_zone',
+                'required'  => true
             ], // zone
             [
                 'id'        => 'l_carte',
-                'type'      => 'map'
+                'type'      => 'map',
+                'required'  => true
             ] // carte
         ], // localité
         [

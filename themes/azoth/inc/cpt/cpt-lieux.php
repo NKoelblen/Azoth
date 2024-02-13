@@ -12,7 +12,7 @@ function lieu_post_type()
         'attributes'            => __('Attributs du Lieu'),
         'parent_item_colon'     => __('Parent du Lieu :'),
         'all_items'             => __('Tous les Lieux'),
-        'add_new_item'          => __('Ajouter un nouveau Lieu'),
+        'add_new_item'          => __('Ajouter un Lieu'),
         'add_new'               => __('Nouveau Lieu'),
         'new_item'              => __('Nouveau Lieu'),
         'edit_item'             => __('Modifier le Lieu'),
