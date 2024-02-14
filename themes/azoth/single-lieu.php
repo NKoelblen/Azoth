@@ -30,7 +30,7 @@ while (have_posts()) :
 
 		<div class="entry-content">
             <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"></div>
-            <input type="hidden" value="<?= get_post_meta($post->ID, 'l_carte', true); ?>">
+			<input type="hidden" value="<?= get_post_meta($post->ID, 'l_carte', true); ?>">
 
 			<?php the_content(); ?>
 

@@ -63,7 +63,7 @@ function fields_generator($post, $fields) {
                                 wysiwyg_field($field, $meta_value);
                                 break;
                             case 'media-library-uploader':
-                                $meta_value = $post->post_author;
+                                media_library_uploader_field($field, $meta_value);
                                 break;
                             case 'map':
                                 map_field($field, $meta_value);

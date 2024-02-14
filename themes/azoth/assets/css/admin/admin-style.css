@@ -473,13 +473,13 @@
 .post-php.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children) > .selectit input {
   border: none;
   border-radius: 0;
-  background: url("../images/chevron-down.svg");
+  background: url("../../images/chevron-down.svg");
   background-position: 50%;
   box-shadow: none;
 }
 .post-new-php.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input,
 .post-php.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input {
-  background: url("../images/chevron-up.svg");
+  background: url("../../images/chevron-up.svg");
   background-position: 50%;
 }
 .post-new-php.post-type-lieu #informations .inside #localite .localite .taxonomy .categorydiv .tabs-panel li:has(.children):has(input:checked) > .selectit input::before,
