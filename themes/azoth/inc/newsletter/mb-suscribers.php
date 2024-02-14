@@ -119,7 +119,7 @@ $subscriber_fields = [
     [
         'group_label' => 'Email', // group_label required, can be empty
         [
-            'id'        => 'email',
+            'id'        => 'title',
             'type'      => 'email',
         ] // évènements
     ], //évènement
