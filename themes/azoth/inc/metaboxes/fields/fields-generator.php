@@ -1,4 +1,15 @@
 <?php
+
+function chekbox_children_values($post, $option, $meta_value) {
+    if (isset($option['children'])) :
+        foreach ($option['children'] as $child) :
+            $meta_value[] = get_post_meta($post->ID, $child['id'], true);
+            $meta_value = chekbox_children_values($post, $child, $meta_value);
+        endforeach;
+    endif;
+    return $meta_value;
+}
+
 function fields_generator($post, $fields) {
     
     foreach ($fields as $group_of_fields) : ?>
@@ -42,15 +53,6 @@ function fields_generator($post, $fields) {
                             $meta_value = get_post_meta($post->ID, $field['id'], true);    
                             if( $field['type'] === 'checkbox' ):
                                 $meta_value = [];
-                                function chekbox_children_values($post, $option, $meta_value) {
-                                    if (isset($option['children'])) :
-                                        foreach ($option['children'] as $child) :
-                                            $meta_value[] = get_post_meta($post->ID, $child['id'], true);
-                                            $meta_value = chekbox_children_values($post, $child, $meta_value);
-                                        endforeach;
-                                    endif;
-                                    return $meta_value;
-                                }
                                 foreach($field['options'] as $option) :
                                     $meta_value[] = get_post_meta($post->ID, $option['id'], true);
                                     $meta_value = chekbox_children_values($post, $option, $meta_value);

@@ -128,6 +128,7 @@ class metaboxGenerator
             [ 
                 'ID'            => $post_id,
                 'post_title'    => $post_title,
+                'post_name'     => $post_name
             ]
         );
     }

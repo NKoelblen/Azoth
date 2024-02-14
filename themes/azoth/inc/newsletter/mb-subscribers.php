@@ -1,29 +1,7 @@
 <?php
 /* Subscribers Metabox */
 
-add_action('admin_init','test');
-function test() {
-
-if (class_exists('MetaboxGenerator')) {
-    $mb_subscriber = new MetaboxGenerator; // Defined in ../mb-generator
-};
-
-/**
- *** How tu use : ***
- * method set_screens($post_types) ; method set_fields($groups_of_fields)
- * Refer to ./mb_generator comments
- */
-
-$mb_subscriber->set_screens(['subscriber']);
-
-$mb_subscriber->set_args(
-    [
-        'id' => 'informations',
-        'title'  => 'Informations',
-        'context' => 'advanced',
-    ]
-);
-
+function subscriber_fields() {
 $voie_posts = new WP_Query(
     [
         'post_type'         => 'voie',
@@ -40,14 +18,7 @@ $stages_categories = get_terms( [
     'hierarchical' => false
 ] );
 
-$stages_categories = get_terms( [ 
-    'taxonomy' => 'stage_categorie',
-    'parent'   => 0,
-    'hide_empty' => false,
-    'hierarchical' => false
-] );
-
-$options = [
+$categories_options = [
   'c' => [
     'id' => 'conferences',
     'value' => 'conferences',
@@ -64,7 +35,7 @@ $options = [
     'title' => 'Stages',
   ]
 ];
-foreach($options as $option) :
+foreach($categories_options as $option) :
     switch ($option['title']) {
         case 'Nouveaux cycles de Formations' :
             $voies = [];
@@ -81,7 +52,7 @@ foreach($options as $option) :
             endif;
             wp_reset_postdata();
             $option['children'] = $voies;
-            $options['f'] = $option;
+            $categories_options['f'] = $option;
             break;
         case 'Stages' :
             foreach($stages_categories as $stages_categorie) :
@@ -112,9 +83,37 @@ foreach($options as $option) :
                     'children' => $voies
                 ] ;
             endforeach;
-            $options['s'] = $option;
+            $categories_options['s'] = $option;
     }
 endforeach;
+
+$geo_zones = get_terms( [ 
+    'taxonomy' => 'geo_zone',
+    'parent'   => 0,
+    'hide_empty' => false,
+    'hierarchical' => true
+] );
+
+$geo_options = [];
+foreach ($geo_zones as $geo_zone) :
+    $geo_options[$geo_zone->term_id] = [
+        'id' => $geo_zone->slug,
+        'value' => $geo_zone->slug,
+        'title' => $geo_zone->name
+    ];
+    $children = get_term_children( $geo_zone->term_id, 'geo_zone' );
+    if($children) :
+        foreach ( $children as $child ) :
+            $term = get_term_by( 'id', $child, 'geo_zone' );
+            $geo_options[$geo_zone->term_id]['children'][] = [
+                'id' => $term->slug,
+                'value' => $term->slug,
+                'title' => $term->name
+            ];
+        endforeach;
+    endif;
+endforeach;
+
 $subscriber_fields = [
     [
         'group_label' => 'Email', // group_label required, can be empty
@@ -128,19 +127,47 @@ $subscriber_fields = [
         [
             'id'        => 'evenements',
             'type'      => 'checkbox',
-            'options'   => $options,
+            'options'   => $categories_options,
         ] // évènements
     ], //évènement
     [
         'group_label' => 'Localité', // group_label required, can be empty
         [
             'id'        => 'zone',
-            'type'      => 'taxonomy',
-            'taxonomy'  => 'geo_zone',
+            'type'      => 'checkbox',
+            'options'   => $geo_options,
         ], // zone
     ]
 ]; // fields
+    return $subscriber_fields;
 
-$mb_subscriber->set_fields($subscriber_fields);
+}
+
+add_action('admin_init','test');
+function test() {
+
+if (class_exists('MetaboxGenerator')) {
+    $mb_subscriber = new MetaboxGenerator; // Defined in ../mb-generator
+};
+
+/**
+ *** How tu use : ***
+ * method set_screens($post_types) ; method set_fields($groups_of_fields)
+ * Refer to ./mb_generator comments
+ */
+
+$mb_subscriber->set_screens(['subscriber']);
+
+$mb_subscriber->set_args(
+    [
+        'id' => 'informations',
+        'title'  => 'Informations',
+        'context' => 'advanced',
+    ]
+);
+
+
+
+$mb_subscriber->set_fields(subscriber_fields());
 
 };

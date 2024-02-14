@@ -11,14 +11,6 @@ function dump_admin() {
   if (is_admin()) :
     header('Content-Type:text/plain');
     // var_dump($GLOBALS['menu']);
-
-$stages_categories = get_terms( [ 
-    'taxonomy' => 'stage_categorie',
-    'parent'   => 0,
-    'hide_empty' => false,
-    'hierarchical' => false
-] );
-print_r($stages_categories);
     exit;
   endif;
 }
@@ -110,5 +102,6 @@ require_once AZOTH_DIR . 'inc/front/menus.php';
 /**
  * Include Newsletter
  */
-require_once AZOTH_DIR . 'inc/newsletter/cpt-suscribers.php';
-require_once AZOTH_DIR . 'inc/newsletter/mb-suscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/sc-subscription-form.php';

@@ -25,26 +25,27 @@ function option_children($field, $option, $meta_value) { ?>
     </ul>
 <?php }
 function checkbox_field($field, $meta_value) { ?>
-
-    <?php foreach ($field['options'] as $option) : ?>
-        <label for="<?= $option['id'] ?>" style="font-weight: normal">
-            <input
-                type="checkbox"
-                id="<?= $option['id'] ?>"
-                name="<?= $option['id'] ?>"
-                value="<?= $option['id'] ?>"
-                style="width: 16px; display: inline-block;"
-                <?php if (isset($meta_value)) :
-                    foreach($meta_value as $value) :
-                        echo $value === $option['value'] ? 'checked' : '';
-                    endforeach;
+    <ul>
+        <?php foreach ($field['options'] as $option) : ?>
+            <li><label for="<?= $option['id'] ?>" style="font-weight: normal">
+                <input
+                    type="checkbox"
+                    id="<?= $option['id'] ?>"
+                    name="<?= $option['id'] ?>"
+                    value="<?= $option['id'] ?>"
+                    style="width: 16px; display: inline-block;"
+                    <?php if (isset($meta_value)) :
+                        foreach($meta_value as $value) :
+                            echo $value === $option['value'] ? 'checked' : '';
+                        endforeach;
+                    endif; ?>
+                    <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
+                >
+                <?= $option['title'] ?>
+                <?php if(isset($option['children'])) :
+                        option_children($field, $option, $meta_value);
                 endif; ?>
-                <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
-            >
-            <?= $option['title'] ?>
-            <?php if(isset($option['children'])) :
-                    option_children($field, $option, $meta_value);
-            endif; ?>
-        </label>
-    <?php endforeach; // option ?>
+            </label></li>
+        <?php endforeach; // option ?>
+    </ul>
 <?php }
