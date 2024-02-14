@@ -8,6 +8,19 @@
  *  single-metaboxes/mb_voies.php
  */
 
+function update_chekbox_children($post_id, $option) {
+    if (isset($option['children'])) :
+        foreach ($option['children'] as $child) :
+            if (isset($_POST[$child['id']])) :
+                update_post_meta($post_id, $child['id'], $_POST[$child['id']]);
+            else :
+                delete_post_meta($post_id, $child['id'], $_POST[$child['id']]);
+            endif;
+            update_chekbox_children($post_id, $child);
+        endforeach;
+    endif;
+}
+
 class metaboxGenerator
 {
 
@@ -157,6 +170,17 @@ class metaboxGenerator
 
             array_shift($group_of_fields);
             foreach ($group_of_fields as $field) :
+
+                if($field['type'] === 'checkbox') :
+                    foreach($field['options'] as $option) :
+                        if (isset($_POST[$option['id']])) :
+                            update_post_meta($post_id, $option['id'], $_POST[$option['id']]);
+                        else :
+                            delete_post_meta($post_id, $option['id'], $_POST[$option['id']]);
+                        endif;
+                        update_chekbox_children($post_id, $option);
+                    endforeach;
+                endif;
 
                 if (isset($_POST[$field['id']])) :
                     update_post_meta($post_id, $field['id'], $_POST[$field['id']]);

@@ -10,7 +10,15 @@
 function dump_admin() {
   if (is_admin()) :
     header('Content-Type:text/plain');
-    var_dump($GLOBALS['menu']);
+    // var_dump($GLOBALS['menu']);
+
+$stages_categories = get_terms( [ 
+    'taxonomy' => 'stage_categorie',
+    'parent'   => 0,
+    'hide_empty' => false,
+    'hierarchical' => false
+] );
+print_r($stages_categories);
     exit;
   endif;
 }
@@ -51,6 +59,7 @@ require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/inputs.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/map.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/media-library-uploader.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/radio.php';
+require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/checkbox.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/select.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/taxonomy.php';
 require_once AZOTH_DIR . 'inc/metaboxes/fields/field-types/wysiwyg.php';
@@ -97,3 +106,9 @@ require_once AZOTH_DIR . 'inc/admin/editor.php';
  * Include front functionnalities
  */
 require_once AZOTH_DIR . 'inc/front/menus.php';
+
+/**
+ * Include Newsletter
+ */
+require_once AZOTH_DIR . 'inc/newsletter/cpt-suscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/mb-suscribers.php';

@@ -54,6 +54,7 @@ function custom_menu_order( $menu_order ) {
         'edit.php', // Posts
         'upload.php', // Media
         'edit-comments.php', // Comments
+        'edit.php?post_type=subscriber', // Custom-Post
 
         'separator4', // Second separator
 

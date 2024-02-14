@@ -2,7 +2,6 @@
 function fields_generator($post, $fields) {
     
     foreach ($fields as $group_of_fields) : ?>
-
         <!-- Form groups -->
 
         <fieldset id="<?= sanitize_title($group_of_fields['group_label']) ?>">
@@ -21,7 +20,6 @@ function fields_generator($post, $fields) {
                 <?php array_shift($group_of_fields); 
                 
                 foreach ($group_of_fields as $field) :
-
                     $display = isset($field['display']) ? 'style="display: ' . $field['display'] . '"' : '';
                     $disabled = isset($field['disabled']) ? $field['disabled'] : "";
                 
@@ -42,9 +40,24 @@ function fields_generator($post, $fields) {
                             break;
                         default:
                             $meta_value = get_post_meta($post->ID, $field['id'], true);    
+                            if( $field['type'] === 'checkbox' ):
+                                $meta_value = [];
+                                function chekbox_children_values($post, $option, $meta_value) {
+                                    if (isset($option['children'])) :
+                                        foreach ($option['children'] as $child) :
+                                            $meta_value[] = get_post_meta($post->ID, $child['id'], true);
+                                            $meta_value = chekbox_children_values($post, $child, $meta_value);
+                                        endforeach;
+                                    endif;
+                                    return $meta_value;
+                                }
+                                foreach($field['options'] as $option) :
+                                    $meta_value[] = get_post_meta($post->ID, $option['id'], true);
+                                    $meta_value = chekbox_children_values($post, $option, $meta_value);
+                                endforeach;
+                            endif;
                     }
                     $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value; ?>
-
                     <!-- Field box -->
                     <div class="<?= $field['type'] . ' ' . $field['id'] ?>" <?= $display ?>;">
 
@@ -73,6 +86,9 @@ function fields_generator($post, $fields) {
                                 break;
                             case 'radio':
                                 radio_field($field, $meta_value);
+                                break;
+                            case 'checkbox':
+                                checkbox_field($field, $meta_value);
                                 break;
                             default:
                                 input_field($field, $meta_value);
