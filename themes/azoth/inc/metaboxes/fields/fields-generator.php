@@ -38,13 +38,13 @@ function fields_generator($post, $fields) {
 
                     switch ($field['id']) {
                         case 'title':
-                            $meta_value = $post->post_title;
+                            $meta_value = isset($post->post_title) ? $post->post_title : '';
                             break;
                         case 'content':
                             $meta_value = isset($post->post_content) ? $post->post_content : '';
                             break;
                         case 'author':
-                            $meta_value = $post->post_author;
+                            $meta_value = isset($post->post_author) ? $post->post_author : '';
                             break;
                         case 'thumbnail':
                             $meta_value = get_post_thumbnail_id($post->ID);

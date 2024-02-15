@@ -120,6 +120,7 @@ $subscriber_fields = [
         [
             'id'        => 'title',
             'type'      => 'email',
+            'required'  => true
         ] // évènements
     ], //évènement
     [

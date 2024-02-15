@@ -11,7 +11,6 @@ jQuery(function ($) {
 	closeForm($('.modal-inner .media-modal-close'));
 
 	$('a.add').on('click', function (e) {
-		console.log($(this).next());
 		e.preventDefault();
 		openForm($(this));
 	});

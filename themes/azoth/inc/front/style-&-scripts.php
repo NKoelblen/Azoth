@@ -34,4 +34,7 @@ function azoth_scripts() {
 	wp_register_script('archive-map-script', get_theme_file_uri('/assets/js/front/archive-lieu.js'), ['leaflet', 'jquery' ], false, true);
     wp_enqueue_script('archive-map-script');
 	endif;
+
+	wp_register_script('newsletter-subscription-script', get_theme_file_uri('/assets/js/front/newsletter-subscription.js'), ['jquery'], false, true);
+    wp_enqueue_script('newsletter-subscription-script');
 }
