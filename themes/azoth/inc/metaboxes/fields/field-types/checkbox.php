@@ -1,18 +1,18 @@
 <?php
-function option_children($field, $option, $meta_value) { ?>
+function option_children($field, $option, $meta_value, $disabled) { ?>
     <p><strong><?= $option['title'] ?> :</strong></p>
     <ul style="margin-left: 18px;">
         <?php foreach($option['children'] as $child) : ?>
             <li>
                 <?php if(isset($child['children'])) :
-                    option_children($field, $child, $meta_value);
+                    option_children($field, $child, $meta_value, $disabled);
                 else : ?>
-                    <label for="<?= $child['id'] ?>" style="font-weight: normal">
+                    <label for='<?= $child['id'] ?>' style="font-weight: normal">
                         <input
                             type="checkbox"
-                            id="<?= $child['id'] ?>"
-                            name="<?= $child['id'] ?>"
-                            value="<?= $child['id'] ?>"
+                            id='<?= $child['id'] ?>'
+                            name='<?= $child['id'] ?>'
+                            value='<?= $child['id'] ?>'
                             style="width: 16px; display: inline-block;"
                             <?php if (isset($meta_value)) :
                                 foreach($meta_value as $value) :
@@ -20,6 +20,7 @@ function option_children($field, $option, $meta_value) { ?>
                                 endforeach;
                             endif; ?>
                             <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
+                            <?= $disabled ?>
                         >
                         <?= $child['title'] ?>
                     </label>
@@ -28,26 +29,27 @@ function option_children($field, $option, $meta_value) { ?>
         <?php endforeach; ?>
     </ul>
 <?php }
-function checkbox_field($field, $meta_value) { ?>
+function checkbox_field($field, $meta_value, $disabled) { ?>
     <ul>
         <?php foreach ($field['options'] as $option) : ?>
             <li>
                 <?php if(isset($option['children'])) :
-                    option_children($field, $option, $meta_value);
+                    option_children($field, $option, $meta_value, $disabled);
                 else : ?>
-                    <label for="<?= $option['id'] ?>" style="font-weight: normal">
+                    <label for='<?= $option['id'] ?>' style="font-weight: normal">
                         <input
                             type="checkbox"
-                            id="<?= $option['id'] ?>"
-                            name="<?= $option['id'] ?>"
-                            value="<?= $option['id'] ?>"
+                            id='<?= $option['id'] ?>'
+                            name='<?= $option['id'] ?>'
+                            value='<?= $option['id'] ?>'
                             style="width: 16px; display: inline-block;"
                             <?php if (isset($meta_value)) :
                                 foreach($meta_value as $value) :
-                                    echo $value === $option['value'] ? 'checked' : '';
+                                    echo $value === $option['id'] ? 'checked' : '';
                                 endforeach;
                             endif; ?>
                             <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
+                            <?= $disabled ?>
                         >
                         <?= $option['title'] ?>
                     </label>

@@ -21,17 +21,14 @@ $stages_categories = get_terms( [
 $categories_options = [
   'c' => [
     'id' => 'conferences',
-    'value' => 'conferences',
     'title' => 'Conférences'
   ],
   'f' => [
     'id' => 'formations',
-    'value' => 'formations',
     'title' => 'Nouveaux cycles de Formations',
   ],
   's' => [
     'id' => 'stages',
-    'value' => 'stages',
     'title' => 'Stages',
   ]
 ];
@@ -44,8 +41,7 @@ foreach($categories_options as $option) :
                     $voie_posts->the_post();
                     $voies[] =
                         [
-                            'id'    => $option['id'] . '-' . get_the_ID(),
-                            'value' => get_the_ID(),
+                            'id'    => json_encode(['evenement' => $option['id'], 'voie' => get_the_ID()]),
                             'title' => get_the_title()
                         ];
                 endwhile;
@@ -62,8 +58,7 @@ foreach($categories_options as $option) :
                         $voie_posts->the_post();
                         $voies[] =
                             [
-                                'id'    => $option['id'] . '-' . $stages_categorie->slug . '-' . get_the_ID(),
-                                'value' => get_the_ID(),
+                                'id'    => json_encode(['evenement' => $option['id'], 'stage_categorie' => $stages_categorie->term_id, 'voie' => get_the_ID()]),
                                 'title' => get_the_title()
                             ];
                     endwhile;
@@ -72,13 +67,11 @@ foreach($categories_options as $option) :
                 $option['children'][] =
                 $stages_categorie->name === 'Le Mouvement Immobile' ?
                 [
-                    'id' => $option['id'] . '-' . $stages_categorie->slug,
-                    'value' => $stages_categorie->slug,
+                    'id' => json_encode(['evenement' => $option['id'], 'stage_categorie' => $stages_categorie->term_id]),
                     'title' => $stages_categorie->name
                 ] : 
                 [
-                    'id' => $option['id'] . '-' . $stages_categorie->slug,
-                    'value' => $stages_categorie->slug,
+                    'id' => json_encode(['evenement' => $option['id'], 'stage_categorie' => $stages_categorie->term_id]),
                     'title' => $stages_categorie->name,
                     'children' => $voies
                 ] ;
@@ -97,18 +90,21 @@ $geo_zones = get_terms( [
 $geo_options = [];
 foreach ($geo_zones as $geo_zone) :
     $geo_options[$geo_zone->term_id] = [
-        'id' => $geo_zone->slug,
-        'value' => $geo_zone->slug,
+        'id' => json_encode(['geo_zone' => $geo_zone->term_id]),
         'title' => $geo_zone->name
     ];
-    $children = get_term_children( $geo_zone->term_id, 'geo_zone' );
+    $children = get_terms( [ 
+        'taxonomy' => 'geo_zone',
+        'parent'   => $geo_zone->term_id,
+        'hide_empty' => false,
+        'hierarchical' => true
+    ] );
     if($children) :
         foreach ( $children as $child ) :
-            $term = get_term_by( 'id', $child, 'geo_zone' );
+            // $term = get_term_by( 'id', $child, 'geo_zone' );
             $geo_options[$geo_zone->term_id]['children'][] = [
-                'id' => $term->slug,
-                'value' => $term->slug,
-                'title' => $term->name
+                'id' => json_encode(['geo_zone' => $child->term_id, 'parent_zone' => $geo_zone->term_id]),
+                'title' => $child->name
             ];
         endforeach;
     endif;
@@ -121,6 +117,21 @@ $subscriber_fields = [
             'id'        => 'title',
             'type'      => 'email',
             'required'  => true
+        ] // évènements
+    ], //évènement
+    [
+        'group_label' => 'Blog', // group_label required, can be empty
+        [
+            'id'        => 'blog',
+            'type'      => 'checkbox',
+            'options'   => [
+                [
+                    'id'    => 'posts',
+                    'title' => 'Articles du blog',
+                    'default'   => 'posts',
+                    'disabled'  => 'disabled',
+                ],
+            ],
         ] // évènements
     ], //évènement
     [

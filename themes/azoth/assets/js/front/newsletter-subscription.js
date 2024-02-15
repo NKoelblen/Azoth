@@ -38,8 +38,6 @@ jQuery(function ($) {
 				}
 			});
 
-		console.log(data);
-
 		// Requête Ajax en JS natif via Fetch
 		fetch(ajaxurl, {
 			method: 'POST',
@@ -51,14 +49,7 @@ jQuery(function ($) {
 		})
 			.then((response) => response.json())
 			.then((body) => {
-				console.log(body.data);
-				// En cas d'erreur
-				if (!body.success) {
-					$('#subscription-form').append(body.data);
-					return;
-				}
-				// Et en cas de réussite
-				$('#subscription-form').append(body.data);
+				$('#subscription-form').html(body.data);
 			});
 	});
 });

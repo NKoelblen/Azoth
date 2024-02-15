@@ -4,6 +4,9 @@ function chekbox_children_values($post, $option, $meta_value) {
     if (isset($option['children'])) :
         foreach ($option['children'] as $child) :
             $meta_value[] = get_post_meta($post->ID, $child['id'], true);
+            foreach ($meta_value as $value) :
+                $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
+            endforeach;
             $meta_value = chekbox_children_values($post, $child, $meta_value);
         endforeach;
     endif;
@@ -33,6 +36,11 @@ function fields_generator($post, $fields) {
                 foreach ($group_of_fields as $field) :
                     $display = isset($field['display']) ? 'style="display: ' . $field['display'] . '"' : '';
                     $disabled = isset($field['disabled']) ? $field['disabled'] : "";
+                    if( $field['type'] === 'checkbox' ):
+                        foreach($field['options'] as $option) :
+                            $disabled = isset($option['disabled']) ? $option['disabled'] : "";
+                        endforeach;
+                    endif;
                 
                     /* Registered Meta values */
 
@@ -55,6 +63,9 @@ function fields_generator($post, $fields) {
                                 $meta_value = [];
                                 foreach($field['options'] as $option) :
                                     $meta_value[] = get_post_meta($post->ID, $option['id'], true);
+                                    foreach ($meta_value as $value) :
+                                        $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
+                                    endforeach;
                                     $meta_value = chekbox_children_values($post, $option, $meta_value);
                                 endforeach;
                             endif;
@@ -90,7 +101,7 @@ function fields_generator($post, $fields) {
                                 radio_field($field, $meta_value);
                                 break;
                             case 'checkbox':
-                                checkbox_field($field, $meta_value);
+                                checkbox_field($field, $meta_value, $disabled);
                                 break;
                             default:
                                 input_field($field, $meta_value);
