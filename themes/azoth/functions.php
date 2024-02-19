@@ -105,3 +105,4 @@ require_once AZOTH_DIR . 'inc/front/menus.php';
 require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/sc-subscription-form.php';
+// require_once AZOTH_DIR . 'inc/newsletter/newsletter.php';
