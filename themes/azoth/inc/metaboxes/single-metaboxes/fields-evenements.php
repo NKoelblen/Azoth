@@ -258,8 +258,8 @@ function evenement_fields($post_type) {
 global $post;
 // global $wpdb;
 
-add_action( 'save_post', 'evenement_title_and_time' );
-function evenement_title_and_time( $post_id ) {
+add_action( 'save_post', 'evenement_title' );
+function evenement_title( $post_id ) {
 	
 	if ( get_post_type( $post_id ) !== 'conference' && get_post_type( $post_id ) !== 'formation' && get_post_type( $post_id ) !== 'stage' ) :
 		return ;
@@ -281,16 +281,14 @@ function evenement_title_and_time( $post_id ) {
 			$e_title[] = 'Session n°' . $session;
         endif;
 		$e_title[] = get_the_title( get_post_meta( $post_id, 'lieu', true ) );
-		$e_date = strtotime( get_post_meta( $post_id, 'e_date_du', true ) ) ;
-		$e_title[] = date_i18n( 'F Y', $e_date ) ;
+		$e_title[] = date_i18n( 'F Y', strtotime( get_post_meta( $post_id, 'e_date_du', true ) ) );
 		
 		$post_title =  implode( " - ", $e_title ) ;
 		$post_name =  sanitize_title( $post_title ) ;
-        $post_date = date( "Y-m-d H:i:s", $e_date );
 
 	endif ;
 
-	remove_action( 'save_post', 'evenement_title_and_time' );
-	wp_update_post(['ID' => $post_id, 'post_title' => $post_title, 'post_name' => $post_name, 'post_date' => $post_date]);
-	add_action( 'save_post', 'evenement_title_and_time' );
+	remove_action( 'save_post', 'evenement_title' );
+	wp_update_post(['ID' => $post_id, 'post_title' => $post_title, 'post_name' => $post_name]);
+	add_action( 'save_post', 'evenement_title' );
 }
