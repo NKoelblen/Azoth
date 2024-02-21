@@ -71,6 +71,10 @@ function azoth_admin_scripts() {
 		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/admin/mouvement-immobile.js'), array('leaflet'), false, true);
     	wp_enqueue_script('mouvement-immobile-script');
 	endif;
+	if(get_current_screen()->base === 'post' && $post->post_type === 'subscriber') :
+		wp_register_script('newsletter-subscription-script', get_theme_file_uri('/assets/js/admin/newsletter-subscription.js'), array('jquery'), false, true);
+    	wp_enqueue_script('newsletter-subscription-script');
+	endif;
 
 	// wp_register_script('test-script', get_theme_file_uri('/test.js'), array('jquery'), false, true);
 	// wp_enqueue_script('test-script');

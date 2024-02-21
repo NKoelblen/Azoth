@@ -1,9 +1,9 @@
 <?php
-function select_field($field, $meta_value, $disabled) { ?>
+function select_field($field, $meta_value) { ?>
     <select
         id="<?= $field['id'] ?>"
         name="<?= $field['id'] ?>"
-        <?= $disabled ?>
+        <?= isset($field['disabled']) && $field['disabled'] === 'disabled' ? 'disabled' : ''; ?>
         <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
     >
     <?php if ($meta_value) :

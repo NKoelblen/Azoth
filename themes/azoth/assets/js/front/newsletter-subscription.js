@@ -1,4 +1,45 @@
 jQuery(function ($) {
+	function checkSiblings(el, checked) {
+		let parent = el.parent().parent(),
+			all = true;
+
+		el.siblings().each(function () {
+			let returnValue = (all =
+				$(this)
+					.children('input[type="checkbox"]:not(:disabled)')
+					.prop('checked') === checked);
+			return returnValue;
+		});
+
+		if (all && checked) {
+			parent.children('input[type="checkbox"]:not(:disabled)').prop({
+				indeterminate: false,
+				checked: checked,
+			});
+
+			checkSiblings(parent, checked);
+		} else if (all && !checked) {
+			parent
+				.children('input[type="checkbox"]:not(:disabled)')
+				.prop('checked', checked);
+			parent
+				.children('input[type="checkbox"]:not(:disabled)')
+				.prop(
+					'indeterminate',
+					parent.find('input[type="checkbox"]:not(:disabled):checked')
+						.length > 0
+				);
+			checkSiblings(parent, checked);
+		} else {
+			el.parents('li')
+				.children('input[type="checkbox"]:not(:disabled)')
+				.prop({
+					indeterminate: true,
+					checked: false,
+				});
+		}
+	}
+
 	// function openForm() {
 	// 	element.css('display', 'flex');
 	// }
@@ -18,7 +59,6 @@ jQuery(function ($) {
 	// });
 
 	$('input#title').on('input', function (e) {
-		console.log('test');
 		if ($('#subscriber-id').length !== 0) {
 			$('#subscriber-id').remove();
 		}
@@ -49,19 +89,20 @@ jQuery(function ($) {
 		})
 			.then((response) => response.json())
 			.then((body) => {
-				console.log(body);
 				if (!body.success) {
 					$('#subscription-form').html(body.data);
 					return;
 				}
 				$.each(body.data['meta-values'], function () {
-					if ($(this)[0].match('^{')) {
-						$('#' + $.escapeSelector($(this)[0])).prop(
-							'checked',
-							true
-						);
-					}
+					$('#' + $.escapeSelector($(this)[0])).prop('checked', true);
 				});
+				let checked = $(
+					'#subscription-form input[type="checkbox"]:checked'
+				);
+				let container = checked.parent();
+
+				checkSiblings(container, checked);
+
 				if ($('#subscriber-id').length === 0) {
 					$('#subscription-form').append(
 						'<input type="hidden" id="subscriber-id" name="subscriber-id" value="' +
@@ -76,20 +117,30 @@ jQuery(function ($) {
 			});
 	});
 
-	$('#subscription-form').on('click', $('delete-btn'), function (e) {
+	$('#subscription-form input[type="checkbox"]:not(:disabled)').change(
+		function (e) {
+			let checked = $(this).prop('checked'),
+				container = $(this).parent();
+
+			container.find('input[type="checkbox"]:not(:disabled)').prop({
+				indeterminate: false,
+				checked: checked,
+			});
+
+			checkSiblings(container, checked);
+		}
+	);
+
+	$('#subscription-form').on('click', '.delete-btn', function (e) {
 		e.preventDefault();
 
-		console.log($(this));
-
-		const ajaxurl = $('#subscription-form .delete-btn').data('ajaxurl');
+		const ajaxurl = $(this).data('ajaxurl');
 
 		let data = {
-			action: $('#subscription-form .delete-btn').data('action'),
-			nonce: $('#subscription-form .delete-btn').data('nonce'),
-			id: $('#subscription-form .delete-btn').data('id'),
+			action: $(this).data('action'),
+			nonce: $(this).data('nonce'),
+			id: $(this).data('id'),
 		};
-
-		console.log(data);
 
 		fetch(ajaxurl, {
 			method: 'POST',

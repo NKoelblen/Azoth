@@ -5,7 +5,7 @@ function chekbox_children_values($post, $option, $meta_value) {
         foreach ($option['children'] as $child) :
             $meta_value[] = get_post_meta($post->ID, $child['id'], true);
             foreach ($meta_value as $value) :
-                $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
+                $meta_value[] = !$value && isset($child['default']) ? $child['default'] : '';
             endforeach;
             $meta_value = chekbox_children_values($post, $child, $meta_value);
         endforeach;
@@ -35,12 +35,6 @@ function fields_generator($post, $fields) {
                 
                 foreach ($group_of_fields as $field) :
                     $display = isset($field['display']) ? 'style="display: ' . $field['display'] . '"' : '';
-                    $disabled = isset($field['disabled']) ? $field['disabled'] : "";
-                    if( $field['type'] === 'checkbox' ):
-                        foreach($field['options'] as $option) :
-                            $disabled = isset($option['disabled']) ? $option['disabled'] : "";
-                        endforeach;
-                    endif;
                 
                     /* Registered Meta values */
 
@@ -70,7 +64,8 @@ function fields_generator($post, $fields) {
                                 endforeach;
                             endif;
                     }
-                    $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value; ?>
+                    $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value;
+                     ?>
                     <!-- Field box -->
                     <div class="<?= $field['type'] . ' ' . $field['id'] ?>" <?= $display ?>;">
 
@@ -83,7 +78,7 @@ function fields_generator($post, $fields) {
 
                         <?php switch ($field['type']) {
                             case 'select':
-                                select_field($field, $meta_value, $disabled);
+                                select_field($field, $meta_value);
                                 break;
                             case 'WYSIWYG':
                                 wysiwyg_field($field, $meta_value);
@@ -101,7 +96,7 @@ function fields_generator($post, $fields) {
                                 radio_field($field, $meta_value);
                                 break;
                             case 'checkbox':
-                                checkbox_field($field, $meta_value, $disabled);
+                                checkbox_field($field, $meta_value);
                                 break;
                             default:
                                 input_field($field, $meta_value);

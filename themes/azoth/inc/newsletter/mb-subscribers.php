@@ -19,18 +19,16 @@ $stages_categories = get_terms( [
 ] );
 
 $evenement_options = [
-  ['slug' => 'conference'],
-  ['slug' => 'formation'],
-  ['slug' => 'stage']
+    [
+    'id' => 'conference',
+    ],
+    ['id' => 'formation'],
+    ['id' => 'stage']
 ];
 foreach($evenement_options as $key => $option) :
-    $pt = get_post_type_object( $evenement_options[$key]['slug'] );
+    $pt = get_post_type_object( $evenement_options[$key]['id'] );
     $evenement_options[$key]['title'] = $pt->labels->name;
-    $evenement_options[$key]['id'] = json_encode([
-        'id' => $evenement_options[$key]['slug'],
-        'type' => 'post_type'
-    ]);
-    switch ($evenement_options[$key]['slug']) {
+    switch ($evenement_options[$key]['id']) {
         case 'formation' :
             $evenement_options[$key]['title'] = "Nouveaux cycles de " . $evenement_options[$key]['title'];
             $voies = [];
@@ -40,10 +38,8 @@ foreach($evenement_options as $key => $option) :
                     $voies[] =
                         [
                             'id'    => json_encode([
-                                'parent'    => json_decode($evenement_options[$key]['id'], true),
+                                'post_type' => $evenement_options[$key]['id'],
                                 'id'        => get_the_ID(),
-                                'type'      => 'post',
-                                'post_type' => 'voie'
                             ]),
                             'title' => get_the_title(),
                         ];
@@ -57,27 +53,28 @@ foreach($evenement_options as $key => $option) :
                 wp_reset_postdata();
                 $evenement_options[$key]['children'][$stages_categorie->term_id] = [
                     'id' => json_encode([
-                        'parent'    => json_decode($evenement_options[$key]['id']),
+                        'post_type' => $evenement_options[$key]['id'],
                         'id'        => $stages_categorie->term_id,
-                        'type'      => 'term',
-                        'taxonomy'  => 'stage_categorie'
                     ]),
                     'title' => $stages_categorie->name,
                 ];
-                if ($voie_posts->have_posts() && $stages_categorie->name !== 'Le Mouvement Immobile') :
+                if ($voie_posts->have_posts() && $stages_categorie->name === 'Approfondissement') :
                     while ($voie_posts->have_posts()) :
                         $voie_posts->the_post();
                         $evenement_options[$key]['children'][$stages_categorie->term_id]['children'][] =
                             [
                                 'id'    => json_encode([
-                                    'parent'    => json_decode($evenement_options[$key]['children'][$stages_categorie->term_id]['id'], true),
-                                    'id'        => get_the_ID(),
-                                    'type'      => 'post',
-                                    'post_type' => 'voie'
+                                    'post_type'         => $evenement_options[$key]['id'],
+                                    'stage_categorie'   => json_decode($evenement_options[$key]['children'][$stages_categorie->term_id]['id'], true)['id'],
+                                    'id'                => get_the_ID(),
                                 ]),
                                 'title' => get_the_title(),
                             ];
                     endwhile;
+                endif;
+                if($stages_categorie->name === 'Stage en extérieur') :
+                    $evenement_options[$key]['children'][$stages_categorie->term_id]['default'] = $evenement_options[$key]['children'][$stages_categorie->term_id]['id'];
+                    $evenement_options[$key]['children'][$stages_categorie->term_id]['disabled'] = 'disabled';
                 endif;
             endforeach;
     }
@@ -95,7 +92,6 @@ foreach ($geo_zones as $geo_zone) :
     $geo_options[$geo_zone->term_id] = [
         'id' => json_encode([
             'id'        => $geo_zone->term_id,
-            'type'      => 'term',
             'taxonomy'  => 'geo_zone'
         ]),
         'title' => $geo_zone->name,
@@ -112,8 +108,6 @@ foreach ($geo_zones as $geo_zone) :
                 'id' => json_encode([
                     'parent'    => json_decode($geo_options[$geo_zone->term_id]['id'], true),
                     'id'        => $child->term_id,
-                    'type'      => 'term',
-                    'taxonomy'  => 'geo_zone'
                 ]),
                 'title' => $child->name,
             ];
@@ -137,8 +131,8 @@ $subscriber_fields = [
             'type'      => 'checkbox',
             'options'   => [
                 [
-                    'id'    => 'posts',
-                    'title' => 'Articles du blog',
+                    'id'        => 'posts',
+                    'title'     => 'Articles du blog',
                     'default'   => 'posts',
                     'disabled'  => 'disabled',
                 ],
