@@ -73,7 +73,6 @@ foreach($evenement_options as $key => $option) :
                     endwhile;
                 endif;
                 if($stages_categorie->name === 'Stage en extérieur') :
-                    $evenement_options[$key]['children'][$stages_categorie->term_id]['default'] = $evenement_options[$key]['children'][$stages_categorie->term_id]['id'];
                     $evenement_options[$key]['children'][$stages_categorie->term_id]['disabled'] = 'disabled';
                 endif;
             endforeach;
@@ -133,10 +132,10 @@ $subscriber_fields = [
                 [
                     'id'        => 'posts',
                     'title'     => 'Articles du blog',
-                    'default'   => 'posts',
                     'disabled'  => 'disabled',
                 ],
             ],
+            'default'   => 'posts',
         ] // évènements
     ], //évènement
     [
@@ -145,12 +144,13 @@ $subscriber_fields = [
             'id'        => 'evenements',
             'type'      => 'checkbox',
             'options'   => $evenement_options,
+            'default'   => '{"post_type":"stage","id":52}',
         ] // évènements
     ], //évènement
     [
         'group_label' => 'Localité', // group_label required, can be empty
         [
-            'id'        => 'zone',
+            'id'        => 'zones',
             'type'      => 'checkbox',
             'options'   => $geo_options,
         ], // zone

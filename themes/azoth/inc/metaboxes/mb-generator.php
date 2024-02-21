@@ -172,16 +172,16 @@ class metaboxGenerator
             array_shift($group_of_fields);
             foreach ($group_of_fields as $field) :
 
-                if($field['type'] === 'checkbox') :
-                    foreach($field['options'] as $option) :
-                        if (isset($_POST[$option['id']])) :
-                            update_post_meta($post_id, $option['id'], $_POST[$option['id']]);
-                        elseif (get_post_meta($post_id, $option['id'], true)) :
-                            delete_post_meta($post_id, $option['id'], $_POST[$option['id']]);
-                        endif;
-                        update_chekbox_children($post_id, $option);
-                    endforeach;
-                endif;
+                // if($field['type'] === 'checkbox') :
+                //     foreach($field['options'] as $option) :
+                //         if (isset($_POST[$field['id']])) :
+                //             update_post_meta($post_id, $option['id'], $_POST[$option['id']]);
+                //         elseif (get_post_meta($post_id, $option['id'], true)) :
+                //             delete_post_meta($post_id, $option['id'], $_POST[$option['id']]);
+                //         endif;
+                //         update_chekbox_children($post_id, $option);
+                //     endforeach;
+                // endif;
 
                 if (isset($_POST[$field['id']])) :
                     update_post_meta($post_id, $field['id'], $_POST[$field['id']]);

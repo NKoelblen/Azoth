@@ -8,8 +8,10 @@ jQuery(function ($) {
 	items.on('change', function (e) {
 		if (e.target.parentNode.innerText === ' Le Mouvement Immobile') {
 			voie.css('display', 'none');
+			voie.find('#e_voie').prop('required', false);
 		} else {
 			voie.css('display', 'flex');
+			voie.find('#e_voie').prop('required', true);
 		}
 	});
 });

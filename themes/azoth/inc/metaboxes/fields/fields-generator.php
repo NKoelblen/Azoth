@@ -53,16 +53,16 @@ function fields_generator($post, $fields) {
                             break;
                         default:
                             $meta_value = get_post_meta($post->ID, $field['id'], true);    
-                            if( $field['type'] === 'checkbox' ):
-                                $meta_value = [];
-                                foreach($field['options'] as $option) :
-                                    $meta_value[] = get_post_meta($post->ID, $option['id'], true);
-                                    foreach ($meta_value as $value) :
-                                        $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
-                                    endforeach;
-                                    $meta_value = chekbox_children_values($post, $option, $meta_value);
-                                endforeach;
-                            endif;
+                            // if( $field['type'] === 'checkbox' ):
+                            //     $meta_value = [];
+                            //     foreach($field['options'] as $option) :
+                            //         $meta_value[] = get_post_meta($post->ID, $option['id'], true);
+                            //         foreach ($meta_value as $value) :
+                            //             $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
+                            //         endforeach;
+                            //         $meta_value = chekbox_children_values($post, $option, $meta_value);
+                            //     endforeach;
+                            // endif;
                     }
                     $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value;
                      ?>
