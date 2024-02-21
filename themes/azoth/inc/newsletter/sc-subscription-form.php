@@ -70,6 +70,8 @@ function subscription_update() {
     );
     if($subsribers) :
         $ID = $subsribers[0]->ID;
+        $evenements = get_post_meta($ID, 'evenements');
+        $zones = get_post_meta($ID, 'zones');
         ob_start(); ?>
         <a href="#" class="delete-btn"
             data-ajaxurl='<?= admin_url('admin-ajax.php'); ?>'
@@ -79,7 +81,7 @@ function subscription_update() {
         >
             Me désincrire
         </a>
-        <?php wp_send_json_success(['ID' => $ID, 'meta-values' => get_post_meta($ID), 'delete-btn' => ob_get_clean()]);
+        <?php wp_send_json_success(['ID' => $ID, 'evenements' => $evenements, 'zones' => $zones, 'delete-btn' => ob_get_clean()]);
     endif;
 }
 add_action('wp_ajax_subscription_post', 'subscription_post');

@@ -89,12 +89,33 @@ jQuery(function ($) {
 		})
 			.then((response) => response.json())
 			.then((body) => {
+				console.log(body.data);
+
 				if (!body.success) {
 					$('#subscription-form').html(body.data);
 					return;
 				}
-				$.each(body.data['meta-values'], function () {
-					$('#' + $.escapeSelector($(this)[0])).prop('checked', true);
+				$.each(body.data['evenements'], function () {
+					let length = $(this).size();
+					let i = 0;
+					while (i < length) {
+						$('#' + $.escapeSelector($(this)[i])).prop(
+							'checked',
+							true
+						);
+						i++;
+					}
+				});
+				$.each(body.data['zones'], function () {
+					let length = $(this).size();
+					let i = 0;
+					while (i < length) {
+						$('#' + $.escapeSelector($(this)[i])).prop(
+							'checked',
+							true
+						);
+						i++;
+					}
 				});
 				let checked = $(
 					'#subscription-form input[type="checkbox"]:checked'
