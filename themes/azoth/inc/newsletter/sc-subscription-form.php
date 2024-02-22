@@ -26,6 +26,12 @@ function subscription_form_shortcode() {
             <?php fields_generator($new_subscriber, $fields); ?>
             <input 
                 type="hidden" 
+                id="subscriber-id" 
+                name="subscriber-id" 
+                value=""
+            > 
+            <input 
+                type="hidden" 
                 id="update-nonce" 
                 name="update-nonce" 
                 value="<?php echo wp_create_nonce( 'subscription_update' ); ?>"
@@ -37,12 +43,14 @@ function subscription_form_shortcode() {
                 value="subscription_update"
             >
             <input 
-                type="hidden" 
+                type="hidden"
+                id="nonce" 
                 name="nonce" 
                 value="<?php echo wp_create_nonce( 'subscription_post' ); ?>"
             > 
             <input
                 type="hidden"
+                id="action"
                 name="action"   
                 value="subscription_post"
             >
@@ -95,42 +103,28 @@ function subscription_post() {
         return;
     endif;
 
-    $title = sanitize_text_field($_POST['title']);
-    if( ! is_email( $title ) ) : ?>
+    $email = sanitize_text_field($_POST['email']);
+    if( ! is_email( $email ) ) : ?>
         <p class="subscriber error">Vous n'avez pas le droit d'effectuer cette action.</p>
     	<?php wp_send_json_error(ob_get_clean(), 403);
         return;
     endif;
 
     $subscriber = [
-        'post_title'    => $title,
-        'post_content'  => $_POST['content'] ? $_POST['content'] : "",
+        'post_title'    => $email,
+        'post_content'  => "",
         'post_status'   => 'publish',
-        'post_type' 	=> 'subscriber'
+        'post_type' 	=> 'subscriber',
+        'meta_input'    => [
+            'blog'          => $_POST['blog'],
+            'evenements'    => json_decode($_POST['evenements'], true),
+            'zones'         => $_POST['zones'],
+        ]
     ];
 
-    foreach($_POST as $key => $field) :
-        if ($field !== $_POST['action'] &&
-            $field !== $_POST['nonce'] && 
-            $field !== $_POST['title'] &&
-            $field !== $_POST['content']
-            ) :
-
-            $subscriber['meta_input'][$key] = $field;
-
-        endif;
-    endforeach;
-
-    if(isset($_POST['subscriber-id'])) :
-        $meta_values = get_post_meta($_POST['subscriber-id']);
-        foreach($meta_values as $meta_value) :
-            if(!in_array($meta_value[0], $subscriber['meta_input'])) :
-                delete_post_meta($_POST['subscriber-id'], $meta_value[0], $meta_value[0]);
-            endif;
-        endforeach;
-        foreach($subscriber['meta_input'] as $meta_value) :
-            update_post_meta($_POST['subscriber-id'], $meta_value, $meta_value);
-        endforeach;
+    if(isset($_POST['id'])) :
+        update_post_meta($_POST['id'], 'evenements', json_decode(stripslashes($_POST['evenements']), true));
+        update_post_meta($_POST['id'], 'zones', json_decode(stripslashes($_POST['zones']), true));
         ob_start() ?>
         <p class="subscriber sucess">Merci ! Vos changements ont bien été pris en compte !</p>
         <?php wp_send_json_success(ob_get_clean());
@@ -138,7 +132,7 @@ function subscription_post() {
         wp_insert_post($subscriber);
         ob_start() ?>
         <p class="subscriber sucess">Merci ! Votre inscription à bien été prise en compte !</p>
-        <p>Vous recevrez un mail de confirmation dans les prochaines minutes à l'adresse suivante : <?= $title ?></p>
+        <p>Vous recevrez un mail de confirmation dans les prochaines minutes à l'adresse suivante : <?= $email ?></p>
         <?php wp_send_json_success(ob_get_clean());
     endif;
 

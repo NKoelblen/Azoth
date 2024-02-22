@@ -59,9 +59,6 @@ jQuery(function ($) {
 	// });
 
 	$('input#title').on('input', function (e) {
-		if ($('#subscriber-id').length !== 0) {
-			$('#subscriber-id').remove();
-		}
 		$('#subscription-btn').text("S'inscrire");
 		if ($('#subscription-form .delete-btn').length !== 0) {
 			$('#subscription-form .delete-btn').remove();
@@ -124,13 +121,9 @@ jQuery(function ($) {
 
 				checkSiblings(container, checked);
 
-				if ($('#subscriber-id').length === 0) {
-					$('#subscription-form').append(
-						'<input type="hidden" id="subscriber-id" name="subscriber-id" value="' +
-							body.data['ID'] +
-							'">'
-					);
-				}
+				console.log(body.data);
+
+				$('#subscriber-id').val(body.data['ID']);
 				$('#subscription-btn').text('Mettre à jour');
 				if ($('#subscription-form .delete-btn').length === 0) {
 					$('#subscription-form').append(body.data['delete-btn']);
@@ -182,21 +175,35 @@ jQuery(function ($) {
 
 		let ajaxurl = $(this).attr('action');
 
-		data = {};
+		data = {
+			action: $('#action').val(),
+			nonce: $('#nonce').val(),
+			id: $('#subscriber-id').val(),
+			email: $('#subscription-form #title').val(),
+			blog: [$('#subscription-form #posts').val()],
+			evenements: [],
+			zones: [],
+		};
 
 		$(this)
-			.find('input')
+			.find('input[name="evenements[]"')
 			.each(function () {
-				if (
-					$(this).attr('type') === 'checkbox' &&
-					$(this).is(':checked')
-				) {
-					data[$(this).attr('name')] = $(this).val();
-				} else if ($(this).attr('type') !== 'checkbox') {
-					data[$(this).attr('name')] = $(this).val();
+				if ($(this).is(':checked')) {
+					data['evenements'].push($(this).val());
+				}
+			});
+		$(this)
+			.find('input[name="zones[]"')
+			.each(function () {
+				if ($(this).is(':checked')) {
+					data['zones'].push($(this).val());
 				}
 			});
 
+		data['evenements'] = JSON.stringify(data['evenements']);
+		data['zones'] = JSON.stringify(data['zones']);
+
+		console.log(data);
 		// Requête Ajax en JS natif via Fetch
 		fetch(ajaxurl, {
 			method: 'POST',
