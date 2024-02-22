@@ -117,12 +117,12 @@ function subscription_post() {
         'post_type' 	=> 'subscriber',
         'meta_input'    => [
             'blog'          => $_POST['blog'],
-            'evenements'    => json_decode($_POST['evenements'], true),
-            'zones'         => $_POST['zones'],
+            'evenements'    => json_decode(stripslashes($_POST['evenements']), true),
+            'zones'         => json_decode(stripslashes($_POST['zones']), true),
         ]
     ];
 
-    if(isset($_POST['id'])) :
+    if($_POST['id']) :
         update_post_meta($_POST['id'], 'evenements', json_decode(stripslashes($_POST['evenements']), true));
         update_post_meta($_POST['id'], 'zones', json_decode(stripslashes($_POST['zones']), true));
         ob_start() ?>
