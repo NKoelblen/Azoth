@@ -67,29 +67,32 @@ function subscription_update() {
         return;
     endif;
 
-    $email = $_POST['value'] ? $_POST['value'] : "";
-    $subsribers = get_posts(
-        [
-            'post_type'     => 'subscriber',
-            'title'         => $email,
-            'post_status'   => 'publish',
-            'numberposts'   => 1,
-        ]
-    );
-    if($subsribers) :
-        $ID = $subsribers[0]->ID;
-        $evenements = get_post_meta($ID, 'evenements');
-        $zones = get_post_meta($ID, 'zones');
-        ob_start(); ?>
-        <a href="#" class="delete-btn"
-            data-ajaxurl='<?= admin_url('admin-ajax.php'); ?>'
-        	data-nonce='<?= wp_create_nonce('subscription_delete'); ?>'
-        	data-action='subscription_delete'
-            data-id='<?= $ID ?>'
-        >
-            Me désincrire
-        </a>
-        <?php wp_send_json_success(['ID' => $ID, 'evenements' => $evenements, 'zones' => $zones, 'delete-btn' => ob_get_clean()]);
+    if($_POST['value']) :
+
+        $subsribers = get_posts(
+            [
+                'post_type'     => 'subscriber',
+                'title'         => $_POST['value'],
+                'post_status'   => 'publish',
+                'numberposts'   => 1,
+            ]
+        );
+        if($subsribers) :
+            $ID = $subsribers[0]->ID;
+            $evenements = get_post_meta($ID, 'evenements');
+            $zones = get_post_meta($ID, 'zones');
+            ob_start(); ?>
+            <a href="#" class="delete-btn"
+                data-ajaxurl='<?= admin_url('admin-ajax.php'); ?>'
+            	data-nonce='<?= wp_create_nonce('subscription_delete'); ?>'
+            	data-action='subscription_delete'
+                data-id='<?= $ID ?>'
+            >
+                Me désincrire
+            </a>
+            <?php wp_send_json_success(['ID' => $ID, 'evenements' => $evenements, 'zones' => $zones, 'delete-btn' => ob_get_clean()]);
+        endif;
+
     endif;
 }
 add_action('wp_ajax_subscription_post', 'subscription_post');
@@ -104,11 +107,36 @@ function subscription_post() {
     endif;
 
     $email = sanitize_text_field($_POST['email']);
-    if( ! is_email( $email ) ) : ?>
+    if( ! is_email( $email ) ) :
+        ob_start(); ?>
         <p class="subscriber error">Vous n'avez pas le droit d'effectuer cette action.</p>
     	<?php wp_send_json_error(ob_get_clean(), 403);
         return;
     endif;
+
+    $evenements = json_decode(stripslashes($_POST['evenements']), true);
+    foreach($evenements as $evenement) :
+        if(!json_validate($evenement) ||
+        str_contains($evenement, "<") ||
+        str_contains($evenement, ">") ||
+        str_contains($evenement, "$")) :
+            ob_start(); ?>
+            <p class="subscriber error">Vous n'avez pas le droit d'effectuer cette action.</p>
+    	    <?php wp_send_json_error(ob_get_clean(), 403);
+        endif;
+    endforeach;
+
+    $zones = json_decode(stripslashes($_POST['zone']), true);
+    foreach($zones as $zone) :
+        if(!json_validate($zone) ||
+        str_contains($evenement, "<") ||
+        str_contains($evenement, ">") ||
+        str_contains($evenement, "$")) :
+            ob_start(); ?>
+            <p class="subscriber error">Vous n'avez pas le droit d'effectuer cette action.</p>
+    	    <?php wp_send_json_error(ob_get_clean(), 403);
+        endif;
+    endforeach;
 
     $subscriber = [
         'post_title'    => $email,

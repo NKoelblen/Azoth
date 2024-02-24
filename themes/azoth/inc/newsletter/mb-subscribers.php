@@ -19,16 +19,14 @@ $stages_categories = get_terms( [
 ] );
 
 $evenement_options = [
-    [
-    'id' => 'conference',
-    ],
-    ['id' => 'formation'],
-    ['id' => 'stage']
+    ['id' => ['post_type' => 'conference']],
+    ['id' => ['post_type' => 'formation']],
+    ['id' => ['post_type' => 'stage']]
 ];
 foreach($evenement_options as $key => $option) :
-    $pt = get_post_type_object( $evenement_options[$key]['id'] );
+    $pt = get_post_type_object( $evenement_options[$key]['id']['post_type'] );
     $evenement_options[$key]['title'] = $pt->labels->name;
-    switch ($evenement_options[$key]['id']) {
+    switch ($evenement_options[$key]['id']['post_type']) {
         case 'formation' :
             $evenement_options[$key]['title'] = "Nouveaux cycles de " . $evenement_options[$key]['title'];
             $voies = [];
@@ -38,8 +36,8 @@ foreach($evenement_options as $key => $option) :
                     $voies[] =
                         [
                             'id'    => json_encode([
-                                'post_type' => $evenement_options[$key]['id'],
-                                'id'        => get_the_ID(),
+                                'post_type' => $evenement_options[$key]['id']['post_type'],
+                                'voie'      => get_the_ID(),
                             ]),
                             'title' => get_the_title(),
                         ];
@@ -53,8 +51,8 @@ foreach($evenement_options as $key => $option) :
                 wp_reset_postdata();
                 $evenement_options[$key]['children'][$stages_categorie->term_id] = [
                     'id' => json_encode([
-                        'post_type' => $evenement_options[$key]['id'],
-                        'id'        => $stages_categorie->term_id,
+                        'post_type'         => $evenement_options[$key]['id']['post_type'],
+                        'stage_categorie'   => $stages_categorie->term_id,
                     ]),
                     'title' => $stages_categorie->name,
                 ];
@@ -64,9 +62,9 @@ foreach($evenement_options as $key => $option) :
                         $evenement_options[$key]['children'][$stages_categorie->term_id]['children'][] =
                             [
                                 'id'    => json_encode([
-                                    'post_type'         => $evenement_options[$key]['id'],
-                                    'stage_categorie'   => json_decode($evenement_options[$key]['children'][$stages_categorie->term_id]['id'], true)['id'],
-                                    'id'                => get_the_ID(),
+                                    'post_type'         => $evenement_options[$key]['id']['post_type'],
+                                    'stage_categorie'   => json_decode($evenement_options[$key]['children'][$stages_categorie->term_id]['id'], true)['stage_categorie'],
+                                    'voie'             => get_the_ID(),
                                 ]),
                                 'title' => get_the_title(),
                             ];
@@ -77,6 +75,7 @@ foreach($evenement_options as $key => $option) :
                 endif;
             endforeach;
     }
+    $evenement_options[$key]['id'] = json_encode($evenement_options[$key]['id']);
 endforeach;
 
 $geo_zones = get_terms( [ 
@@ -90,8 +89,7 @@ $geo_options = [];
 foreach ($geo_zones as $geo_zone) :
     $geo_options[$geo_zone->term_id] = [
         'id' => json_encode([
-            'id'        => $geo_zone->term_id,
-            'taxonomy'  => 'geo_zone'
+            'geo_zone'  => $geo_zone->term_id,
         ]),
         'title' => $geo_zone->name,
     ];
@@ -106,7 +104,7 @@ foreach ($geo_zones as $geo_zone) :
             $geo_options[$geo_zone->term_id]['children'][] = [
                 'id' => json_encode([
                     'parent'    => json_decode($geo_options[$geo_zone->term_id]['id'], true),
-                    'id'        => $child->term_id,
+                    'geo_zone'  => $child->term_id,
                 ]),
                 'title' => $child->name,
             ];
@@ -144,7 +142,7 @@ $subscriber_fields = [
             'id'        => 'evenements',
             'type'      => 'checkbox',
             'options'   => $evenement_options,
-            'default'   => '{"post_type":"stage","id":52}',
+            'default'   => '{"post_type":"stage","stage_categorie":52}',
         ] // évènements
     ], //évènement
     [
