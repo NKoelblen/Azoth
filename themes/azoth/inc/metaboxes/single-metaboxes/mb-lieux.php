@@ -1,34 +1,35 @@
 <?php
 /* Lieu Metabox */
 
-function lieu_fields() {
+function lieu_fields()
+{
     $fields = [
         [
             'group_label' => 'Localité', // group_label required, can be empty
             [
-                'id'        => 'l_zone',
-                'type'      => 'taxonomy',
-                'taxonomy'  => 'geo_zone',
-                'required'  => true
+                'id' => 'l_zone',
+                'type' => 'taxonomy',
+                'taxonomy' => 'geo_zone',
+                'required' => true
             ], // zone
             [
-                'id'        => 'l_carte',
-                'type'      => 'map',
-                'required'  => true
+                'id' => 'l_carte',
+                'type' => 'map',
+                'required' => true
             ] // carte
         ], // localité
         [
             'group_label' => 'Photo', // group_label required, can be empty
             [
-                'id'    => 'thumbnail',
-                'type'  => 'media-library-uploader'
+                'id' => 'thumbnail',
+                'type' => 'media-library-uploader'
             ], // thumbnail
         ],
         [
             'group_label' => 'Description', // group_label required, can be empty
             [
-                'id'    => 'content',
-                'type'  => 'WYSIWYG'
+                'id' => 'content',
+                'type' => 'WYSIWYG'
             ] // content
         ], // group
     ]; // fields
@@ -37,7 +38,8 @@ function lieu_fields() {
 
 if (class_exists('MetaboxGenerator')) {
     $mb_lieu = new MetaboxGenerator; // Defined in ../mb-generator
-};
+}
+;
 
 /**
  *** How tu use : ***
@@ -50,7 +52,7 @@ $mb_lieu->set_screens(['lieu']);
 $mb_lieu->set_args(
     [
         'id' => 'informations',
-        'title'  => 'Informations',
+        'title' => 'Informations',
         'context' => 'advanced',
     ]
 );

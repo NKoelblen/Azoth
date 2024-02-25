@@ -1,38 +1,36 @@
 <?php
-function select_field($field, $meta_value) { ?>
-    <select
-        id="<?= $field['id'] ?>"
-        name="<?= $field['id'] ?>"
-        <?= isset($field['disabled']) && $field['disabled'] === 'disabled' ? 'disabled' : ''; ?>
-        <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>
-    >
-    <?php if ($meta_value) :
-        $selected  = isset($meta_value) ? $meta_value : '';
-        $selected_key = array_search(
-            $selected,
-            array_column($field['options'], 'id')
-        ); ?>
+function select_field($field, $meta_value)
+{ ?>
+    <select id="<?= $field['id'] ?>" name="<?= $field['id'] ?>" <?= isset($field['disabled']) && $field['disabled'] === 'disabled' ? 'disabled' : ''; ?>     <?= isset($field['required']) && $field['required'] ? 'required' : '' ?>>
+        <?php if ($meta_value):
+            $selected = isset($meta_value) ? $meta_value : '';
+            $selected_key = array_search(
+                $selected,
+                array_column($field['options'], 'id')
+            ); ?>
             <option value="<?= $selected ?>">
                 <?= $field['options'][$selected_key]['title']; ?>
             </option>
             <option value=""></option>
             <?php unset($field['options'][$selected_key]);
-            foreach ($field['options'] as $option) : ?>
+            foreach ($field['options'] as $option): ?>
                 <option value="<?= $option['id'] ?>">
                     <?= $option['title'] ?>
                 </option>
             <?php endforeach; // option 
-    else : // !meta_value ?>
+        else: // !meta_value  ?>
             <option value=""></option>
-            <?php foreach ($field['options'] as $option) : ?>
+            <?php foreach ($field['options'] as $option): ?>
                 <option value="<?= $option['id'] ?>">
                     <?= $option['title'] ?>
                 </option>
             <?php endforeach; // option
-    endif; // meta_value ?>
+        endif; // meta_value  ?>
     </select>
-    <?php if(isset($field['add'])) : ?>
-        <a class="taxonomy-add-new add <?= $field['id'] ?>"><?= $field['add']; ?></a>
+    <?php if (isset($field['add'])): ?>
+        <a class="taxonomy-add-new add <?= $field['id'] ?>">
+            <?= $field['add']; ?>
+        </a>
         <div class="modal-outer <?= $field['id'] ?>">
             <div class="modal-inner">
                 <button type="button" class="media-modal-close">
@@ -51,18 +49,16 @@ function select_field($field, $meta_value) { ?>
 
                 <div id="titlediv">
                     <div id="titlewrap">
-                        <input type="text" name="title" size="30" value="" class="title" spellcheck="true" autocomplete="off" placeholder="Intitulé">
+                        <input type="text" name="title" size="30" value="" class="title" spellcheck="true" autocomplete="off"
+                            placeholder="Intitulé">
                     </div>
                 </div>
 
                 <?php fields_generator($inner_post, $inner_fields); ?>
 
-                <a class="quick-add-post button button-primary button-large"
-                    data-ajaxurl='<?= admin_url('admin-ajax.php'); ?>'
-        		    data-nonce='<?= wp_create_nonce('quick_add_post'); ?>'
-        		    data-action='quick_add_post'
-                    data-post-type='<?= $inner_post_type ?>'
-                >
+                <a class="quick-add-post button button-primary button-large" data-ajaxurl='<?= admin_url('admin-ajax.php'); ?>'
+                    data-nonce='<?= wp_create_nonce('quick_add_post'); ?>' data-action='quick_add_post'
+                    data-post-type='<?= $inner_post_type ?>'>
                     Publier
                 </a>
 

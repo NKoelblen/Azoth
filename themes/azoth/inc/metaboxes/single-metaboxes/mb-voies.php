@@ -3,7 +3,8 @@
 
 if (class_exists('MetaboxGenerator')) {
     $mb_voie = new MetaboxGenerator; // Defined in ../mb-generator
-};
+}
+;
 
 /**
  *** How tu use : ***
@@ -16,7 +17,7 @@ $mb_voie->set_screens(['voie']);
 $mb_voie->set_args(
     [
         'id' => 'informations',
-        'title'  => 'Informations',
+        'title' => 'Informations',
         'context' => 'side',
     ]
 );
@@ -27,8 +28,8 @@ $mb_voie->set_fields(
             'group_label' => '', // group_label required, can be empty
             [
                 'label' => 'Déroulement de la formation',
-                'id'    => 'v_conditions',
-                'type'  => 'WYSIWYG'
+                'id' => 'v_conditions',
+                'type' => 'WYSIWYG'
             ] // conditions
         ], // group
     ] // fields

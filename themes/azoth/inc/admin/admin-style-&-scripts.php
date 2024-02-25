@@ -3,12 +3,13 @@
  * Enqueue admin styles
  */
 add_action('admin_enqueue_scripts', 'azoth_admin_styles');
-function azoth_admin_styles() {
+function azoth_admin_styles()
+{
 	wp_register_style('leaflet-style', get_template_directory_uri() . '/assets/css/leaflet/leaflet.css', array(), false);
 	wp_enqueue_style('leaflet-style');
 	wp_register_style('leaflet-search-style', get_stylesheet_directory_uri() . '/assets/css/leaflet/leaflet-search.css', array(), false);
 	wp_enqueue_style('leaflet-search-style');
-	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin/admin-style.css',  array(), false);
+	wp_register_style('admin-style', get_stylesheet_directory_uri() . '/assets/css/admin/admin-style.css', array(), false);
 	wp_enqueue_style('admin-style');
 }
 
@@ -36,10 +37,11 @@ function azoth_admin_styles() {
  * Enqueue admin scripts
  */
 add_action('admin_enqueue_scripts', 'azoth_admin_scripts');
-function azoth_admin_scripts() {
-	if (!did_action('wp_enqueue_media')) :
-        wp_enqueue_media();
-    endif;
+function azoth_admin_scripts()
+{
+	if (!did_action('wp_enqueue_media')):
+		wp_enqueue_media();
+	endif;
 
 	wp_register_script('media-library-uploader-script', get_theme_file_uri('/assets/js/admin/media-library-uploader.js'), array('jquery'), false, true);
 	wp_enqueue_script('media-library-uploader-script');
@@ -51,29 +53,29 @@ function azoth_admin_scripts() {
 
 	global $post;
 
-	if(get_current_screen()->base === 'post' && ($post->post_type === 'lieu' || $post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
+	if (get_current_screen()->base === 'post' && ($post->post_type === 'lieu' || $post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')):
 		wp_register_script('map-script', get_theme_file_uri('/assets/js/admin/map.js'), array('leaflet'), false, true);
-    	wp_enqueue_script('map-script');
+		wp_enqueue_script('map-script');
 		wp_register_script('geo-zone-script', get_theme_file_uri('/assets/js/admin/geo-zone.js'), array('jquery'), false, true);
 		wp_enqueue_script('geo-zone-script');
 	endif;
-	if(get_current_screen()->base === 'post' && ($post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')) :
+	if (get_current_screen()->base === 'post' && ($post->post_type === 'conference' || $post->post_type === 'formation' || $post->post_type === 'stage')):
 		wp_register_script('contact-script', get_theme_file_uri('/assets/js/admin/contact.js'), array('leaflet'), false, true);
-    	wp_enqueue_script('contact-script');
+		wp_enqueue_script('contact-script');
 		wp_register_script('quick-add-post-script', get_theme_file_uri('/assets/js/admin/quick-add-post.js'), array('jquery'), false, true);
-		wp_enqueue_script('quick-add-post-script');	
+		wp_enqueue_script('quick-add-post-script');
 	endif;
-	if(get_current_screen()->base === 'post' && ($post->post_type === 'formation' || $post->post_type === 'stage')) :
+	if (get_current_screen()->base === 'post' && ($post->post_type === 'formation' || $post->post_type === 'stage')):
 		wp_register_script('evenement-dates-script', get_theme_file_uri('/assets/js/admin/evenement-dates.js'), array('leaflet'), false, true);
-    	wp_enqueue_script('evenement-dates-script');
+		wp_enqueue_script('evenement-dates-script');
 	endif;
-	if(get_current_screen()->base === 'post' && $post->post_type === 'stage') :
+	if (get_current_screen()->base === 'post' && $post->post_type === 'stage'):
 		wp_register_script('mouvement-immobile-script', get_theme_file_uri('/assets/js/admin/mouvement-immobile.js'), array('leaflet'), false, true);
-    	wp_enqueue_script('mouvement-immobile-script');
+		wp_enqueue_script('mouvement-immobile-script');
 	endif;
-	if(get_current_screen()->base === 'post' && $post->post_type === 'subscriber') :
-		wp_register_script('newsletter-subscription-script', get_theme_file_uri('/assets/js/admin/newsletter-subscription.js'), array('jquery'), false, true);
-    	wp_enqueue_script('newsletter-subscription-script');
+	if (get_current_screen()->base === 'post' && $post->post_type === 'subscriber'):
+		wp_register_script('newsletter-subscription-script', get_theme_file_uri('/inc/newsletter/admin-newsletter-subscription.js'), array('jquery'), false, true);
+		wp_enqueue_script('newsletter-subscription-script');
 	endif;
 
 	// wp_register_script('test-script', get_theme_file_uri('/test.js'), array('jquery'), false, true);

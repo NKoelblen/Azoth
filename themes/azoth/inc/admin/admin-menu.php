@@ -3,22 +3,23 @@
  * Add admin menu separator
  */
 
-function add_admin_menu_separator($position) {
+function add_admin_menu_separator($position)
+{
     global $menu;
     $index = 1;
-    foreach($menu as $offset => $section) :
-        if (substr($section[2],0,9)=='separator') :
+    foreach ($menu as $offset => $section):
+        if (substr($section[2], 0, 9) == 'separator'):
             $index++;
         endif;
-        if ($offset>=$position) :
-            $separator[] = ['','read',"separator{$index}",'','wp-menu-separator'];
-            array_splice( $menu, $position, 0, $separator );
+        if ($offset >= $position):
+            $separator[] = ['', 'read', "separator{$index}", '', 'wp-menu-separator'];
+            array_splice($menu, $position, 0, $separator);
             break;
         endif;
     endforeach;
-    ksort( $menu );
+    ksort($menu);
 }
-add_action('admin_menu', function() {
+add_action('admin_menu', function () {
     add_admin_menu_separator(1);
     add_admin_menu_separator(2);
     add_admin_menu_separator(3);
@@ -29,10 +30,11 @@ add_action('admin_menu', function() {
  * Reorder menu
  */
 
-add_filter( 'custom_menu_order', 'custom_menu_order', 10, 1 );
-add_filter( 'menu_order', 'custom_menu_order', 10, 1 );
-function custom_menu_order( $menu_order ) {
-    if ( !$menu_order ) :
+add_filter('custom_menu_order', 'custom_menu_order', 10, 1);
+add_filter('menu_order', 'custom_menu_order', 10, 1);
+function custom_menu_order($menu_order)
+{
+    if (!$menu_order):
         return true;
     endif;
     return [
@@ -83,12 +85,13 @@ function custom_menu_order( $menu_order ) {
 /**
  * Remove menu items
  */
-add_action( 'admin_menu', 'remove_menus' );
-function remove_menus(){
-    if(current_user_can('gestionnaire')) :
-        remove_menu_page( 'tools.php' );
+add_action('admin_menu', 'remove_menus');
+function remove_menus()
+{
+    if (current_user_can('gestionnaire')):
+        remove_menu_page('tools.php');
     endif;
-    if(current_user_can('gestionnaire') || current_user_can('instructeur')) :
-        remove_menu_page( 'wpseo_workouts' );
-    endif;  
+    if (current_user_can('gestionnaire') || current_user_can('instructeur')):
+        remove_menu_page('wpseo_workouts');
+    endif;
 }

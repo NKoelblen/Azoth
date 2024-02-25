@@ -3,7 +3,8 @@
 
 if (class_exists('MetaboxGenerator')) {
     $mb_conference = new MetaboxGenerator; // Defined in ../mb-generator
-};
+}
+;
 
 /**
  *** How tu use : ***
@@ -16,7 +17,7 @@ $mb_conference->set_screens(['conference']);
 $mb_conference->set_args(
     [
         'id' => 'informations',
-        'title'  => 'Informations',
+        'title' => 'Informations',
         'context' => 'advanced',
     ]
 );

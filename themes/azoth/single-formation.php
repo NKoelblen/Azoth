@@ -9,15 +9,19 @@
 get_header();
 
 /* Start the Loop */
-while (have_posts()) :
-	the_post(); ?>
+while (have_posts()):
+    the_post(); ?>
 
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
         <?php $voie = get_post_meta($post->ID, 'e_voie', true); ?>
-		<h1 class="entry-title">Formation : Session n°<?= get_post_meta($post->ID, 'e_session', true) ?> de <a href="<?= get_the_permalink($voie); ?>"><?= get_the_title($voie); ?></a></h1>
+        <h1 class="entry-title">Formation : Session n°
+            <?= get_post_meta($post->ID, 'e_session', true) ?> de <a href="<?= get_the_permalink($voie); ?>">
+                <?= get_the_title($voie); ?>
+            </a>
+        </h1>
 
-		<div class="entry-content">
+        <div class="entry-content">
 
             <?php get_template_part('/tempate-parts/evenement-instructeur'); ?>
 
@@ -25,13 +29,13 @@ while (have_posts()) :
 
             <?php get_template_part('/tempate-parts/evenement-rdv'); ?>
 
-            <?php get_template_part('/tempate-parts/evenement-prerequis'); ?>            
+            <?php get_template_part('/tempate-parts/evenement-prerequis'); ?>
 
-            <?php get_template_part('/tempate-parts/evenement-informations'); ?>            
+            <?php get_template_part('/tempate-parts/evenement-informations'); ?>
 
-		</div><!-- .entry-content -->
+        </div><!-- .entry-content -->
 
-	</article><!-- #post-<?php the_ID(); ?> -->
+    </article><!-- #post-<?php the_ID(); ?> -->
 
     <?php get_template_part('template-parts/post-navigation');
 

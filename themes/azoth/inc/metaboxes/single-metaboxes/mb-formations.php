@@ -3,7 +3,8 @@
 
 if (class_exists('MetaboxGenerator')) {
     $mb_formation = new MetaboxGenerator; // Defined in ../mb-generator
-};
+}
+;
 
 /**
  *** How tu use : ***
@@ -16,7 +17,7 @@ $mb_formation->set_screens(['formation']);
 $mb_formation->set_args(
     [
         'id' => 'informations',
-        'title'  => 'Informations',
+        'title' => 'Informations',
         'context' => 'advanced',
     ]
 );

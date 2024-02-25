@@ -1,10 +1,11 @@
 <?php
 
-function chekbox_children_values($post, $option, $meta_value) {
-    if (isset($option['children'])) :
-        foreach ($option['children'] as $child) :
+function chekbox_children_values($post, $option, $meta_value)
+{
+    if (isset($option['children'])):
+        foreach ($option['children'] as $child):
             $meta_value[] = get_post_meta($post->ID, $child['id'], true);
-            foreach ($meta_value as $value) :
+            foreach ($meta_value as $value):
                 $meta_value[] = !$value && isset($child['default']) ? $child['default'] : '';
             endforeach;
             $meta_value = chekbox_children_values($post, $child, $meta_value);
@@ -13,29 +14,30 @@ function chekbox_children_values($post, $option, $meta_value) {
     return $meta_value;
 }
 
-function fields_generator($post, $fields) {
-    
-    foreach ($fields as $group_of_fields) : ?>
+function fields_generator($post, $fields)
+{
+
+    foreach ($fields as $group_of_fields): ?>
         <!-- Form groups -->
 
         <fieldset id="<?= sanitize_title($group_of_fields['group_label']) ?>">
-            <?php if ($group_of_fields['group_label']) : ?>
+            <?php if ($group_of_fields['group_label']): ?>
                 <legend>
                     <h3>
                         <?= $group_of_fields['group_label'] ?>
                     </h3>
                 </legend>
-            <?php endif; // group_label ?>
+            <?php endif; // group_label  ?>
 
             <!-- Fields -->
 
             <div class="<?= sanitize_title($group_of_fields['group_label']) ?>">
 
-                <?php array_shift($group_of_fields); 
-                
-                foreach ($group_of_fields as $field) :
+                <?php array_shift($group_of_fields);
+
+                foreach ($group_of_fields as $field):
                     $display = isset($field['display']) ? 'style="display: ' . $field['display'] . '"' : '';
-                
+
                     /* Registered Meta values */
 
                     switch ($field['id']) {
@@ -52,27 +54,29 @@ function fields_generator($post, $fields) {
                             $meta_value = get_post_thumbnail_id($post->ID);
                             break;
                         default:
-                            $meta_value = get_post_meta($post->ID, $field['id'], true);    
-                            // if( $field['type'] === 'checkbox' ):
-                            //     $meta_value = [];
-                            //     foreach($field['options'] as $option) :
-                            //         $meta_value[] = get_post_meta($post->ID, $option['id'], true);
-                            //         foreach ($meta_value as $value) :
-                            //             $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
-                            //         endforeach;
-                            //         $meta_value = chekbox_children_values($post, $option, $meta_value);
-                            //     endforeach;
-                            // endif;
+                            $meta_value = get_post_meta($post->ID, $field['id'], true);
+                        // if( $field['type'] === 'checkbox' ):
+                        //     $meta_value = [];
+                        //     foreach($field['options'] as $option) :
+                        //         $meta_value[] = get_post_meta($post->ID, $option['id'], true);
+                        //         foreach ($meta_value as $value) :
+                        //             $meta_value[] = !$value && isset($option['default']) ? $option['default'] : '';
+                        //         endforeach;
+                        //         $meta_value = chekbox_children_values($post, $option, $meta_value);
+                        //     endforeach;
+                        // endif;
                     }
                     $meta_value = !$meta_value && isset($field['default']) ? $field['default'] : $meta_value;
-                     ?>
+                    ?>
                     <!-- Field box -->
                     <div class="<?= $field['type'] . ' ' . $field['id'] ?>" <?= $display ?>;">
 
                         <!-- Label -->
-                        <?php if (isset($field['label']) && $field['label'] !== "") : ?>
-                            <label for="<?= $field['id'] ?>"><?= $field['label'] ?></label>
-                        <?php endif; // label ?>
+                        <?php if (isset($field['label']) && $field['label'] !== ""): ?>
+                            <label for="<?= $field['id'] ?>">
+                                <?= $field['label'] ?>
+                            </label>
+                        <?php endif; // label  ?>
 
                         <!-- Field -->
 
@@ -106,8 +110,8 @@ function fields_generator($post, $fields) {
 
                     <!-- Field box -->
 
-                <?php endforeach; // field ?>
-            
+                <?php endforeach; // field  ?>
+
             </div>
 
         </fieldset>

@@ -8,12 +8,13 @@
  *  single-metaboxes/mb_voies.php
  */
 
-function update_chekbox_children($post_id, $option) {
-    if (isset($option['children'])) :
-        foreach ($option['children'] as $child) :
-            if (isset($_POST[$child['id']])) :
+function update_chekbox_children($post_id, $option)
+{
+    if (isset($option['children'])):
+        foreach ($option['children'] as $child):
+            if (isset($_POST[$child['id']])):
                 update_post_meta($post_id, $child['id'], $_POST[$child['id']]);
-            elseif (get_post_meta($post_id, $child['id'], true)) :
+            elseif (get_post_meta($post_id, $child['id'], true)):
                 delete_post_meta($post_id, $child['id'], $_POST[$child['id']]);
             endif;
             update_chekbox_children($post_id, $child);
@@ -24,13 +25,14 @@ function update_chekbox_children($post_id, $option) {
 class metaboxGenerator
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         add_action('add_meta_boxes', [$this, 'add']);
         add_action('save_post', [$this, 'save_fields']);
         add_action('save_post', [$this, 'save_title']);
         add_action('save_post', [$this, 'save_content']);
         add_action('save_post', [$this, 'save_author']);
-    
+
     } // End of __construct
 
 
@@ -43,7 +45,8 @@ class metaboxGenerator
      * method set_screens($post_types) :
      *   $post_types = array of post-types
      */
-    public function set_screens($new_screens) {
+    public function set_screens($new_screens)
+    {
         $this->screens = $new_screens;
     } // End of set_screens
 
@@ -56,15 +59,17 @@ class metaboxGenerator
      * method set_labels($labels) :
      *   $labels = array of 2 labels : slug && name
      */
-    public function set_args($new_args) {
+    public function set_args($new_args)
+    {
         $this->args = $new_args;
     } // End of set_screens
 
 
     /* Add Metabox to Post-types */
 
-    public function add() {
-        foreach ($this->screens as $screen) :
+    public function add()
+    {
+        foreach ($this->screens as $screen):
             add_meta_box(
                 $this->args['id'],
                 __($this->args['title']),
@@ -76,7 +81,8 @@ class metaboxGenerator
         endforeach; // Endforeach screen
     } // End of add
 
-    public function callback($post) {
+    public function callback($post)
+    {
         wp_nonce_field('metaboxGenerator_data', 'metaboxGenerator_nonce');
         fields_generator($post, $this->fields);
     } // End of callback
@@ -111,66 +117,70 @@ class metaboxGenerator
      *                                       'id' => string
      *                                       'type' => string (text | date | time)
      */
-    public function set_fields($new_fields) {
+    public function set_fields($new_fields)
+    {
         $this->fields = $new_fields;
     } // set_fields 
 
-    public function save_title($post_id) {
+    public function save_title($post_id)
+    {
         $title = get_post_meta($post_id, 'title', true);
-        if(!$title) :
+        if (!$title):
             return;
-        else :
-            $post_title = $title ;
-            $post_name = sanitize_title($post_title );
-        endif ;
+        else:
+            $post_title = $title;
+            $post_name = sanitize_title($post_title);
+        endif;
         remove_action('save_post', [$this, 'save_title']);
         wp_update_post(
-            [ 
-                'ID'            => $post_id,
-                'post_title'    => $post_title,
-                'post_name'     => $post_name
+            [
+                'ID' => $post_id,
+                'post_title' => $post_title,
+                'post_name' => $post_name
             ]
         );
     }
 
-    public function save_content($post_id) {
+    public function save_content($post_id)
+    {
         $content = get_post_meta($post_id, 'content', true);
-        if(!$content) :
+        if (!$content):
             return;
-        else :
-            $post_content = $content ;
-        endif ;
+        else:
+            $post_content = $content;
+        endif;
         remove_action('save_post', [$this, 'save_content']);
         wp_update_post(
-            [ 
-                'ID'            => $post_id,
-                'post_content'    => $post_content,
+            [
+                'ID' => $post_id,
+                'post_content' => $post_content,
             ]
         );
     }
 
     /* Save fields */
 
-    public function save_fields($post_id) {
+    public function save_fields($post_id)
+    {
         // $post_id = get_the_id();
 
-        if (!isset($_POST['metaboxGenerator_nonce'])) :
+        if (!isset($_POST['metaboxGenerator_nonce'])):
             return $post_id;
         endif; // !isset metaboxGenerator_nonce
 
         $nonce = $_POST['metaboxGenerator_nonce'];
-        if (!wp_verify_nonce($nonce, 'metaboxGenerator_data')) :
+        if (!wp_verify_nonce($nonce, 'metaboxGenerator_data')):
             return $post_id;
         endif; // nonce
 
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) :
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE):
             return $post_id;
         endif; // defined DOING_AUTOSAVE
 
-        foreach ($this->fields as $group_of_fields) :
+        foreach ($this->fields as $group_of_fields):
 
             array_shift($group_of_fields);
-            foreach ($group_of_fields as $field) :
+            foreach ($group_of_fields as $field):
 
                 // if($field['type'] === 'checkbox') :
                 //     foreach($field['options'] as $option) :
@@ -183,7 +193,7 @@ class metaboxGenerator
                 //     endforeach;
                 // endif;
 
-                if (isset($_POST[$field['id']])) :
+                if (isset($_POST[$field['id']])):
                     update_post_meta($post_id, $field['id'], $_POST[$field['id']]);
                 endif; // isset field id
 
@@ -192,24 +202,25 @@ class metaboxGenerator
         endforeach; // group_of_fields
 
         $thumbnail = get_post_meta($post_id, 'thumbnail', true);
-        if($thumbnail) :
+        if ($thumbnail):
             set_post_thumbnail($post_id, $thumbnail);
         endif;
 
     } // save_fields
 
-    public function save_author($post_id) {
+    public function save_author($post_id)
+    {
         $author = get_post_meta($post_id, 'author', true);
-        if(!$author) :
+        if (!$author):
             return;
-        else :
-            $post_author = $author ;
-        endif ;
+        else:
+            $post_author = $author;
+        endif;
         remove_action('save_post', [$this, 'save_author']);
         wp_update_post(
-            [ 
-                'ID'            => $post_id,
-                'post_author'    => $post_author,
+            [
+                'ID' => $post_id,
+                'post_author' => $post_author,
             ]
         );
     }

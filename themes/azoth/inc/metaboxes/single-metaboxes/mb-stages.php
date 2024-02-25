@@ -3,7 +3,8 @@
 
 if (class_exists('MetaboxGenerator')) {
     $mb_stage = new MetaboxGenerator; // Defined in ../mb-generator
-};
+}
+;
 
 /**
  *** How tu use : ***
@@ -15,8 +16,8 @@ $mb_stage->set_screens(['stage']);
 
 $mb_stage->set_args(
     [
-        'id'  => 'informations',
-        'title'  => 'Informations',
+        'id' => 'informations',
+        'title' => 'Informations',
         'context' => 'advanced',
     ]
 );

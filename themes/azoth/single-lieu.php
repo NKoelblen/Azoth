@@ -9,35 +9,37 @@
 get_header();
 
 /* Start the Loop */
-while (have_posts()) :
+while (have_posts()):
 	the_post(); ?>
 
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 		<header class="entry-header">
-            <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 			<?php the_post_thumbnail('large'); ?>
-            <p class="post-taxonomies">
-                <?php $terms = get_the_terms($post->ID, 'geo_zone');
-                foreach ($terms as $term) :
-                    $term_parents_list =  get_term_parents_list($term->term_id, 'geo_zone', ['separator' => '|']);
+			<p class="post-taxonomies">
+				<?php $terms = get_the_terms($post->ID, 'geo_zone');
+				foreach ($terms as $term):
+					$term_parents_list = get_term_parents_list($term->term_id, 'geo_zone', ['separator' => '|']);
 					$term_parents = explode('|', $term_parents_list);
 					array_pop($term_parents);
 					echo implode(' | ', $term_parents);
-                endforeach; ?>
-            </p>
+				endforeach; ?>
+			</p>
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
-            <div id="map" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"></div>
+			<div id="map"
+				class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom">
+			</div>
 			<input type="hidden" value="<?= get_post_meta($post->ID, 'l_carte', true); ?>">
 
 			<?php the_content(); ?>
 
 			<?php wp_link_pages(
 				array(
-					'before'   => '<nav class="page-links" aria-label="Page">',
-					'after'    => '</nav>',
+					'before' => '<nav class="page-links" aria-label="Page">',
+					'after' => '</nav>',
 					/* translators: %: Page number. */
 					'pagelink' => 'Page %',
 				)
@@ -46,7 +48,7 @@ while (have_posts()) :
 
 	</article><!-- #post-<?php the_ID(); ?> -->
 
-    <?php get_template_part('template-parts/post-navigation');
+	<?php get_template_part('template-parts/post-navigation');
 
 endwhile; // End of the loop.
 

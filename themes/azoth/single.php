@@ -9,13 +9,13 @@
 get_header();
 
 /* Start the Loop */
-while (have_posts()) :
+while (have_posts()):
 	the_post();
 
-    get_template_part('template-parts/content');
+	get_template_part('template-parts/content');
 
 
-	if (is_attachment()) :
+	if (is_attachment()):
 		// Parent post navigation.
 		the_post_navigation(
 			[
@@ -24,7 +24,7 @@ while (have_posts()) :
 		);
 	endif;
 
-    get_template_part('template-parts/post-navigation');
+	get_template_part('template-parts/post-navigation');
 
 endwhile; // End of the loop.
 
