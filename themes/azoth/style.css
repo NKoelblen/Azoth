@@ -325,4 +325,8 @@ template {
   height: 444px;
 }
 
+fieldset#localite {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

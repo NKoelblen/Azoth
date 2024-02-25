@@ -6,13 +6,14 @@
  *
  */
 
-// add_action('admin_init','dump_admin');
-function dump_admin() {
-  if (is_admin()) :
-    header('Content-Type:text/plain');
-    // var_dump($GLOBALS['menu']);
-    exit;
-  endif;
+// add_action ( 'admin_init','dump_admin');
+function dump_admin()
+{
+    if (is_admin()):
+        header('Content-Type:text/plain');
+        // var_dump ( $GLOBALS['menu']);
+        exit;
+    endif;
 }
 
 /**
@@ -28,7 +29,8 @@ if (!function_exists('json_validate')) {
      * @param int $flags Bitmask of JSON decode options.
      * @return bool Returns true if the string is a valid JSON, otherwise false.
      */
-    function json_validate($json, $depth = 512, $flags = 0) {
+    function json_validate($json, $depth = 512, $flags = 0)
+    {
         if (!is_string($json)) {
             return false;
         }
@@ -132,4 +134,5 @@ require_once AZOTH_DIR . 'inc/front/menus.php';
 require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/sc-subscription-form.php';
+require_once AZOTH_DIR . 'inc/newsletter/SMTP.php';
 require_once AZOTH_DIR . 'inc/newsletter/newsletter.php';
