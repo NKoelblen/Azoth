@@ -127,6 +127,7 @@ require_once AZOTH_DIR . 'inc/admin/editor.php';
  * Include front functionnalities
  */
 require_once AZOTH_DIR . 'inc/front/menus.php';
+require_once AZOTH_DIR . 'inc/front/widget-areas.php';
 
 /**
  * Include Newsletter

@@ -385,6 +385,8 @@ function newsletter_mail_shortcode()
                         height="24px"></a>
                 <p><a href="#">Modifier mon inscription</a> | <a href="#">Me désinscrire</a></p>
         </footer>
+
+        </html>
     <?php endforeach; // $subscribers_lists
 
     $message = ob_get_clean();

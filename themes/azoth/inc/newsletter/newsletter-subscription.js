@@ -69,7 +69,7 @@ jQuery(function ($) {
 		displayLocalite($('fieldset#localite'));
 	});
 
-	// Récupérer les données d'un abonnement
+	// Récupérer les données de l'abonnement
 	$('input#title').on('input', function (e) {
 		// Réinitialiser les champs si l'adresse mail saisie n'existe pas dans la base de données
 		$('#subscription-btn').text("S'inscrire");
@@ -99,7 +99,7 @@ jQuery(function ($) {
 			.then((body) => {
 				// En cas d'erreur, afficher un message d'erreur
 				if (!body.success) {
-					$('#subscription-form').html(body.data);
+					$('#subscription-form').append(body.data);
 					return;
 				}
 
@@ -183,8 +183,27 @@ jQuery(function ($) {
 		})
 			.then((response) => response.json())
 			.then((body) => {
-				// Afficher un message en cas de réussite ou d'erreur
-				$('#subscription-form').html(body.data);
+				// En cas d'erreur, afficher un message d'erreur
+				if (!body.success) {
+					$('#subscription-form').append(body.data);
+					return;
+				}
+
+				// En cas de réussite...
+
+				// ... récupérer l'ID de l'abonné
+				$('#subscriber-id').val(body.data['ID']);
+
+				// ... modifier le texte du bouton d'inscription
+				$('#subscription-btn').text('Mettre à jour');
+
+				// ... ajouter un bouton de désincription
+				if ($('#subscription-form .delete-btn').length === 0) {
+					$('#subscription-form').append(body.data['delete-btn']);
+				}
+
+				//... afficher un message de réussite
+				$('#subscription-form').append(body.data['message']);
 			});
 	});
 
@@ -211,8 +230,21 @@ jQuery(function ($) {
 		})
 			.then((response) => response.json())
 			.then((body) => {
-				// Afficher un message en cas de réussite ou d'erreur
-				$('#subscription-form').html(body.data);
+				// En cas d'erreur, afficher un message d'erreur
+				if (!body.success) {
+					$('#subscription-form').append(body.data);
+					return;
+				}
+
+				// En cas de réussite...
+
+				// ... réinitialiser les champs
+				$('#subscription-btn').text("S'inscrire");
+				$('#subscription-form .delete-btn').remove();
+				$('#subscription-form input[type="checkbox"]:not(:disabled)').prop('checked', false);
+
+				//... afficher un message de réussite
+				$('#subscription-form').append(body.data);
 			});
 	});
 });
