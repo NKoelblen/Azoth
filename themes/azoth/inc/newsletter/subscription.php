@@ -135,9 +135,9 @@ function subscription_post()
         <style></style>
     </head>
     <header>
-        <a href="<?= get_site_url(); ?>"><img
-                src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo-full.webp'); ?>"
-                height="256px"></a>
+        <a href="<?= get_site_url(); ?>">
+            <img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo-full.webp'); ?>" height="256px">
+        </a>
         <h1>
             <?= $title; ?>
         </h1>
@@ -149,7 +149,7 @@ function subscription_post()
             <?= $_POST['id'] ? ' la modification de ' : ' '; ?>
             votre abonnement à notre newsletter !
         </p>
-        <p>Vous serez informé de nos actualités, dès leur publication, et selon vos préférences :</p>
+        <p>Vous serez informé de nos actualités dans les 7 jours suivant leurs publications, et selon vos préférences :</p>
         <!-- ... -->
         <p>Retrouvez également les dernières publications à l'adresse suivante :</p>
         <a href="#">azoth.fr</a>
@@ -215,9 +215,9 @@ function subscription_delete()
         <style></style>
     </head>
     <header>
-        <a href="<?= get_site_url(); ?>"><img
-                src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo-full.webp'); ?>"
-                height="256px"></a>
+        <a href="<?= get_site_url(); ?>">
+            <img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo-full.webp'); ?>" height="256px">
+        </a>
         <h1>
             <?= $title; ?>
         </h1>

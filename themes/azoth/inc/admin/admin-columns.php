@@ -80,7 +80,7 @@ add_filter('manage_conference_posts_columns', function ($columns) {
 
 add_filter('manage_conference_posts_custom_column', function ($column, $postId) {
     if ($column === 'e_date'):
-        echo date_i18n('d/m/Y', get_post_meta($postId, 'e_date_du', true));
+        echo date_i18n('d/m/Y', strtotime(get_post_meta($postId, 'e_date_du', true)));
     endif;
 }, 10, 2);
 

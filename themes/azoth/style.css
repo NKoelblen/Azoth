@@ -325,6 +325,10 @@ template {
   height: 444px;
 }
 
+.modal-outer {
+  display: none;
+}
+
 fieldset#localite {
   display: none;
 }

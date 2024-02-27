@@ -16,6 +16,7 @@ function dump_admin()
     endif;
 }
 
+
 /**
  * JSON Validation
  */
@@ -44,18 +45,19 @@ if (!function_exists('json_validate')) {
     }
 }
 
+
 /**
  * Define Constants
  */
 
 define('AZOTH_DIR', trailingslashit(get_theme_file_path()));
 
+
 /**
  * Include styles and scripts
  */
 require_once AZOTH_DIR . 'inc/admin/admin-style-&-scripts.php';
 require_once AZOTH_DIR . 'inc/front/style-&-scripts.php';
-
 
 
 /**
@@ -69,6 +71,7 @@ require_once AZOTH_DIR . 'inc/cpt/cpt-contacts.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-conferences.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-formations.php';
 require_once AZOTH_DIR . 'inc/cpt/cpt-stages.php';
+
 
 /**
  * Include Metaboxes
@@ -104,10 +107,21 @@ require_once AZOTH_DIR . 'inc/metaboxes/single-metaboxes/mb-stages.php';
 
 require_once AZOTH_DIR . 'inc/metaboxes/quick-add-post.php';
 
+
 /**
  * Add taxonomies
  */
 require_once AZOTH_DIR . 'inc/taxonomies.php';
+
+
+/**
+ * Include Newsletter
+ */
+require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
+require_once AZOTH_DIR . 'inc/newsletter/SMTP.php';
+require_once AZOTH_DIR . 'inc/newsletter/subscription.php';
+require_once AZOTH_DIR . 'inc/newsletter/newsletter.php';
 
 
 /**
@@ -123,17 +137,9 @@ require_once AZOTH_DIR . 'inc/admin/admin-columns.php';
 require_once AZOTH_DIR . 'inc/admin/admin-filters.php';
 require_once AZOTH_DIR . 'inc/admin/editor.php';
 
+
 /**
  * Include front functionnalities
  */
 require_once AZOTH_DIR . 'inc/front/menus.php';
 require_once AZOTH_DIR . 'inc/front/widget-areas.php';
-
-/**
- * Include Newsletter
- */
-require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
-require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
-require_once AZOTH_DIR . 'inc/newsletter/sc-subscription-form.php';
-require_once AZOTH_DIR . 'inc/newsletter/SMTP.php';
-require_once AZOTH_DIR . 'inc/newsletter/newsletter.php';

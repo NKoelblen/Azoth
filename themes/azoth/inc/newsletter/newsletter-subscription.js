@@ -1,22 +1,15 @@
 jQuery(function ($) {
 	// Ouvrir et fermer la modale
-	// function openForm() {
-	// 	element.css('display', 'flex');
-	// }
-	// function closeForm() {
-	// 	element.parent().parent().css('display', 'none');
-	// }
+	$('#subscription-open').on('click', function (e) {
+		console.log('test');
+		e.preventDefault();
+		$('#subscription-modal').css('display', 'flex');
+	});
 
-	// closeForm($('.modal-inner .modal-close'));
-
-	// $('a.add').on('click', function (e) {
-	// 	e.preventDefault();
-	// 	openForm();
-	// });
-
-	// $('.modal-inner .modal-close').on('click', function (e) {
-	// 	closeForm();
-	// });
+	$('#subscription-form .modal-close').on('click', function (e) {
+		e.preventDefault();
+		$('#subscription-modal').css('display', 'none');
+	});
 
 	// Cocher/Décocher tous les enfants d'une checkbox parent et lui appliquer un état indéterminé
 	function checkSiblings(el, checked) {
@@ -57,7 +50,7 @@ jQuery(function ($) {
 		checkSiblings(container, checked);
 	});
 
-	// Afficher les options de localité si Conférences ou Nouveaux cycles de Formations de la Voie de la Gestuelle sont cochées
+	// Afficher les options de localité si 'Conférences' ou 'Nouveaux cycles de Formations de la Voie de la Gestuelle' sont cochées
 	function displayLocalite(el) {
 		if ($('#' + $.escapeSelector('{"post_type":"conference"}')).prop('checked') || $('#' + $.escapeSelector('{"post_type":"formation","voie":237}')).prop('checked')) {
 			el.css('display', 'block');
