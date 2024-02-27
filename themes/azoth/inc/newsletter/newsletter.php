@@ -15,7 +15,7 @@ function newsletter_mail_shortcode()
             'posts_per_page' => -1,
             'date_query' => [
                 [
-                    'after' => strtotime("-1 week"),
+                    'after' => '1 week ago',
                 ],
             ],
         ];
@@ -146,274 +146,244 @@ function newsletter_mail_shortcode()
         $to = implode(', ', $values);
         $title = "Il y a du mouvement chez Azoth !" ?>
 
-        <!DOCTYPE html PUBLIC "...">
-        <html xmlns="https://www.yourwebsite.com/1999/xhtml">
+        <?php get_template_part('/inc/newsletter/newsletter-header'); ?>
 
-        <head>
-            <title>
-                <?= $title ?>
-            </title>
-            <style></style>
-        </head>
-        <header>
-            <a href="<?= get_site_url(); ?>">
-                <img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/logo-full.webp'); ?>" height="256px">
-            </a>
-            <h1>
-                <?= $title; ?>
-            </h1>
-        </header>
+        <?php $settings = json_decode($key, true);
 
-        <body>
+        $post_types = [];
+        $stage_categories = [];
+        $voies = [];
 
-            <?php $settings = json_decode($key, true);
+        if ($settings[0]): ?>
+            <h2>Evènements :</h2>
+            <p>Pour plus d'informations, cliquez sur l'icone <span class="dashicons dashicons-info-outline"
+                    style="font-size: 1em;"></span>.</p>
 
-            $post_types = [];
-            $stage_categories = [];
-            $voies = [];
+            <?php foreach ($settings[0] as $evenement):
 
-            if ($settings[0]): ?>
-                <h2>Evènements :</h2>
-                <p>Pour plus d'informations, cliquez sur l'icone <span class="dashicons dashicons-info-outline"
-                        style="font-size: 1em;"></span>.</p>
+                $evenement = json_decode($evenement, true);
 
-                <?php foreach ($settings[0] as $evenement):
+                $post_types[] = $evenement['post_type'];
+                $stage_categories[] = [
+                    'post_type' => $evenement['post_type'],
+                    'stage_categorie' => isset($evenement['stage_categorie']) ? $evenement['stage_categorie'] : ""
+                ];
+                $voies[] = [
+                    'post_type' => $evenement['post_type'],
+                    'stage_categorie' => isset($evenement['stage_categorie']) ? $evenement['stage_categorie'] : "",
+                    'voie' => isset($evenement['voie']) ? $evenement['voie'] : ""
+                ];
 
-                    $evenement = json_decode($evenement, true);
+            endforeach; // $evenement
 
-                    $post_types[] = $evenement['post_type'];
-                    $stage_categories[] = [
-                        'post_type' => $evenement['post_type'],
-                        'stage_categorie' => isset($evenement['stage_categorie']) ? $evenement['stage_categorie'] : ""
-                    ];
-                    $voies[] = [
-                        'post_type' => $evenement['post_type'],
-                        'stage_categorie' => isset($evenement['stage_categorie']) ? $evenement['stage_categorie'] : "",
-                        'voie' => isset($evenement['voie']) ? $evenement['voie'] : ""
-                    ];
+            $post_types = array_unique($post_types);
+            $stage_categories = array_map("unserialize", array_unique(array_map("serialize", $stage_categories)));
 
-                endforeach; // $evenement
-    
-                $post_types = array_unique($post_types);
-                $stage_categories = array_map("unserialize", array_unique(array_map("serialize", $stage_categories)));
+            $post_type_titles = [];
+            foreach ($post_types as $post_type):
 
-                $post_type_titles = [];
-                foreach ($post_types as $post_type):
+                $post_type_object = get_post_type_object($post_type);
 
-                    $post_type_object = get_post_type_object($post_type);
+                $stage_categorie_titles = [];
+                foreach ($stage_categories as $stage_categorie):
+                    if ($stage_categorie['post_type'] === $post_type):
 
-                    $stage_categorie_titles = [];
-                    foreach ($stage_categories as $stage_categorie):
-                        if ($stage_categorie['post_type'] === $post_type):
+                        $term = get_term_by('term_id', $stage_categorie['stage_categorie'], 'stage_categorie');
 
-                            $term = get_term_by('term_id', $stage_categorie['stage_categorie'], 'stage_categorie');
+                        $voie_titles = [];
+                        foreach ($voies as $voie):
+                            if ($voie['post_type'] === $post_type && $voie['stage_categorie'] === $stage_categorie['stage_categorie']):
 
-                            $voie_titles = [];
-                            foreach ($voies as $voie):
-                                if ($voie['post_type'] === $post_type && $voie['stage_categorie'] === $stage_categorie['stage_categorie']):
+                                $voie_title = $voie['voie'] ? get_the_title($voie['voie']) : "";
 
-                                    $voie_title = $voie['voie'] ? get_the_title($voie['voie']) : "";
-
-                                    $evenements_args = [
-                                        'post_type' => $post_type,
-                                        'post_status' => 'publish',
-                                        'posts_per_page' => -1,
-                                        'date_query' => [
-                                            [
-                                                'after' => strtotime("-1 week"),
-                                            ],
+                                $evenements_args = [
+                                    'post_type' => $post_type,
+                                    'post_status' => 'publish',
+                                    'posts_per_page' => -1,
+                                    'date_query' => [
+                                        [
+                                            'after' => '1 week ago',
                                         ],
-                                        'meta_query' => [
-                                            'relation' => 'AND',
-                                        ]
+                                    ],
+                                    'meta_query' => [
+                                        'relation' => 'AND',
+                                    ]
+                                ];
+                                if ($post_type === 'formation'):
+                                    $evenements_args['meta_query'][] = [
+                                        'key' => 'e_session',
+                                        'value' => 1
                                     ];
-                                    if ($post_type === 'formation'):
-                                        $evenements_args['meta_query'][] = [
-                                            'key' => 'e_session',
-                                            'value' => 1
-                                        ];
-                                    endif; // $post_type === 'formation'
-    
-                                    if ($stage_categorie['stage_categorie']):
-                                        $evenements_args['tax_query'][] = [
-                                            'taxonomy' => 'stage_categorie',
-                                            'field' => 'term_id',
-                                            'terms' => $stage_categorie['stage_categorie'],
-                                        ];
-                                    endif; // $stage_categorie['stage_categorie']
-    
-                                    if ($voie['voie']):
-                                        $evenements_args['meta_query'][] = [
-                                            'key' => 'e_voie',
-                                            'value' => $voie['voie']
-                                        ];
-                                    endif; // $voie[$voie]
-    
-                                    if ($post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')):
+                                endif; // $post_type === 'formation'
 
-                                        $zones = [];
+                                if ($stage_categorie['stage_categorie']):
+                                    $evenements_args['tax_query'][] = [
+                                        'taxonomy' => 'stage_categorie',
+                                        'field' => 'term_id',
+                                        'terms' => $stage_categorie['stage_categorie'],
+                                    ];
+                                endif; // $stage_categorie['stage_categorie']
 
-                                        foreach ($settings[1] as $zone):
-                                            $zones[] = json_decode($zone, true)['geo_zone'];
-                                        endforeach; // $zone
-    
-                                        $lieu_posts = get_posts(
-                                            [
-                                                'posts_per_page' => -1,
-                                                'post_type' => 'lieu',
-                                                'post_status' => 'publish',
-                                                'tax_query' => [
-                                                    [
-                                                        'taxonomy' => 'geo_zone',
-                                                        'field' => 'term_id',
-                                                        'terms' => $zones,
-                                                    ]
+                                if ($voie['voie']):
+                                    $evenements_args['meta_query'][] = [
+                                        'key' => 'e_voie',
+                                        'value' => $voie['voie']
+                                    ];
+                                endif; // $voie[$voie]
+
+                                if ($post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')):
+
+                                    $zones = [];
+
+                                    foreach ($settings[1] as $zone):
+                                        $zones[] = json_decode($zone, true)['geo_zone'];
+                                    endforeach; // $zone
+
+                                    $lieu_posts = get_posts(
+                                        [
+                                            'posts_per_page' => -1,
+                                            'post_type' => 'lieu',
+                                            'post_status' => 'publish',
+                                            'tax_query' => [
+                                                [
+                                                    'taxonomy' => 'geo_zone',
+                                                    'field' => 'term_id',
+                                                    'terms' => $zones,
                                                 ]
                                             ]
-                                        );
-                                        $lieux = [];
-                                        foreach ($lieu_posts as $lieu):
-                                            $lieux[] = $lieu->ID;
-                                        endforeach;
+                                        ]
+                                    );
+                                    $lieux = [];
+                                    foreach ($lieu_posts as $lieu):
+                                        $lieux[] = $lieu->ID;
+                                    endforeach;
 
-                                        $evenements_args['meta_query'][] = [
-                                            'key' => 'lieu',
-                                            'value' => $lieux,
-                                            'compare' => 'IN'
-                                        ];
+                                    $evenements_args['meta_query'][] = [
+                                        'key' => 'lieu',
+                                        'value' => $lieux,
+                                        'compare' => 'IN'
+                                    ];
 
-                                    endif; // $post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')
-                                    $evenement_posts = new WP_Query($evenements_args);
-                                    if ($evenement_posts->have_posts()): ?>
+                                endif; // $post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')
+                                $evenement_posts = new WP_Query($evenements_args);
+                                if ($evenement_posts->have_posts()): ?>
 
-                                        <?php
+                                    <?php
 
-                                        while ($evenement_posts->have_posts()):
-                                            $evenement_posts->the_post();
+                                    while ($evenement_posts->have_posts()):
+                                        $evenement_posts->the_post();
 
-                                            $id = get_the_ID();
+                                        $id = get_the_ID();
 
 
-                                            if (!in_array($post_type_object->labels->name, $post_type_titles)):
-                                                $post_type_titles[] = $post_type_object->labels->name; ?>
-                                                <h3>
-                                                    <?= $post_type === 'formation' ? 'Nouveaux cycles de ' : ""; ?>
-                                                    <?= $post_type_object->labels->name; ?>
-                                                </h3>
-                                            <?php endif;
+                                        if (!in_array($post_type_object->labels->name, $post_type_titles)):
+                                            $post_type_titles[] = $post_type_object->labels->name; ?>
+                                            <h3>
+                                                <?= $post_type === 'formation' ? 'Nouveaux cycles de ' : ""; ?>
+                                                <?= $post_type_object->labels->name; ?>
+                                            </h3>
+                                        <?php endif;
 
-                                            if ($term && !in_array($term->name, $stage_categorie_titles)):
-                                                $stage_categorie_titles[] = $term->name; ?>
+                                        if ($term && !in_array($term->name, $stage_categorie_titles)):
+                                            $stage_categorie_titles[] = $term->name; ?>
+                                            <h4>
+                                                <?= $term->name; ?>
+                                            </h4>
+                                        <?php endif;
+
+                                        if ($voie_title && !in_array($voie_title, $voie_titles)):
+                                            if ($term): ?>
+                                                <h5>
+                                                    <?= $voie_title; ?>
+                                                </h5>
+                                            <?php else: ?>
                                                 <h4>
-                                                    <?= $term->name; ?>
+                                                    <?= $voie_title; ?>
                                                 </h4>
                                             <?php endif;
+                                        endif; ?>
 
-                                            if ($voie_title && !in_array($voie_title, $voie_titles)):
-                                                if ($term): ?>
-                                                    <h5>
-                                                        <?= $voie_title; ?>
-                                                    </h5>
-                                                <?php else: ?>
-                                                    <h4>
-                                                        <?= $voie_title; ?>
-                                                    </h4>
-                                                <?php endif;
-                                            endif; ?>
+                                        <p>
+                                            <span class="dashicons dashicons-info-outline" style="font-size: 1em;"></span>
 
-                                            <p>
-                                                <span class="dashicons dashicons-info-outline" style="font-size: 1em;"></span>
+                                            <?= $term && $term->name === 'Stage en extérieur' ? get_the_title(get_post_meta($id, 'e_voie', true)) . ' : ' : ""; ?>
 
-                                                <?= $term && $term->name === 'Stage en extérieur' ? get_the_title(get_post_meta($id, 'e_voie', true)) . ' : ' : ""; ?>
+                                            <?= get_the_title(get_post_meta($id, 'lieu', true)) . ', '; ?>
 
-                                                <?= get_the_title(get_post_meta($id, 'lieu', true)) . ', '; ?>
+                                            <?php switch ($post_type) {
+                                                case 'conference':
+                                                    echo 'le ';
+                                                    break;
+                                                case 'formation':
+                                                    echo 'à partir du ';
+                                                    break;
+                                                case 'stage':
+                                                    echo 'du ';
+                                            }
+                                            ; ?>
 
-                                                <?php switch ($post_type) {
-                                                    case 'conference':
-                                                        echo 'le ';
-                                                        break;
-                                                    case 'formation':
-                                                        echo 'à partir du ';
-                                                        break;
-                                                    case 'stage':
-                                                        echo 'du ';
-                                                }
-                                                ; ?>
+                                            <?= get_post_meta($id, 'e_date_du', true); ?>
 
-                                                <?= get_post_meta($id, 'e_date_du', true); ?>
+                                            <?php switch ($post_type) {
+                                                case 'conference':
+                                                    echo ' à ' . get_post_meta($id, 'e_heure', true);
+                                                    break;
+                                                case 'stage':
+                                                    echo ' au ' . get_post_meta($id, 'e_date_au', true);
+                                            }
+                                            ; ?>
 
-                                                <?php switch ($post_type) {
-                                                    case 'conference':
-                                                        echo ' à ' . get_post_meta($id, 'e_heure', true);
-                                                        break;
-                                                    case 'stage':
-                                                        echo ' au ' . get_post_meta($id, 'e_date_au', true);
-                                                }
-                                                ; ?>
+                                        </p>
 
-                                            </p>
+                                    <?php endwhile; // $evenement_posts
+                                endif; // $evenement_posts
+                                wp_reset_postdata();
 
-                                        <?php endwhile; // $evenement_posts
-                                    endif; // $evenement_posts
-                                    wp_reset_postdata();
+                            endif; // $voie['post_type'] === $post_type && $voie['stage_categorie'] === $stage_categorie['stage_categorie']
+                        endforeach; // $voie
 
-                                endif; // $voie['post_type'] === $post_type && $voie['stage_categorie'] === $stage_categorie['stage_categorie']
-                            endforeach; // $voie
-    
-                        endif; // $stage_categorie['post_type'] === $post_type
-                    endforeach; // $stage_categorie
-    
-                endforeach; // $post_type
-                ?>
+                    endif; // $stage_categorie['post_type'] === $post_type
+                endforeach; // $stage_categorie
 
-                <p>... Et plus encore sur Azoth.fr !</p>
-                <a href="#">Découvrir tous les derniers évènements programmés</a>
+            endforeach; // $post_type
+            ?>
 
-            <?php endif; // $settings[0]
-    
-            $blog_posts = new WP_Query([
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'posts_per_page' => -1,
-                'date_query' => [
-                    [
-                        'after' => strtotime("-1 week"),
-                    ],
+            <p>... Et plus encore sur Azoth.fr !</p>
+            <a href="#">Découvrir tous les derniers évènements programmés</a>
+
+        <?php endif; // $settings[0]
+
+        $blog_posts = new WP_Query([
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'date_query' => [
+                [
+                    'after' => '1 week ago',
                 ],
-            ]);
+            ],
+        ]);
 
-            if ($blog_posts->have_posts()): ?>
-                <h2>Actualités :</h2>
-                <?php while ($blog_posts->have_posts()):
-                    $blog_posts->the_post();
+        if ($blog_posts->have_posts()): ?>
+            <h2>Actualités :</h2>
+            <?php while ($blog_posts->have_posts()):
+                $blog_posts->the_post();
 
-                    $id = get_the_ID();
+                $id = get_the_ID();
 
-                    echo the_post_thumbnail('small');
-                    echo the_title('<h3>', '</h3>');
-                    echo get_the_term_list($id, 'category', '<p>', ' | ', '</p>');
+                echo the_post_thumbnail('small');
+                echo the_title('<h3>', '</h3>');
+                echo get_the_term_list($id, 'category', '<p>', ' | ', '</p>');
 
-                endwhile; // $blog_posts
-            endif; // $blog_posts
-            wp_reset_postdata(); ?>
-        </body>
-
-        <footer>
-            <p><a href="<?= get_site_url(); ?>">azoth.fr</a> | <a href="mailto:email@contact@azoth.fr">contact@azoth.fr</a></p>
-            <div>
-                <a href="#"><img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/square-facebook.svg'); ?>"
-                        height="24px"></a>
-                <a href="#"><img src="<?= get_site_url(null, '/wp-content/themes/azoth/assets/images/square-youtube.svg'); ?>"
-                        height="24px"></a>
-                <p><a href="#">Modifier mon inscription</a> | <a href="#">Me désinscrire</a></p>
-        </footer>
-
-        </html>
+            endwhile; // $blog_posts
+        endif; // $blog_posts
+        wp_reset_postdata(); ?>
+        <?php get_template_part('/inc/newsletter/newsletter-footer'); ?>
     <?php endforeach; // $subscribers_lists
+    
+        $message = ob_get_clean();
 
-    $message = ob_get_clean();
-
-    // return wp_mail($to, $title, $message);
-
-    return $message;
+        // return wp_mail($to, $title, $message);
+    
+        return $message;
 }
