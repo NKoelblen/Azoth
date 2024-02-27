@@ -223,6 +223,9 @@ function newsletter_mail_shortcode()
                                                 'after' => strtotime("-1 week"),
                                             ],
                                         ],
+                                        'meta_query' => [
+                                            'relation' => 'AND',
+                                        ]
                                     ];
                                     if ($post_type === 'formation'):
                                         $evenements_args['meta_query'][] = [
@@ -254,10 +257,29 @@ function newsletter_mail_shortcode()
                                             $zones[] = json_decode($zone, true)['geo_zone'];
                                         endforeach; // $zone
     
-                                        $evenements_args['tax_query'][] = [
-                                            'taxonomy' => 'geo_zone',
-                                            'field' => 'term_id',
-                                            'terms' => $zones,
+                                        $lieu_posts = get_posts(
+                                            [
+                                                'posts_per_page' => -1,
+                                                'post_type' => 'lieu',
+                                                'post_status' => 'publish',
+                                                'tax_query' => [
+                                                    [
+                                                        'taxonomy' => 'geo_zone',
+                                                        'field' => 'term_id',
+                                                        'terms' => $zones,
+                                                    ]
+                                                ]
+                                            ]
+                                        );
+                                        $lieux = [];
+                                        foreach ($lieu_posts as $lieu):
+                                            $lieux[] = $lieu->ID;
+                                        endforeach;
+
+                                        $evenements_args['meta_query'][] = [
+                                            'key' => 'lieu',
+                                            'value' => $lieux,
+                                            'compare' => 'IN'
                                         ];
 
                                     endif; // $post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')
@@ -307,7 +329,7 @@ function newsletter_mail_shortcode()
                                                 <?= get_the_title(get_post_meta($id, 'lieu', true)) . ', '; ?>
 
                                                 <?php switch ($post_type) {
-                                                    case 'conférence':
+                                                    case 'conference':
                                                         echo 'le ';
                                                         break;
                                                     case 'formation':
@@ -321,7 +343,7 @@ function newsletter_mail_shortcode()
                                                 <?= get_post_meta($id, 'e_date_du', true); ?>
 
                                                 <?php switch ($post_type) {
-                                                    case 'conférence':
+                                                    case 'conference':
                                                         echo ' à ' . get_post_meta($id, 'e_heure', true);
                                                         break;
                                                     case 'stage':
