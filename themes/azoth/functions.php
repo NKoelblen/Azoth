@@ -6,17 +6,6 @@
  *
  */
 
-// add_action ( 'admin_init','dump_admin');
-function dump_admin()
-{
-    if (is_admin()):
-        header('Content-Type:text/plain');
-        // var_dump ( $GLOBALS['menu']);
-        exit;
-    endif;
-}
-
-
 /**
  * JSON Validation
  */
@@ -143,3 +132,6 @@ require_once AZOTH_DIR . 'inc/admin/editor.php';
  */
 require_once AZOTH_DIR . 'inc/front/menus.php';
 require_once AZOTH_DIR . 'inc/front/widget-areas.php';
+
+
+require_once AZOTH_DIR . 'test.php';
