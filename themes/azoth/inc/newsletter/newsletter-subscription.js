@@ -1,7 +1,6 @@
 jQuery(function ($) {
 	// Ouvrir et fermer la modale
 	$('#subscription-open').on('click', function (e) {
-		console.log('test');
 		e.preventDefault();
 		$('#subscription-modal').css('display', 'flex');
 	});
