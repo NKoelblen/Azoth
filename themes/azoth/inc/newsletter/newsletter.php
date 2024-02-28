@@ -1,8 +1,6 @@
 <?php
 //** Passe directement par le service CRON d'O2Switch pour exécuter l'envoi de la newsletter tous les vendredis à minuit */
 
-ob_start();
-
 $post_types = ['conference', 'formation', 'stage', 'post'];
 
 foreach ($post_types as $post_type):
@@ -142,15 +140,17 @@ wp_reset_postdata();
 foreach ($subscribers_lists as $key => $values):
 
     $to = implode(', ', $values);
-    $title = "Il y a du mouvement chez Azoth !" ?>
+    $title = "Il y a du mouvement chez Azoth !";
 
-    <?php get_template_part('/inc/newsletter/newsletter-header'); ?>
+    get_template_part('/inc/newsletter/newsletter-header');
 
-    <?php $settings = json_decode($key, true);
+    $settings = json_decode($key, true);
 
     $post_types = [];
     $stage_categories = [];
     $voies = [];
+
+    ob_start();
 
     if ($settings[0]): ?>
         <h2>Evènements :</h2>
@@ -264,11 +264,15 @@ foreach ($subscribers_lists as $key => $values):
 
                             endif; // $post_type === 'conference' || ($post_type === 'formation' && $voie_title === 'La Voie de la Gestuelle')
                             $evenement_posts = new WP_Query($evenements_args);
-                            if ($evenement_posts->have_posts()):
+                            if ($evenement_posts->have_posts()): ?>
+
+                                <?php
+
                                 while ($evenement_posts->have_posts()):
                                     $evenement_posts->the_post();
 
                                     $id = get_the_ID();
+
 
                                     if (!in_array($post_type_object->labels->name, $post_type_titles)):
                                         $post_type_titles[] = $post_type_object->labels->name; ?>

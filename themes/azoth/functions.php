@@ -110,7 +110,6 @@ require_once AZOTH_DIR . 'inc/newsletter/cpt-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/mb-subscribers.php';
 require_once AZOTH_DIR . 'inc/newsletter/SMTP.php';
 require_once AZOTH_DIR . 'inc/newsletter/subscription.php';
-require_once AZOTH_DIR . 'inc/newsletter/newsletter.php';
 
 
 /**
