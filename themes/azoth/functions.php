@@ -134,4 +134,4 @@ require_once AZOTH_DIR . 'inc/front/menus.php';
 require_once AZOTH_DIR . 'inc/front/widget-areas.php';
 
 
-require_once AZOTH_DIR . 'test.php';
+// require_once AZOTH_DIR . 'test.php';
